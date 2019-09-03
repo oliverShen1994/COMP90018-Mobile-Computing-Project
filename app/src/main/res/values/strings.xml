@@ -2,5 +2,5 @@
     <string name="app_name">Crushy</string>
     <string name="title_location">Location</string>
     <string name="title_friend_list">Friends List</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_personal_area">Personal Area</string>
 </resources>

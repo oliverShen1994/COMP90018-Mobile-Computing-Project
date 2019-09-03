@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_friend_list:
                     mTextMessage.setText(R.string.title_friend_list);
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_personal_area:
+                    mTextMessage.setText(R.string.title_personal_area);
                     return true;
             }
             return false;
