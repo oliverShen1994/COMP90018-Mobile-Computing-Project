@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_location:
                     mTextMessage.setText("Location");
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_friend_list:
+                    mTextMessage.setText(R.string.title_friend_list);
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
