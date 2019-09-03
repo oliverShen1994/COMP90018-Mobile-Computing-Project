@@ -23,7 +23,10 @@ Location-Based Social app
     - Tendency
 - Two mode:
     - Location-based friend searching mode
-    - Normal chatting mode
+    - Normal chatting mode (Friends List)
+        - Can be displayed as List View or Grid View
+        - Provide Search Function
+        - Provide Tagging (Group) Function
 - Rate others
     - Can be anonymous 
     - Marking criteria need to be confirmed
