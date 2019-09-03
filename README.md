@@ -1,10 +1,13 @@
 # Mobile-Computing-Project
-Group 12 of 2019 Semester 2 COMP90018 - Mobile Computing Systems Programming
+Group 12 of 2019 Semester 2 `COMP90018 - Mobile Computing Systems Programming`
 
-## Project Topic
+## Project 
+
+
+### Topic
 Location-Based Social app
 
-## Functions
+### Functions
 - Real-time communciation
 - Upload images
 - Personal Details
