@@ -5,29 +5,72 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#008D4444"
+    android:weightSum="2"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/title_home"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/userImage"
+        android:layout_width="match_parent"
+        android:layout_height="579dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/content_description_user_image"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:id="@+id/buttonGroup"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userImage">
+
+        <ImageButton
+            android:id="@+id/dislikeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/content_description_dislike_button"
+            android:padding="20dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_embarrassed" />
+
+        <ImageButton
+            android:id="@+id/likeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/content_description_like_button"
+            android:padding="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic__chat_heart" />
+    </LinearLayout>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="?android:attr/windowBackground"
+        android:layout_width="411dp"
+        android:layout_height="60dp"
+        android:background="#00000000"
+        app:itemIconTint="@color/design_default_color_primary_dark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonGroup"
         app:menu="@menu/bottom_nav_menu" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
