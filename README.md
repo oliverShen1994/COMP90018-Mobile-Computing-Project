@@ -1,8 +1,9 @@
 # Mobile-Computing-Project
 Group 12 of 2019 Semester 2 `COMP90018 - Mobile Computing Systems Programming`
 
-## Project 
-
+## Project
+### Name
+Crushy
 
 ### Topic
 Location-Based Social app
@@ -37,3 +38,10 @@ Location-Based Social app
     - Users can show text, photo, and videos in the Moment area
     - Will be implemented if time perimitted
 - Do/not match me with my contact
+
+
+## Structure of the repository
+- Frontend
+    - This folder contains the Android project
+- Backend
+    - This folder contains the backend code, which is written in `TypeScript`
