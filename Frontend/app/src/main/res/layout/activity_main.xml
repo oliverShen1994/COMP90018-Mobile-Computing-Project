@@ -9,57 +9,13 @@
     android:weightSum="2"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/userImage"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/first_level_fragment"
         android:layout_width="match_parent"
-        android:layout_height="579dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="@string/content_description_user_image"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonGroup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/buttonGroup"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginBottom="2dp"
-        android:layout_weight="2"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/nav_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userImage">
-
-        <ImageButton
-            android:id="@+id/dislikeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/content_description_dislike_button"
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_embarrassed" />
-
-        <ImageButton
-            android:id="@+id/likeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/content_description_like_button"
-            android:padding="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic__chat_heart" />
-    </LinearLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
@@ -71,6 +27,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonGroup"
         app:menu="@menu/bottom_nav_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

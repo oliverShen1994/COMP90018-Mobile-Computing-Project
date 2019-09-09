@@ -1,48 +1,65 @@
 package com.android.group_12.crushy;
 
-import android.app.Activity;
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.internal.NavigationMenuView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Display;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView mTextMessage;
+    private Point screenSize;
+    private int phoneNavigationBarHeight;
+    private int appNavigationBarHeight;
+    private int fragmentHeight;
+
+    private void updateFragment(int selectedNavigationItemID) {
+        Fragment fragment = new Fragment();
+
+        switch (selectedNavigationItemID) {
+            case R.id.navigation_location: {
+                System.out.println("Location Based Friending");
+                fragment = LocationBaseFriendingFragment.newInstance(this.fragmentHeight, this.screenSize.x);
+                break;
+            }
+            case R.id.navigation_friend_list: {
+                System.out.println("Friend list");
+            }
+            case R.id.navigation_personal_area: {
+                System.out.println("Personal Area");
+            }
+            default: {
+                // do nothing
+            }
+
+        }
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.first_level_fragment, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_location:
-                    mTextMessage.setText("Location");
-                    return true;
-                case R.id.navigation_friend_list:
-                    mTextMessage.setText(R.string.title_friend_list);
-                    return true;
-                case R.id.navigation_personal_area:
-                    mTextMessage.setText(R.string.title_personal_area);
-                    return true;
+            try {
+                updateFragment(item.getItemId());
+                return true;
+            } catch (Exception e) {
+                return false;
             }
-            return false;
         }
     };
 
@@ -51,27 +68,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
+        // Bind the event listener with the navigation view.
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // Get the screen size information.
         Display screen = getWindowManager().getDefaultDisplay();
-        Point screenSize = new Point();
-        screen.getSize(screenSize);
+        this.screenSize = new Point();
+        screen.getSize(this.screenSize);
 
-        int containerHeight = screenSize.y;
-        int containerWidth = screenSize.x;
+
+        System.out.println("this.screenSize" + this.screenSize);
 
         // Get the system navigation bar height.
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-        int navigationBarHeight = 0;
         if (resourceId > 0) {
-            navigationBarHeight = (int) getResources().getDimension(resourceId);
+            this.phoneNavigationBarHeight = (int) getResources().getDimension(resourceId);
         }
-        System.out.println("navigationBarHeight: " + navigationBarHeight);
 
+        BottomNavigationView appNavigationBar = findViewById(R.id.nav_view);
+        this.appNavigationBarHeight = appNavigationBar.getLayoutParams().height;
+
+        this.fragmentHeight = this.screenSize.y - this.phoneNavigationBarHeight - this.appNavigationBarHeight;
+
+        System.out.println("this.screenSize" + this.screenSize);
+        System.out.println("this.fragmentHeight" + this.fragmentHeight);
+
+        this.updateFragment(R.id.navigation_location);
+
+        /*
         ImageView userImageView = findViewById(R.id.userImage);
 
         // Set the image view size, with height:width = 4:3.
@@ -79,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Calculate the remaining height, as the app navigation and button group height are fixed.
         LinearLayout buttonGroup = findViewById(R.id.buttonGroup);
-        BottomNavigationView appNavigationBar = findViewById(R.id.nav_view);
 
         int expectedHeight = containerWidth * 4 / 3;
         int remainingHeight = containerHeight - appNavigationBar.getLayoutParams().height - buttonGroup.getLayoutParams().height - navigationBarHeight;
@@ -96,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         System.out.println("image view height = " + imageViewParams.height + ", width = " + imageViewParams.width);
+        */
     }
 
 }
