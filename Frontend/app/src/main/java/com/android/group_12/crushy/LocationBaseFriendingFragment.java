@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -69,19 +70,26 @@ public class LocationBaseFriendingFragment extends Fragment {
         layoutParams.height = this.fragmentHeight;
         view.setLayoutParams(layoutParams);
         ImageView userImageView = getView().findViewById(R.id.potential_friend_image);
+        ScrollView userScrollView = getView().findViewById(R.id.potential_friend_view);
 
         // Set the image view size, with height:width = 4:3.
         ViewGroup.LayoutParams imageViewParams = userImageView.getLayoutParams();
+        ViewGroup.LayoutParams scrollViewParams = userScrollView.getLayoutParams();
+
 
         // Calculate the remaining height, as the app navigation and button group height are fixed.
         LinearLayout buttonGroup = getView().findViewById(R.id.button_group);
-        BottomNavigationView appNavigationBar = getView().findViewById(R.id.nav_view);
 
         int expectedHeight = this.fragmentWidth * 4 / 3;
         int remainingHeight = this.fragmentHeight - buttonGroup.getLayoutParams().height;
+        int scrollViewHeight = remainingHeight > expectedHeight ? expectedHeight : remainingHeight;
 
-        userImageView.getLayoutParams().width = this.fragmentWidth;
-        userImageView.getLayoutParams().height = remainingHeight > expectedHeight ? expectedHeight : remainingHeight;
+        imageViewParams.width = this.fragmentWidth;
+        imageViewParams.height = scrollViewHeight;
+
+        scrollViewParams.width = this.fragmentWidth;
+        scrollViewParams.height = scrollViewHeight;
+
 
         if (expectedHeight > this.fragmentHeight) {
             userImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -92,6 +100,7 @@ public class LocationBaseFriendingFragment extends Fragment {
 
 
         System.out.println("image view height = " + imageViewParams.height + ", width = " + imageViewParams.width);
+        System.out.println("scroll view height = " + scrollViewParams.height + ", width = " + scrollViewParams.width);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
