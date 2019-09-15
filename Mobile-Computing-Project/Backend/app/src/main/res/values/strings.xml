@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Crushy</string>
+    <string name="title_location">Location</string>
+    <string name="title_friend_list">Friends List</string>
+    <string name="title_personal_area">Personal Area</string>
+    <string name="content_description_user_image">Place where other users\' images are shown, one by one. </string>
+    <string name="content_description_dislike_button">Dislike button</string>
+    <string name="content_description_like_button">Like button</string>
+</resources>
