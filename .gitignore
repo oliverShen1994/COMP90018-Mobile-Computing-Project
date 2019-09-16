@@ -25,6 +25,9 @@ local.properties
 .idea/modules.xml
 .idea/scopes/scope_settings.xml
 .idea/vcs.xml
+.idea/codeStyles/
+.idea/gradle.xml
+.idea/**
 *.iml
 
 # OS-specific files
