@@ -1,13 +1,19 @@
 package com.android.group_12.crushy;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 /*
@@ -52,83 +58,49 @@ public class MainActivity extends AppCompatActivity {
         });
         */
         // demon for Post into firebase
-        writeNewPost("001", "David", "Programmer", "nice");
-        /*Now check the firebase !!!!*/
+        Log.e(TAG, "User is 111111111");
+        //Log.d(TAG, "User is 111111111");
+        writeNewPost("002", "David", "Programmer", "nice");
+        retrivePost("002");
 
     }
-/*
-    private void submitPost() {
-        final String title = mTitleField.getText().toString();
-        final String body = mBodyField.getText().toString();
 
-        // Title is required
-        if (TextUtils.isEmpty(title)) {
-            mTitleField.setError(REQUIRED);
-            return;
-        }
-
-        // Body is required
-        if (TextUtils.isEmpty(body)) {
-            mBodyField.setError(REQUIRED);
-            return;
-        }
-
+    private void retrivePost(String uid) {
+        Log.e(TAG, "User " + uid + " is 111111111");
         // Disable button so there are no multi-posts
-        setEditingEnabled(false);
         Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
 
         // [START single_value_read]
-        final String userId = getUid();
-        mDatabase.child("users").child(userId).addListenerForSingleValueEvent(
+        final String userId = uid;
+        mDatabase.child("posts").child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
-                        User user = dataSnapshot.getValue(User.class);
-
-                        // [START_EXCLUDE]
-                        if (user == null) {
-                            // User is null, error out
-                            Log.e(TAG, "User " + userId + " is unexpectedly null");
-                            Toast.makeText(NewPostActivity.this,
+                        Post user = dataSnapshot.getValue(Post.class);
+                        Log.e(TAG, "User " + userId + " is ");
+                        Log.e(TAG, user.body);
+                        Log.e(TAG, user.title);
+                        Log.e(TAG, user.author);
+                        Toast.makeText(MainActivity.this,
                                     "Error: could not fetch user.",
                                     Toast.LENGTH_SHORT).show();
-                        } else {
-                            // Write new post
-                            writeNewPost(userId, user.username, title, body);
-                        }
-
-                        // Finish this Activity, back to the stream
-                        setEditingEnabled(true);
-                        finish();
-                        // [END_EXCLUDE]
+                            // Finish this Activity, back to the stream
+                            // [END_EXCLUDE]
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
                         // [START_EXCLUDE]
-                        setEditingEnabled(true);
                         // [END_EXCLUDE]
                     }
                 });
         // [END single_value_read]
     }
 
-    private void setEditingEnabled(boolean enabled) {
-        mTitleField.setEnabled(enabled);
-        mBodyField.setEnabled(enabled);
-        if (enabled) {
-            mSubmitButton.show();
-        } else {
-            mSubmitButton.hide();
-        }
-    }
 
-         */
-
-    // [START write_fan_out]
-    private void writeNewPost(String userId, String username, String title, String body) {
+    public void writeNewPost(String userId, String username, String title, String body) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         String key = mDatabase.child("posts").push().getKey();
@@ -136,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/posts/" + key, postValues);
-        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+        childUpdates.put("/posts/" + userId + '/', postValues);
+        childUpdates.put("/user-posts/" + userId + "/", postValues);
 
         mDatabase.updateChildren(childUpdates);
     }
