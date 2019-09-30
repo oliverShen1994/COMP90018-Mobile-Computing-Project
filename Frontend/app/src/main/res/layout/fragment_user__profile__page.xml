@@ -53,9 +53,31 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/pro_previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="color/transparent"
+        android:background="@android:color/transparent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:clickable="true"
+        >
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Previous"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            >
+
+    </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:clickable="true"
@@ -194,7 +216,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:text="Big bowl Noodles very delicious！"
+                    android:text="Big bowl Noodles is very delicious！"
                     android:paddingLeft="5dp">
                 </TextView>
 
