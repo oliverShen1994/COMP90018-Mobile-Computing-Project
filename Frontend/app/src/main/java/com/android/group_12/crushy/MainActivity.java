@@ -33,9 +33,12 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.navigation_friend_list: {
                 System.out.println("Friend list");
+                break;
             }
             case R.id.navigation_personal_area: {
                 System.out.println("Personal Area");
+                fragment = Personal_Area.newInstance(this.fragmentHeight, this.screenSize.x);
+                break;
             }
             default: {
                 // do nothing
