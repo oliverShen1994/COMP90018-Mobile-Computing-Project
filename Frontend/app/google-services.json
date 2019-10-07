@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "256158583411",
+    "firebase_url": "https://crushy-group-12.firebaseio.com",
+    "project_id": "crushy-group-12",
+    "storage_bucket": "crushy-group-12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256158583411:android:72ba7f2acd97052e",
+        "android_client_info": {
+          "package_name": "com.android.group_12.crushy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256158583411-plpa481d0qssk9hpdjgpmofnlt8lh88n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.group_12.crushy",
+            "certificate_hash": "224c5e8e6b1a823e55585b0737f1a8b250542694"
+          }
+        },
+        {
+          "client_id": "256158583411-4nntce2vmi709bj0vnh2l2tijju9iu7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC76jdz8YZaXWlcMCqZl7vLKCuLj0_7ojs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256158583411-4nntce2vmi709bj0vnh2l2tijju9iu7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
