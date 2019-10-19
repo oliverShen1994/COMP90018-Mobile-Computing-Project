@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/likeList"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,42 +7,31 @@
     android:layout_height="match_parent"
     tools:context=".FollowListActivity">
 
-
-    <TextView
-        android:id="@+id/likeListTitle"
-        android:textSize="30dp"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Like List"
-        app:layout_constraintTop_toTopOf="@+id/likeList"/>
-
-
     <SearchView
-        app:layout_constraintTop_toBottomOf="@+id/likeListTitle"
         app:layout_constraintRight_toLeftOf="@+id/viewSwitch"
         android:id="@+id/searchView"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:queryHint="Please enter..."
         android:iconifiedByDefault="false" />
 
     <Switch
-        app:layout_constraintTop_toBottomOf="@+id/likeListTitle"
-        app:layout_constraintLeft_toRightOf="@+id/searchView"
+        android:layout_toRightOf="@+id/searchView"
         android:id="@+id/viewSwitch"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:textSize="20dp"
         android:textOff="list"
         android:textOn="grid"
+        android:thumb="@drawable/switch_thumb"
+        android:track="@drawable/switch_track"
         android:showText="true"/>
-
 
     <LinearLayout
         android:id="@+id/personal_info_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        android:layout_marginBottom="0dp" />
+        android:layout_below="@+id/viewSwitch" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -13,9 +13,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import java.util.ArrayList;
 
 public class FollowListFragment extends Fragment {
-    static int FOLLOW_LIST_LISTVIEW = R.layout.fragment_follow_list_listview;
-    static int FOLLOW_LIST_GRIDVIEW = R.layout.fragment_follow_list_gridview;
-
     static String LAYOUT_TYPE = "type";
     private int layout = R.layout.fragment_follow_list_gridview;
     private RecyclerView gridView;
@@ -42,7 +39,7 @@ public class FollowListFragment extends Fragment {
     }
 
     private void initializeList(View view) {
-        // To bind GridView adapter to View
+        //To bind GridView adapter to View
         if(this.layout == R.layout.fragment_follow_list_listview){
             //TODO: reimplement method getPersons()
             FollowListAdapter adapter = new FollowListAdapter(getPersons(), R.layout.follow_list_list_token);
