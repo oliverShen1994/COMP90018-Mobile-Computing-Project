@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -69,6 +72,7 @@ public class FollowListFragment extends Fragment {
         persons.add(new PersonalInfo(R.drawable.melon, "Melon"));
         persons.add(new PersonalInfo(R.drawable.peach, "Peach"));
         persons.add(new PersonalInfo(R.drawable.pear, "Pear"));
+        persons.add(new PersonalInfo(R.drawable.pear, "Pear2"));
 
         return persons;
     }

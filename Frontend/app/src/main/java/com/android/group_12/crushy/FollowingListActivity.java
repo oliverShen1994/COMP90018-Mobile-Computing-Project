@@ -3,7 +3,6 @@ package com.android.group_12.crushy;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SearchView;
 import android.widget.Switch;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 import android.os.Bundle;
 import android.widget.Toast;
 
-public class FollowListActivity extends AppCompatActivity {
+public class FollowingListActivity extends AppCompatActivity {
 
     private SearchView mSearchView;
     private Switch mSwitch;
@@ -20,7 +19,7 @@ public class FollowListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_follow_list);
+        setContentView(R.layout.activity_following_list);
 
         mSearchView = (SearchView) findViewById(R.id.searchView);
         mSearchView.setSubmitButtonEnabled(true);
@@ -35,6 +34,7 @@ public class FollowListActivity extends AppCompatActivity {
                     Toast.makeText(mSwitch.getContext(), "grid", Toast.LENGTH_SHORT).show();
                 }else {
                     updateFragment(R.layout.fragment_follow_list_listview);
+//                    updateFragment(R.layout.fragment_follow_list_listview);
                     Toast.makeText(mSwitch.getContext(), "list", Toast.LENGTH_SHORT).show();
                 }
             }
