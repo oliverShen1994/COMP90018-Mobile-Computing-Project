@@ -26,7 +26,8 @@ public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.Vi
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(view.getContext(), text.getText(), Toast.LENGTH_SHORT).show();
+                //todo: change to activity skip
+                Toast.makeText(view.getContext(), text.getText(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

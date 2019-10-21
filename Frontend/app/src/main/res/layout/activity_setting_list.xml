@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FollowListFragment">
+    tools:context=".SettingListActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/follow_recycler"
+    <ListView
+        android:id="@+id/setting_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
