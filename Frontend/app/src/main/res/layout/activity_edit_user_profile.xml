@@ -39,7 +39,7 @@
             android:textSize="20sp"
             android:fontFamily="sans-serif"
             android:textColor="@color/white"
-            android:text="DingDing" />
+            android:text="UserName" />
 
         <TextView
             android:id="@+id/UserID"
@@ -133,7 +133,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:hint="DingDing"
+                    android:hint="UserName"
                     android:paddingLeft="5dp">
                 </EditText>
 
@@ -161,7 +161,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:hint="Big bowl Noodles is very delicious！"
+                    android:hint="The user has not enter anything..."
                     android:paddingLeft="5dp">
                 </EditText>
 
@@ -188,7 +188,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:hint="Dingding@163.com"
+                    android:hint="E-mail address"
                     android:paddingLeft="5dp">
                 </EditText>
 
@@ -215,7 +215,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:hint="Male"
+                    android:hint="Your Gender"
                     android:paddingLeft="5dp">
                 </EditText>
 
@@ -242,7 +242,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:hint="185cm"
+                    android:hint="e.g. 188cm"
                     android:paddingLeft="5dp">
                 </EditText>
 
@@ -269,7 +269,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:hint="70kg"
+                    android:hint="e.g. 70kg"
                     android:paddingLeft="5dp"
                     android:paddingBottom="5dp"
                     android:textSize="15sp"></EditText>
@@ -297,7 +297,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:hint="Average"
+                    android:hint="e.g. 'Average','Toned','Muscular' etc."
                     android:paddingLeft="5dp">
                 </EditText>
 
@@ -324,7 +324,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:hint="Melbourne"
+                    android:hint="Your living City."
                     android:paddingLeft="5dp">
                 </EditText>
 
@@ -351,7 +351,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:hint="4th June"
+                    android:hint="Your birthday, DAY/MONTH"
                     android:paddingLeft="5dp">
                 </EditText>
 
@@ -378,7 +378,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:hint="Graduate Student"
+                    android:hint="e.g. Student, Officer etc."
                     android:paddingLeft="5dp">
                 </EditText>
 
@@ -405,7 +405,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:hint="Sing, Dance, Rap"
+                    android:hint="Your hobbies, e.g. reading, singing etc."
                     android:paddingLeft="5dp">
                 </EditText>
 
@@ -432,7 +432,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:hint="Partnered"
+                    android:hint="Your relationship status, e.g. single, partnered etc."
                     android:paddingLeft="5dp">
                 </EditText>
 

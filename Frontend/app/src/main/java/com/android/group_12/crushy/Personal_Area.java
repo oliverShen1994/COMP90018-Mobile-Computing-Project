@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 //import com.google.android.material.bottomnavigation.BottomNavigationView;
 //import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +48,8 @@ public class Personal_Area extends Fragment {
     private TextView UserID,UserName,FollowerNum,FollowingNum;
     private LinearLayout MyProfile,Following,Follower;
     private RelativeLayout Calendar,BlockList,Invitation,Setting,About;
+    private static final String TAG = "Personal_Area";
+    private DatabaseReference mDatabase;
 
 
     public Personal_Area(int fragmentHeight, int fragmentWidth) {
@@ -80,7 +90,7 @@ public class Personal_Area extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_personal__area, container, false);
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         UserImage = (ImageView) view.findViewById(R.id.UserImageView);
         UserID = (TextView) view.findViewById(R.id.UserID);
         UserName = (TextView) view.findViewById(R.id.UserName);
@@ -96,7 +106,7 @@ public class Personal_Area extends Fragment {
         About = (RelativeLayout) view.findViewById(R.id.About);
         //FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
-
+        retrivePost("0001");
         MyProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,9 +116,80 @@ public class Personal_Area extends Fragment {
             }
         });
 
+        About.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent AboutPage;
+                AboutPage = new Intent(getActivity(), About.class);
+                startActivity(AboutPage);
+            }
+        });
+
 
         return view;
     }
+
+    private void retrivePost(String uid) {
+        Log.e(TAG, "User " + uid + " is 111111111");
+        // Disable button so there are no multi-posts
+        //Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
+
+        // [START single_value_read]
+        final String userId = uid;
+        mDatabase.child("user-profiles").child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user value
+                        User user = dataSnapshot.getValue(User.class);
+
+                        //public User(String UserProfileImage, String UserID, String UserName, String FollowerNum,
+                        // String FollowingNum, String UserDescription, String UserEmail, String UserGender, String UserHeight,
+                        // String UserWeight, String UserCity, String UserBirthday, String UserOccupation, String UserHobbies,
+                        // String UserRelationshipStatus, String UserBodyType)
+
+                        //Log.e(TAG, "User " + userId + " is ");
+                        //Log.e(TAG, "the author is " + user.author);
+                        //Log.e(TAG, user.title);
+                        //Log.e(TAG, user.author);
+                        //Toast.makeText(EditUserProfile.this,
+                        //        "Error: could not fetch user.",
+                        //        Toast.LENGTH_SHORT).show();
+                        // Finish this Activity, back to the stream
+                        // [END_EXCLUDE]
+
+                        String UserProfileImage_ = user.UserProfileImage;
+                        Log.e(TAG, UserProfileImage_);
+                        String UserID_ = user.UserID;
+                        Log.e(TAG, UserID_);
+                        String UserName_ = user.UserName;
+                        Log.e(TAG, UserName_);
+                        String FollowerNum_ = user.FollowerNum;
+                        Log.e(TAG, FollowerNum_);
+                        String FollowingNum_ = user.FollowingNum;
+                        Log.e(TAG, FollowingNum_);
+
+                        //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+
+                        FollowerNum.setText(FollowerNum_);
+                        FollowingNum.setText(FollowingNum_);
+                        UserID.setText(UserID_);
+                        UserName.setText(UserName_);
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                        // [START_EXCLUDE]
+                        // [END_EXCLUDE]
+                    }
+                });
+        // [END single_value_read]
+    }
+
 
 
 //    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

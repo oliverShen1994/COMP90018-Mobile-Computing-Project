@@ -36,7 +36,7 @@
             android:layout_below="@id/UserImage"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif"
-            android:text="DingDing"
+            android:text="UserName"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -127,7 +127,7 @@
                     android:id="@+id/FollowersNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="555K"
+                    android:text="NUM"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:fontFamily="sans-serif-light">
@@ -165,7 +165,7 @@
                     android:id="@+id/FollowingNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="890"
+                    android:text="NUM"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:fontFamily="sans-serif-light">
@@ -220,7 +220,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:text="Big bowl Noodles is very delicious！"
+                    android:text="The user did not enter anything"
                     android:paddingLeft="5dp">
                 </TextView>
 
@@ -247,7 +247,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:text="Dingding@163.com"
+                    android:text="Email adress"
                     android:paddingLeft="5dp">
                 </TextView>
 
@@ -301,7 +301,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:text="185cm"
+                    android:text="height"
                     android:paddingLeft="5dp">
                 </TextView>
 
@@ -328,7 +328,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:text="70kg"
+                    android:text="weight"
                     android:paddingLeft="5dp">
                 </TextView>
 
@@ -382,7 +382,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:text="Melbourne"
+                    android:text="City"
                     android:paddingLeft="5dp">
                 </TextView>
 
@@ -409,7 +409,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:text="4th June"
+                    android:text="DAY/MONTH"
                     android:paddingLeft="5dp">
                 </TextView>
 
@@ -436,7 +436,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:text="Graduate Student"
+                    android:text="Occupation"
                     android:paddingLeft="5dp">
                 </TextView>
 
@@ -463,7 +463,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:text="Sing, Dance, Rap"
+                    android:text="Hobbies"
                     android:paddingLeft="5dp">
                 </TextView>
 
@@ -490,7 +490,7 @@
                     android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
                     android:textSize="15sp"
-                    android:text="Partnered"
+                    android:text="Relationship status"
                     android:paddingLeft="5dp">
                 </TextView>
 
