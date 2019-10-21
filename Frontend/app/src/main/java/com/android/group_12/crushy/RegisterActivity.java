@@ -1,9 +1,5 @@
 package com.android.group_12.crushy;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,11 +10,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.group_12.crushy.Constants.Database;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -87,11 +86,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 String currentUserID = mAuth.getCurrentUser().getUid();
 
                                 HashMap<String, String> userProfile = new HashMap<>();
-                                userProfile.put("uid", currentUserID);
                                 userProfile.put("name", preferredName);
                                 userProfile.put("email", email);
-                                userProfile.put("fansList", "");
-                                userProfile.put("likeList", "");
+
                                 userProfile.put("birthday", "");
                                 userProfile.put("bodyType", "");
                                 userProfile.put("city", "");
@@ -104,7 +101,11 @@ public class RegisterActivity extends AppCompatActivity {
                                 userProfile.put("height", "");
                                 userProfile.put("weight", "");
 
-                                rootRef.child("Users").child(currentUserID).setValue(userProfile);
+                                DatabaseReference currentRecord =rootRef.child(Database.USER_TABLE_NAME).child(currentUserID);
+                                currentRecord.setValue(userProfile);
+                                currentRecord.child("fansList").setValue("");
+                                currentRecord.child("likeList").setValue("");
+                                currentRecord.child("friendsList").setValue("");
 
                                 sendUserToMainActivity();
                                 Toast.makeText(RegisterActivity.this, "Account created successfully", Toast.LENGTH_SHORT).show();
