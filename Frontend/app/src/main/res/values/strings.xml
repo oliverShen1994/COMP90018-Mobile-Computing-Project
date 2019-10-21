@@ -8,4 +8,9 @@
     <string name="content_description_like_button">Like button</string>
     <string name="nick_name_title">Nick Name:</string>
     <string name="gender_title">Gender:</string>
+    <string name="city_title">City:</string>
+    <string name="hobbies_title">Hobbies:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

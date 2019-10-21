@@ -54,6 +54,28 @@
                     android:paddingRight="@dimen/horizontal_element_padding"
                     android:text="@string/gender_title"
                     android:textSize="@dimen/normal_text_size" />
+
+                <TextView
+                    android:id="@+id/city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_view_vertical_margin"
+                    android:layout_marginBottom="@dimen/text_view_vertical_margin"
+                    android:paddingLeft="@dimen/horizontal_element_padding"
+                    android:paddingRight="@dimen/horizontal_element_padding"
+                    android:text="@string/city_title"
+                    android:textSize="@dimen/normal_text_size" />
+
+                <TextView
+                    android:id="@+id/hobbies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_view_vertical_margin"
+                    android:layout_marginBottom="@dimen/text_view_vertical_margin"
+                    android:paddingLeft="@dimen/horizontal_element_padding"
+                    android:paddingRight="@dimen/horizontal_element_padding"
+                    android:text="@string/hobbies_title"
+                    android:textSize="@dimen/normal_text_size" />
             </LinearLayout>
         </ScrollView>
 

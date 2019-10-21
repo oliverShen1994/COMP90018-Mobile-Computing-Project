@@ -1,11 +1,6 @@
 package com.android.group_12.crushy;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Point;
-import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -13,18 +8,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowInsets;
-import android.view.WindowManager;
-
-import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
     private Point screenSize;
@@ -83,18 +68,16 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // Get the screen size information.
-        Display screen = getWindowManager().getDefaultDisplay();
-        this.screenSize = new Point();
-        screen.getSize(this.screenSize);
-
-
+        this.screenSize = ScreenUtil.getScreenSize(getApplicationContext());
         System.out.println("this.screenSize" + this.screenSize);
 
         // Get the system navigation bar height.
-        int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            this.phoneNavigationBarHeight = (int) getResources().getDimension(resourceId);
-        }
+//        int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+//        if (resourceId > 0) {
+//            this.phoneNavigationBarHeight = (int) getResources().getDimension(resourceId);
+//        }
+
+        this.phoneNavigationBarHeight = ScreenUtil.getHeightOfNavigationBar(getApplicationContext());
 
         BottomNavigationView appNavigationBar = findViewById(R.id.nav_view);
         this.appNavigationBarHeight = appNavigationBar.getLayoutParams().height;
@@ -105,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("this.appNavigationBarHeight:" + this.appNavigationBarHeight);
         System.out.println("this.screenSize" + this.screenSize);
         System.out.println("this.fragmentHeight" + this.fragmentHeight);
-        System.out.println("this.phoneNavigationBarHeight " + this.phoneNavigationBarHeight);
-        System.out.println("this.appNavigationBarHeight " + this.appNavigationBarHeight);
 
         this.updateFragment(R.id.navigation_location);
 
