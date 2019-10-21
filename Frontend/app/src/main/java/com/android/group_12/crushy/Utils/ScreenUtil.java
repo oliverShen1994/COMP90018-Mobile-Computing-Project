@@ -1,6 +1,7 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Build;
 import android.provider.Settings;
@@ -8,10 +9,13 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.android.group_12.crushy.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 /**
  * Utilities class to get the screen-related methods. It's because nowadays many mobile phones are
  * full-screen like, i.e. the screen ratio is 18:9.
- *
+ * <p>
  * Acknowledgement: https://juejin.im/post/5bc59db16fb9a05ce95c89fe
  */
 public class ScreenUtil {
