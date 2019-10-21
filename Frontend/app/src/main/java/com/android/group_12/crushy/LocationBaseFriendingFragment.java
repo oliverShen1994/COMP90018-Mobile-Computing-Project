@@ -22,8 +22,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  * Activities that contain this fragment must implement the
  * {@link LocationBaseFriendingFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LocationBaseFriendingFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class LocationBaseFriendingFragment extends Fragment {
     //    private OnFragmentInteractionListener mListener;
@@ -33,21 +31,6 @@ public class LocationBaseFriendingFragment extends Fragment {
     public LocationBaseFriendingFragment(int fragmentHeight, int fragmentWidth) {
         this.fragmentHeight = fragmentHeight;
         this.fragmentWidth = fragmentWidth;
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment LocationBaseFriendingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LocationBaseFriendingFragment newInstance(int fragmentHeight, int fragmentWidth) {
-        LocationBaseFriendingFragment fragment = new LocationBaseFriendingFragment(fragmentHeight, fragmentWidth);
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-
-        return fragment;
     }
 
     @Override
@@ -73,8 +56,10 @@ public class LocationBaseFriendingFragment extends Fragment {
 
         // Set the image view size, with height:width = 4:3.
         ViewGroup.LayoutParams imageViewParams = userImageView.getLayoutParams();
-        ViewGroup.LayoutParams scrollViewParams = userScrollView.getLayoutParams();
-
+        ViewGroup.MarginLayoutParams scrollViewParams = (ViewGroup.MarginLayoutParams) userScrollView.getLayoutParams();
+        scrollViewParams.topMargin = 0;
+        scrollViewParams.leftMargin = 0;
+        scrollViewParams.rightMargin = 0;
 
         // Calculate the remaining height, as the app navigation and button group height are fixed.
         LinearLayout buttonGroup = getView().findViewById(R.id.button_group);
@@ -89,6 +74,7 @@ public class LocationBaseFriendingFragment extends Fragment {
         scrollViewParams.width = this.fragmentWidth;
         scrollViewParams.height = scrollViewHeight;
 
+        userScrollView.setLayoutParams(scrollViewParams);
 
         if (expectedHeight > this.fragmentHeight) {
             userImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);

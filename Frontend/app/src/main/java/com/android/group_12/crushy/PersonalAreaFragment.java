@@ -29,21 +29,6 @@ public class PersonalAreaFragment extends Fragment {
         this.fragmentWidth = fragmentWidth;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment LocationBaseFriendingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PersonalAreaFragment newInstance(int fragmentHeight, int fragmentWidth) {
-        PersonalAreaFragment fragment = new PersonalAreaFragment(fragmentHeight, fragmentWidth);
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
