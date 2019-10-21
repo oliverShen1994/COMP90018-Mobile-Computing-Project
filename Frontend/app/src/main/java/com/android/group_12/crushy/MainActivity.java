@@ -3,14 +3,16 @@ package com.android.group_12.crushy;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.MenuItem;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.Utils.ScreenUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private Point screenSize;
+    private BottomNavigationView navView;
     private int phoneNavigationBarHeight;
     private int appNavigationBarHeight;
     private int fragmentHeight;
@@ -36,15 +39,16 @@ public class MainActivity extends AppCompatActivity {
         switch (selectedNavigationItemID) {
             case R.id.navigation_location: {
                 System.out.println("Location Based Friending");
-                fragment = LocationBaseFriendingFragment.newInstance(this.fragmentHeight, this.screenSize.x);
+                fragment = new LocationBaseFriendingFragment(this.fragmentHeight, this.screenSize.x);
                 break;
             }
             case R.id.navigation_friend_list: {
                 System.out.println("Friend list");
+                break;
             }
             case R.id.navigation_personal_area: {
                 System.out.println("Personal Area");
-                fragment = PersonalAreaFragment.newInstance(this.fragmentHeight, this.screenSize.x);
+                fragment = new PersonalAreaFragment(this.fragmentHeight, this.screenSize.x);
                 break;
             }
             default: {
@@ -78,65 +82,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAuth = mAuth.getInstance();
-        rootRef = FirebaseDatabase.getInstance().getReference();
-        currentUser = mAuth.getCurrentUser();
+        this.mAuth = mAuth.getInstance();
+        this.rootRef = FirebaseDatabase.getInstance().getReference();
+        this.currentUser = mAuth.getCurrentUser();
 
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        this.navView = findViewById(R.id.button_nav);
         // Bind the event listener with the navigation view.
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        // Get the screen size information.
-        this.screenSize = ScreenUtil.getScreenSize(getApplicationContext());
-        System.out.println("this.screenSize" + this.screenSize);
-
-        // Get the system navigation bar height.
-//        int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-//        if (resourceId > 0) {
-//            this.phoneNavigationBarHeight = (int) getResources().getDimension(resourceId);
-//        }
-
-        this.phoneNavigationBarHeight = ScreenUtil.getHeightOfNavigationBar(getApplicationContext());
-
-        BottomNavigationView appNavigationBar = findViewById(R.id.nav_view);
-        this.appNavigationBarHeight = appNavigationBar.getLayoutParams().height;
-
-        this.fragmentHeight = this.screenSize.y - this.phoneNavigationBarHeight - this.appNavigationBarHeight;
-
-        System.out.println("this.phoneNavigationBarHeight:" + this.phoneNavigationBarHeight);
-        System.out.println("this.appNavigationBarHeight:" + this.appNavigationBarHeight);
-        System.out.println("this.screenSize" + this.screenSize);
-        System.out.println("this.fragmentHeight" + this.fragmentHeight);
-
-        this.updateFragment(R.id.navigation_location);
-
-        /*
-        ImageView userImageView = findViewById(R.id.userImage);
-
-        // Set the image view size, with height:width = 4:3.
-        ViewGroup.LayoutParams imageViewParams = userImageView.getLayoutParams();
-
-        // Calculate the remaining height, as the app navigation and button group height are fixed.
-        LinearLayout buttonGroup = findViewById(R.id.buttonGroup);
-
-        int expectedHeight = containerWidth * 4 / 3;
-        int remainingHeight = containerHeight - appNavigationBar.getLayoutParams().height - buttonGroup.getLayoutParams().height - navigationBarHeight;
-
-        userImageView.getLayoutParams().width = containerWidth;
-        userImageView.getLayoutParams().height = remainingHeight > expectedHeight ? expectedHeight : remainingHeight;
-
-        if (expectedHeight > remainingHeight) {
-            userImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        }
-
-        // Set the default image.
-        userImageView.setImageResource(R.drawable.ic_poker_2);
-
-
-        System.out.println("image view height = " + imageViewParams.height + ", width = " + imageViewParams.width);
-        */
+        this.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     @Override
@@ -148,10 +102,25 @@ public class MainActivity extends AppCompatActivity {
             sendUserToLoginActivity();
         } else {
             System.out.println("User is not null");
-            System.out.println("Current user: ");
-            System.out.println(currentUser.toString());
 
-            verifyUserExistence();
+            verifyUserExistence(); // Verify user's existence.
+
+            // Height information
+            this.screenSize = ScreenUtil.getScreenSize(getApplicationContext());
+            this.phoneNavigationBarHeight = ScreenUtil.getHeightOfNavigationBar(getApplicationContext());
+            this.appNavigationBarHeight = this.navView.getLayoutParams().height;
+            this.fragmentHeight = this.screenSize.y - this.phoneNavigationBarHeight - this.appNavigationBarHeight;
+
+            System.out.println("this.phoneNavigationBarHeight = " + this.phoneNavigationBarHeight);
+            System.out.println("this.appNavigationBarHeight = " + this.appNavigationBarHeight);
+            System.out.println("this.screenSize = " + this.screenSize);
+            System.out.println("this.fragmentHeight = " + this.fragmentHeight);
+
+            int appBarHeight = this.navView.getHeight();
+            System.out.println("appBarHeight = " + appBarHeight);
+
+            // Open navigation location fragment by default.
+            this.updateFragment(R.id.navigation_location);
         }
     }
 
@@ -167,11 +136,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void verifyUserExistence() {
-        String currentUserID = mAuth.getCurrentUser().getUid();
-        rootRef.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
+        String currentUserID = this.currentUser.getUid();
+
+        rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("name").exists()) {
+                if (dataSnapshot.child(DatabaseConstant.USER_TABLE__USER_NAME).exists()) {
                     Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Oops, your name is not set...", Toast.LENGTH_SHORT).show();
