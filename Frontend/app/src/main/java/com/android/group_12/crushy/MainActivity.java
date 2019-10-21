@@ -1,5 +1,6 @@
 package com.android.group_12.crushy;
 
+import android.app.Person;
 import android.content.Intent;
 import android.graphics.Point;
 import android.location.Location;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.navigation_personal_area: {
                 System.out.println("Personal Area");
+                fragment = PersonalAreaFragment.newInstance(this.fragmentHeight, this.screenSize.x);
+                break;
             }
             default: {
                 // do nothing
