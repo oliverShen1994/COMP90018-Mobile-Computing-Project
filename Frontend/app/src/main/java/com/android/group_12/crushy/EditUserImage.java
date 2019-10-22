@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,7 +56,7 @@ public class EditUserImage extends AppCompatActivity {
 
         // [START single_value_read]
         final String userId = uid;
-        mDatabase.child("user-profiles").child(userId).addListenerForSingleValueEvent(
+        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,8 +73,6 @@ public class EditUserImage extends AppCompatActivity {
     }
 
     public void onStart() {
-
         super.onStart();
-
     }
 }

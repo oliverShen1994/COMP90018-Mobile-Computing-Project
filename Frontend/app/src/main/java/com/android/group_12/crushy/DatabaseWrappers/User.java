@@ -86,7 +86,8 @@ public class User {
         result.put("blockList", blockList);
         result.put("dislikeList", dislikeList);
         result.put("friendsList", friendsList);
-
+        result.put("followerNum", followerNum);
+        result.put("followingNum", followingNum);
         return result;
     }
 }
