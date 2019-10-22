@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Crushy</string>
+    <string name="title_location">Location</string>
+    <string name="title_friend_list">Friends List</string>
+    <string name="title_personal_area">Personal Area</string>
+    <string name="content_description_user_image">Place where other users\' images are shown, one by one. </string>
+    <string name="content_description_dislike_button">Dislike button</string>
+    <string name="content_description_like_button">Like button</string>
+    <string name="nick_name_title">Nick Name:</string>
+    <string name="gender_title">Gender:</string>
+    <string name="city_title">City:</string>
+    <string name="hobbies_title">Hobbies:</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
