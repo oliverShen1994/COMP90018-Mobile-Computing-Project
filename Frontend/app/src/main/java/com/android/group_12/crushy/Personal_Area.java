@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.group_12.crushy.Constants.Database;
+import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -149,7 +149,7 @@ public class Personal_Area extends Fragment {
 
         // [START single_value_read]
         final String userId = uid;
-        mDatabase.child(Database.USER_TABLE_NAME).child(uid).addListenerForSingleValueEvent(
+        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(uid).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

@@ -10,30 +10,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Settings"></activity>
-        <activity android:name=".About" />
-        <activity android:name=".EditUserImage" />
-        <activity android:name=".EditUserProfile" />
-        <activity android:name=".UserProfile" />
-        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".Settings"
+            android:screenOrientation="portrait" ></activity>
+        <activity android:name=".About"
+            android:screenOrientation="portrait" />
+        <activity android:name=".EditUserImage"
+            android:screenOrientation="portrait" />
+        <activity android:name=".EditUserProfile"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UserProfile"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RegisterActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".FollowingListActivity">
+            android:name=".FollowingListActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".FollowerListActivity">
+            android:name=".FollowerListActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MainActivity"
