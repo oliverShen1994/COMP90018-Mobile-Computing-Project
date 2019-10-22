@@ -171,6 +171,9 @@ public class PersonalAreaFragment extends Fragment {
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
 
+                        System.out.println(dataSnapshot.toString());
+                        System.out.println(user.toString());
+
                         String UserProfileImage_ = user.profileImageUrl;
                         Log.e(TAG, UserProfileImage_);
                         String UserID_ = user.userID;
