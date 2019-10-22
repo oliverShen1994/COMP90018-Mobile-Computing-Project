@@ -295,58 +295,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/Invitation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:clickable="true"
-                    android:background="@drawable/profile_underline"
-                    android:paddingBottom="5dp">
-                    <LinearLayout
-                        android:id="@+id/InvitationImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="3dp">
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_avatar">
-                        </ImageView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/InvitationImage">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:padding="10dp"
-                            android:text="Invitation"
-                            android:textSize="20sp"
-                            android:textStyle="bold"></TextView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="10dp">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_next_1">
-                        </ImageView>
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
                     android:id="@+id/Setting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

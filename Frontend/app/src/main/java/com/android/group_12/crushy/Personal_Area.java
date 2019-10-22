@@ -47,7 +47,7 @@ public class Personal_Area extends Fragment {
     private ImageView UserImage;
     private TextView UserID,UserName,FollowerNum,FollowingNum;
     private LinearLayout MyProfile,Following,Follower;
-    private RelativeLayout Calendar,BlockList,Invitation,Setting,About;
+    private RelativeLayout Calendar,BlockList,Setting,About;
     private static final String TAG = "Personal_Area";
     private DatabaseReference mDatabase;
 
@@ -101,12 +101,21 @@ public class Personal_Area extends Fragment {
         Following = (LinearLayout) view.findViewById(R.id.Following);
         Calendar = (RelativeLayout) view.findViewById(R.id.Calendar);
         BlockList = (RelativeLayout) view.findViewById(R.id.Blockedlist);
-        Invitation = (RelativeLayout) view.findViewById(R.id.Invitation);
         Setting = (RelativeLayout) view.findViewById(R.id.Setting);
         About = (RelativeLayout) view.findViewById(R.id.About);
         //FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
         retrivePost("0001");
+
+        Setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent SettingPage;
+                SettingPage = new Intent(getActivity(), Settings.class);
+                startActivity(SettingPage);
+            }
+        });
+
         MyProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
