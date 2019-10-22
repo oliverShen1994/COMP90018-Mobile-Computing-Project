@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.group_12.crushy.Constants.Database;
+import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -101,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 userProfile.put("height", "");
                                 userProfile.put("weight", "");
 
-                                DatabaseReference currentRecord =rootRef.child(Database.USER_TABLE_NAME).child(currentUserID);
+                                DatabaseReference currentRecord =rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserID);
                                 currentRecord.setValue(userProfile);
                                 currentRecord.child("fansList").setValue("");
                                 currentRecord.child("likeList").setValue("");

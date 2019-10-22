@@ -7,90 +7,73 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.bumptech.glide.Glide;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link CrushyFragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LocationBaseFriendingFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LocationBaseFriendingFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class LocationBaseFriendingFragment extends Fragment {
-    //    private OnFragmentInteractionListener mListener;
-    private int fragmentHeight;
-    private int fragmentWidth;
-
+public class LocationBaseFriendingFragment extends CrushyFragment {
     public LocationBaseFriendingFragment(int fragmentHeight, int fragmentWidth) {
-        this.fragmentHeight = fragmentHeight;
-        this.fragmentWidth = fragmentWidth;
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment LocationBaseFriendingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LocationBaseFriendingFragment newInstance(int fragmentHeight, int fragmentWidth) {
-        LocationBaseFriendingFragment fragment = new LocationBaseFriendingFragment(fragmentHeight, fragmentWidth);
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super(R.layout.fragment_location_base_friending, fragmentHeight, fragmentWidth);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_location_base_friending, container, false);
-    }
+        // Inflate the layout for this fragment by calling parent's method.
+        View fragmentLayout = super.onCreateView(inflater, container, savedInstanceState);
 
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-        layoutParams.height = this.fragmentHeight;
-        view.setLayoutParams(layoutParams);
-        ImageView userImageView = getView().findViewById(R.id.potential_friend_image);
-
-        // Set the image view size, with height:width = 4:3.
-        ViewGroup.LayoutParams imageViewParams = userImageView.getLayoutParams();
-
-        // Calculate the remaining height, as the app navigation and button group height are fixed.
-        LinearLayout buttonGroup = getView().findViewById(R.id.button_group);
-        BottomNavigationView appNavigationBar = getView().findViewById(R.id.nav_view);
+        // Adjust the image view.
+        ImageView userImageView = fragmentLayout.findViewById(R.id.potential_friend_image);
+        ViewGroup.MarginLayoutParams imageViewParams = (ViewGroup.MarginLayoutParams) userImageView.getLayoutParams();
 
         int expectedHeight = this.fragmentWidth * 4 / 3;
-        int remainingHeight = this.fragmentHeight - buttonGroup.getLayoutParams().height;
+        int remainingHeight = (int) Math.round(this.fragmentHeight * 0.8);
+        int scrollViewHeight = remainingHeight > expectedHeight ? remainingHeight : expectedHeight;
 
-        userImageView.getLayoutParams().width = this.fragmentWidth;
-        userImageView.getLayoutParams().height = remainingHeight > expectedHeight ? expectedHeight : remainingHeight;
+        imageViewParams.width = this.fragmentWidth;
+        imageViewParams.height = scrollViewHeight;
+        imageViewParams.setMargins(0, 0, 0, 0);
+        userImageView.setLayoutParams(imageViewParams);
 
-        if (expectedHeight > this.fragmentHeight) {
-            userImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        }
+        // Calculate the remaining height, as the app navigation and button group height are fixed.
+        ConstraintLayout buttonGroup = fragmentLayout.findViewById(R.id.button_group);
+        ViewGroup.LayoutParams buttonGroupParam = buttonGroup.getLayoutParams();
+        buttonGroupParam.width = this.fragmentWidth;
+        buttonGroupParam.height = (int) Math.round(this.fragmentHeight * 0.1);
+        buttonGroup.setLayoutParams(buttonGroupParam);
+
+        System.out.println("Button group height = " + buttonGroup.getLayoutParams().height);
+
+        // Set the image view size, with height:width = 4:3.
+        ScrollView userScrollView = fragmentLayout.findViewById(R.id.potential_friend_view);
+        ViewGroup.MarginLayoutParams scrollViewParams = (ViewGroup.MarginLayoutParams) userScrollView.getLayoutParams();
+
+        scrollViewParams.width = this.fragmentWidth;
+        scrollViewParams.height = scrollViewHeight;
+        scrollViewParams.setMargins(0, 0, 0, 0);
+        userScrollView.setLayoutParams(scrollViewParams);
 
         // Set the default image.
-        userImageView.setImageResource(R.drawable.ic_poker_2);
-
+        userImageView.setImageResource(R.drawable.sample_portrait_photo);
+        if (expectedHeight > this.fragmentHeight) {
+            userImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            userImageView.setAdjustViewBounds(true);
+        }
 
         System.out.println("image view height = " + imageViewParams.height + ", width = " + imageViewParams.width);
+        System.out.println("scroll view height = " + scrollViewParams.height + ", width = " + scrollViewParams.width);
+
+        return fragmentLayout;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

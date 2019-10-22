@@ -97,6 +97,10 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="nick_name_title">Nick Name:</string>
+    <string name="gender_title">Gender:</string>
+    <string name="city_title">City:</string>
+    <string name="hobbies_title">Hobbies:</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
