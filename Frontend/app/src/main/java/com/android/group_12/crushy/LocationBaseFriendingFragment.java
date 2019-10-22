@@ -121,7 +121,7 @@ public class LocationBaseFriendingFragment extends Fragment {
 //        mListener = null;
     }
     
-    private static void LikeDislikeFunction(DatabaseReference rootRef, final String sender, String receiver, final String Flag){
+    private void LikeDislikeFunction(DatabaseReference rootRef, final String sender, String receiver, final String Flag){
         
         final ArrayList<String> senderFriendList = new ArrayList<String>();
         final ArrayList<String> senderLikeList = new ArrayList<String>();
