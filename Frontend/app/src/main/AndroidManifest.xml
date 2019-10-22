@@ -15,9 +15,6 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
         <activity
