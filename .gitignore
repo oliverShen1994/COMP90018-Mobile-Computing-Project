@@ -14,6 +14,7 @@ local.properties
 .signing/
 
 # User-specific configurations
+**/.idea/
 .idea/libraries/
 .idea/workspace.xml
 .idea/tasks.xml
@@ -29,6 +30,7 @@ local.properties
 .idea/gradle.xml
 .idea/**
 *.iml
+**/.settings/
 
 # OS-specific files
 .DS_Store
