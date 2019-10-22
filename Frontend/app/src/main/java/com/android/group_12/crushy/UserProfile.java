@@ -99,7 +99,7 @@ public class UserProfile extends AppCompatActivity {
 
         // [START single_value_read]
         final String userId = uid;
-        mDatabase.child(DatabaseConstant.USER_TABLE__USER_NAME).child(userId).addListenerForSingleValueEvent(
+        mDatabase.child(DatabaseConstant.USER_TABLE_COL_USER_NAME).child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

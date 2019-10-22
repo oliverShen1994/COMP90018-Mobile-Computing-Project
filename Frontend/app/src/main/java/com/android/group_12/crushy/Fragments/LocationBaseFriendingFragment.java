@@ -10,6 +10,8 @@ import android.widget.ScrollView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.android.group_12.crushy.R;
+
 
 /**
  * A simple {@link CrushyFragment} subclass.
