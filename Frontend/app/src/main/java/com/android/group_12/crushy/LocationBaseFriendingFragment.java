@@ -7,15 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.bumptech.glide.Glide;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 
 /**
@@ -44,7 +42,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
         imageViewParams.width = this.fragmentWidth;
         imageViewParams.height = scrollViewHeight;
-        imageViewParams.setMargins(0,0,0,0);
+        imageViewParams.setMargins(0, 0, 0, 0);
         userImageView.setLayoutParams(imageViewParams);
 
         // Calculate the remaining height, as the app navigation and button group height are fixed.
@@ -65,13 +63,12 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
         scrollViewParams.setMargins(0, 0, 0, 0);
         userScrollView.setLayoutParams(scrollViewParams);
 
-        if (expectedHeight > this.fragmentHeight) {
-            userImageView.setScaleType(ImageView.ScaleType.FIT_START);
-        }
-
-
         // Set the default image.
         userImageView.setImageResource(R.drawable.sample_portrait_photo);
+        if (expectedHeight > this.fragmentHeight) {
+            userImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            userImageView.setAdjustViewBounds(true);
+        }
 
         System.out.println("image view height = " + imageViewParams.height + ", width = " + imageViewParams.width);
         System.out.println("scroll view height = " + scrollViewParams.height + ", width = " + scrollViewParams.width);
