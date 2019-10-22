@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        mAuth.signOut();
-        currentUser = null;
+//        mAuth.signOut();
+//        currentUser = null;
 
         if (currentUser == null) {
             System.out.println("User is null");
