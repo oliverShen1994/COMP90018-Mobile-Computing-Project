@@ -1,19 +1,14 @@
 package com.android.group_12.crushy;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-
-import com.bumptech.glide.Glide;
-
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 
 /**
@@ -22,6 +17,9 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
  * to handle interaction events.
  */
 public class LocationBaseFriendingFragment extends CrushyFragment {
+    private ImageButton likeButton;
+    private ImageButton dislikeButton;
+
     public LocationBaseFriendingFragment(int fragmentHeight, int fragmentWidth) {
         super(R.layout.fragment_location_base_friending, fragmentHeight, fragmentWidth);
     }
@@ -73,45 +71,31 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
         System.out.println("image view height = " + imageViewParams.height + ", width = " + imageViewParams.width);
         System.out.println("scroll view height = " + scrollViewParams.height + ", width = " + scrollViewParams.width);
 
+        // Add event listener.
+        this.likeButton = fragmentLayout.findViewById(R.id.like_button);
+        this.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Like button clicked!");
+                getActivity().findViewById(R.id.dislike_button).setClickable(false);
+                getActivity().findViewById(R.id.like_button).setClickable(false);
+
+                //Todo: send request to backend to mark user as liked.
+            }
+        });
+
+        this.dislikeButton = fragmentLayout.findViewById(R.id.dislike_button);
+        this.dislikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Dislike button clicked!");
+                getActivity().findViewById(R.id.dislike_button).setClickable(false);
+                getActivity().findViewById(R.id.like_button).setClickable(false);
+
+                //Todo: send request to backend to mark user as disliked.
+            }
+        });
+
         return fragmentLayout;
     }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-//        mListener = null;
-    }
-
-//    /**
-//     * This interface must be implemented by activities that contain this
-//     * fragment to allow an interaction in this fragment to be communicated
-//     * to the activity and potentially other fragments contained in that
-//     * activity.
-//     * <p>
-//     * See the Android Training lesson <a href=
-//     * "http://developer.android.com/training/basics/fragments/communicating.html"
-//     * >Communicating with Other Fragments</a> for more information.
-//     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 }
