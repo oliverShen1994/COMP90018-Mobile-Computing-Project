@@ -1,4 +1,4 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,9 +11,7 @@ import android.widget.ScrollView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.bumptech.glide.Glide;
-
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
+import com.android.group_12.crushy.R;
 
 
 /**

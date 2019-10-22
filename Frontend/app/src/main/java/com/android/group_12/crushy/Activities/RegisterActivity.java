@@ -1,4 +1,4 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
+import com.android.group_12.crushy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -104,9 +105,11 @@ public class RegisterActivity extends AppCompatActivity {
                                 ArrayList<String> friendsList = new ArrayList<>();
                                 ArrayList<String> blockList = new ArrayList<>();
                                 ArrayList<String> dislikeList = new ArrayList<>();
+                                String followerNum = "0";
+                                String followingNum = "0";
                                 // The firebase route to the new user
                                 DatabaseReference currentRecord =rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserID);
-                                User user = new User(userid, name, email, birthday, bodyType, city, description, gender, hobbies, occupation, profileImageUrl, relationshipStatus, height, weight, fansList, likeList, friendsList, blockList, dislikeList);
+                                User user = new User(userid, name, email, birthday, bodyType, city, description, gender, hobbies, occupation, profileImageUrl, relationshipStatus, height, weight, fansList, likeList, friendsList, blockList, dislikeList, followerNum, followingNum);
                                 // wrap the user info content
                                 Map<String, Object> postValues = user.toMap();
                                 currentRecord.setValue(postValues);
