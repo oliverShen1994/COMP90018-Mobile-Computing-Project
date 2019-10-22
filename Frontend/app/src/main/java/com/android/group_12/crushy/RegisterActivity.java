@@ -13,7 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.group_12.crushy.Constants.Database;
+import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,7 +22,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     private Button createAccountButton;
@@ -37,9 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         initializeFields();
-
         mAuth = FirebaseAuth.getInstance();
         rootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -85,28 +85,31 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 String currentUserID = mAuth.getCurrentUser().getUid();
 
-                                HashMap<String, String> userProfile = new HashMap<>();
-                                userProfile.put("name", preferredName);
-                                userProfile.put("email", email);
-
-                                userProfile.put("birthday", "");
-                                userProfile.put("bodyType", "");
-                                userProfile.put("city", "");
-                                userProfile.put("description", "");
-                                userProfile.put("gender", "");
-                                userProfile.put("hobbies", "");
-                                userProfile.put("occupation", "");
-                                userProfile.put("profileImageUrl", "");
-                                userProfile.put("relationshipStatus", "");
-                                userProfile.put("height", "");
-                                userProfile.put("weight", "");
-
-                                DatabaseReference currentRecord =rootRef.child(Database.USER_TABLE_NAME).child(currentUserID);
-                                currentRecord.setValue(userProfile);
-                                currentRecord.child("fansList").setValue("");
-                                currentRecord.child("likeList").setValue("");
-                                currentRecord.child("friendsList").setValue("");
-
+                                //HashMap<String, String> userProfile = new HashMap<>();
+                                String userid = currentUserID;
+                                String name = preferredName;
+                                String birthday = "";
+                                String bodyType = "";
+                                String city = "";
+                                String description = "";
+                                String gender = "";
+                                String hobbies = "";
+                                String occupation = "";
+                                String profileImageUrl = "";
+                                String relationshipStatus = "";
+                                String height = "";
+                                String weight = "";
+                                ArrayList<String> fansList = new ArrayList<>();
+                                ArrayList<String> likeList = new ArrayList<>();
+                                ArrayList<String> friendsList = new ArrayList<>();
+                                ArrayList<String> blockList = new ArrayList<>();
+                                ArrayList<String> dislikeList = new ArrayList<>();
+                                // The firebase route to the new user
+                                DatabaseReference currentRecord =rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserID);
+                                User user = new User(userid, name, email, birthday, bodyType, city, description, gender, hobbies, occupation, profileImageUrl, relationshipStatus, height, weight, fansList, likeList, friendsList, blockList, dislikeList);
+                                // wrap the user info content
+                                Map<String, Object> postValues = user.toMap();
+                                currentRecord.setValue(postValues);
                                 sendUserToMainActivity();
                                 Toast.makeText(RegisterActivity.this, "Account created successfully", Toast.LENGTH_SHORT).show();
                             } else {
