@@ -22,7 +22,6 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
  * to handle interaction events.
  */
 public class LocationBaseFriendingFragment extends CrushyFragment {
-
     public LocationBaseFriendingFragment(int fragmentHeight, int fragmentWidth) {
         super(R.layout.fragment_location_base_friending, fragmentHeight, fragmentWidth);
     }

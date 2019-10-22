@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             System.out.println("User is not null");
             verifyUserExistence(); // Verify user's existence.
+
             // Height information
             Context currentContext = getApplicationContext();
             this.screenSize = ScreenUtil.getScreenSize(currentContext);
