@@ -22,23 +22,23 @@
         <activity android:name=".UserProfile"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Activities.RegisterActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".FollowingListActivity"
+            android:name=".Activities.FollowingListActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".FollowerListActivity"
+            android:name=".Activities.FollowerListActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>

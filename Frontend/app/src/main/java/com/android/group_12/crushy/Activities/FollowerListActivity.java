@@ -1,4 +1,4 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -10,7 +10,10 @@ import android.widget.TextView;
 import android.os.Bundle;
 import android.widget.Toast;
 
-public class FollowingListActivity extends AppCompatActivity {
+import com.android.group_12.crushy.Fragments.FollowListFragment;
+import com.android.group_12.crushy.R;
+
+public class FollowerListActivity extends AppCompatActivity {
 
     private SearchView mSearchView;
     private Switch mSwitch;
@@ -19,13 +22,12 @@ public class FollowingListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_following_list);
+        setContentView(R.layout.activity_follower_list);
 
         mSearchView = (SearchView) findViewById(R.id.searchView);
         mSearchView.setSubmitButtonEnabled(true);
         mSwitch = (Switch) findViewById(R.id.viewSwitch);
 
-        // 添加监听
         mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

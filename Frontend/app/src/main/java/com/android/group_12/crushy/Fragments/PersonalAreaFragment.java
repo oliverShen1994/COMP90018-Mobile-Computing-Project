@@ -1,15 +1,12 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +15,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
+import com.android.group_12.crushy.R;
+import com.android.group_12.crushy.Settings;
+import com.android.group_12.crushy.UserProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,12 +37,12 @@ import com.google.firebase.database.ValueEventListener;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Personal_Area.OnFragmentInteractionListener} interface
+ * {@link PersonalAreaFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Personal_Area#newInstance} factory method to
+ * Use the {@link PersonalAreaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Personal_Area extends Fragment {
+public class PersonalAreaFragment extends Fragment {
     //    private OnFragmentInteractionListener mListener;
     private int fragmentHeight;
     private int fragmentWidth;
@@ -51,12 +50,12 @@ public class Personal_Area extends Fragment {
     private TextView UserID,UserName,FollowerNum,FollowingNum;
     private LinearLayout MyProfile,Following,Follower;
     private RelativeLayout Calendar,BlockList,Setting,About;
-    private static final String TAG = "Personal_Area";
+    private static final String TAG = "PersonalAreaFragment";
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
 
-    public Personal_Area(int fragmentHeight, int fragmentWidth) {
+    public PersonalAreaFragment(int fragmentHeight, int fragmentWidth) {
         this.fragmentHeight = fragmentHeight;
         this.fragmentWidth = fragmentWidth;
     }
@@ -70,11 +69,11 @@ public class Personal_Area extends Fragment {
      *
 //     * @param param1 Parameter 1.
 //     * @param param2 Parameter 2.
-     * @return A new instance of fragment Personal_Area.
+     * @return A new instance of fragment PersonalAreaFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Personal_Area newInstance(int fragmentHeight, int fragmentWidth) {
-        Personal_Area fragment = new Personal_Area(fragmentHeight, fragmentWidth);
+    public static PersonalAreaFragment newInstance(int fragmentHeight, int fragmentWidth) {
+        PersonalAreaFragment fragment = new PersonalAreaFragment(fragmentHeight, fragmentWidth);
         Bundle args = new Bundle();
         fragment.setArguments(args);
 
@@ -134,7 +133,7 @@ public class Personal_Area extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent AboutPage;
-                AboutPage = new Intent(getActivity(), About.class);
+                AboutPage = new Intent(getActivity(), com.android.group_12.crushy.About.class);
                 startActivity(AboutPage);
             }
         });

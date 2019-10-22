@@ -1,17 +1,18 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import com.android.group_12.crushy.FollowListAdapter;
+import com.android.group_12.crushy.PersonalInfo;
+import com.android.group_12.crushy.R;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class FollowListFragment extends Fragment {
         return view;
     }
 
-    static Fragment newInstance(int layout) {
+    public static Fragment newInstance(int layout) {
         Fragment fragment = new FollowListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(LAYOUT_TYPE, layout);

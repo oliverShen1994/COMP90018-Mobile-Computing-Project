@@ -1,4 +1,4 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

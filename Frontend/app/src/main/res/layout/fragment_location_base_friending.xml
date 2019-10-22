@@ -18,7 +18,7 @@
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
     app:layout_goneMarginEnd="0dp"
-    tools:context=".LocationBaseFriendingFragment">
+    tools:context=".Fragments.LocationBaseFriendingFragment">
 
     <ScrollView
         android:id="@+id/potential_friend_view"
