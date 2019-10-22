@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(DatabaseConstant.USER_TABLE__USER_NAME).exists()) {
+                if (dataSnapshot.child(DatabaseConstant.USER_TABLE_COL_USER_NAME).exists()) {
                     Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Oops, your name is not set...", Toast.LENGTH_SHORT).show();
