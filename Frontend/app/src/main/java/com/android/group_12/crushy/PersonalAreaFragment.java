@@ -12,7 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.android.group_12.crushy.Constants.Database;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
@@ -23,6 +26,7 @@ public class PersonalAreaFragment extends Fragment {
     private int fragmentWidth;
     private Button logoutButton;
     private FirebaseAuth mAuth;
+    private DatabaseReference rootRef;
 
     public PersonalAreaFragment(int fragmentHeight, int fragmentWidth) {
         this.fragmentHeight = fragmentHeight;
@@ -63,6 +67,10 @@ public class PersonalAreaFragment extends Fragment {
                 sendUserToLoginActivity();
             }
         });
+
+        DatabaseReference currentUserRef = rootRef.child(Database.USER_TABLE_NAME).child(mAuth.getCurrentUser().getUid());
+        int followerCount = currentUserRef.child("")
+
     }
 
     @Override
@@ -70,6 +78,7 @@ public class PersonalAreaFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mAuth = mAuth.getInstance();
+        rootRef = FirebaseDatabase.getInstance().getReference();
     }
 
 
