@@ -70,6 +70,7 @@ public class User {
         result.put("userID", userID);
         result.put("name", name);
         result.put("birthday", birthday);
+        result.put("email", email);
         result.put("bodyType", bodyType);
         result.put("city", city);
         result.put("description", description);
