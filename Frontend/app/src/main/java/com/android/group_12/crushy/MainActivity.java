@@ -1,5 +1,6 @@
 package com.android.group_12.crushy;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navView;
     private int phoneNavigationBarHeight;
     private int appNavigationBarHeight;
+    private int statusBarHeight;
     private int fragmentHeight;
 
     private FirebaseUser currentUser;
@@ -102,22 +104,17 @@ public class MainActivity extends AppCompatActivity {
             sendUserToLoginActivity();
         } else {
             System.out.println("User is not null");
-
             verifyUserExistence(); // Verify user's existence.
 
             // Height information
-            this.screenSize = ScreenUtil.getScreenSize(getApplicationContext());
-            this.phoneNavigationBarHeight = ScreenUtil.getHeightOfNavigationBar(getApplicationContext());
+            Context currentContext = getApplicationContext();
+            this.screenSize = ScreenUtil.getScreenSize(currentContext);
+            this.phoneNavigationBarHeight = ScreenUtil.getHeightOfNavigationBar(currentContext);
+            this.statusBarHeight = ScreenUtil.getHeightOfStatusBar(currentContext);
             this.appNavigationBarHeight = this.navView.getLayoutParams().height;
-            this.fragmentHeight = this.screenSize.y - this.phoneNavigationBarHeight - this.appNavigationBarHeight;
+            this.fragmentHeight = this.screenSize.y - this.phoneNavigationBarHeight - this.appNavigationBarHeight - this.statusBarHeight;
 
-            System.out.println("this.phoneNavigationBarHeight = " + this.phoneNavigationBarHeight);
-            System.out.println("this.appNavigationBarHeight = " + this.appNavigationBarHeight);
-            System.out.println("this.screenSize = " + this.screenSize);
-            System.out.println("this.fragmentHeight = " + this.fragmentHeight);
-
-            int appBarHeight = this.navView.getHeight();
-            System.out.println("appBarHeight = " + appBarHeight);
+            this.printHeightInfo();
 
             // Open navigation location fragment by default.
             this.updateFragment(R.id.navigation_location);
@@ -156,4 +153,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void printHeightInfo() {
+        System.out.println("this.phoneNavigationBarHeight = " + this.phoneNavigationBarHeight);
+        System.out.println("this.statusBarHeight = " + this.statusBarHeight);
+        System.out.println("this.appNavigationBarHeight = " + this.appNavigationBarHeight);
+        System.out.println("this.screenSize = " + this.screenSize);
+        System.out.println("this.fragmentHeight = " + this.fragmentHeight);
+    }
 }

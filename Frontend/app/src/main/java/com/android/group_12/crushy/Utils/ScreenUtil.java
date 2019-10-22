@@ -66,4 +66,20 @@ public class ScreenUtil {
 
         return realHeight - displayHeight;
     }
+
+    /**
+     *
+     * Acknowledgement: https://blog.csdn.net/zhangphil/article/details/80055964
+     *
+     * @param context
+     * @return
+     */
+    public static int getHeightOfStatusBar(Context context) {
+        int height = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            height = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return height;
+    }
 }
