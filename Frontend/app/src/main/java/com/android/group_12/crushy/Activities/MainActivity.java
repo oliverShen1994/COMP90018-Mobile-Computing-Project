@@ -1,4 +1,4 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.Fragments.LocationBaseFriendingFragment;
+import com.android.group_12.crushy.Fragments.PersonalAreaFragment;
+import com.android.group_12.crushy.R;
 import com.android.group_12.crushy.Utils.ScreenUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.navigation_personal_area: {
                 System.out.println("Personal Area");
-                fragment = new PersonalAreaFragment(this.fragmentHeight, this.screenSize.x);
+                fragment = PersonalAreaFragment.newInstance(this.fragmentHeight, this.screenSize.x);
                 break;
             }
             default: {
@@ -103,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
             sendUserToLoginActivity();
         } else {
             System.out.println("User is not null");
+            System.out.println("Current user: ");
+            System.out.println(currentUser.getUid());
+            System.out.println(currentUser.toString());
             verifyUserExistence(); // Verify user's existence.
 
             // Height information
