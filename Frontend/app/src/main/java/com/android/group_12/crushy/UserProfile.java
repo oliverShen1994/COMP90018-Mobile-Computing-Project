@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -97,7 +99,7 @@ public class UserProfile extends AppCompatActivity {
 
         // [START single_value_read]
         final String userId = uid;
-        mDatabase.child("user-profiles").child(userId).addListenerForSingleValueEvent(
+        mDatabase.child(DatabaseConstant.USER_TABLE__USER_NAME).child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -119,45 +121,45 @@ public class UserProfile extends AppCompatActivity {
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
 
-                        String UserProfileImage_ = user.UserProfileImage;
+                        String UserProfileImage_ = user.profileImageUrl;
                         Log.e(TAG, UserProfileImage_);
-                        String UserID_ = user.UserID;
+                        String UserID_ = user.userID;
                         Log.e(TAG, UserID_);
-                        String UserName_ = user.UserName;
+                        String UserName_ = user.name;
                         Log.e(TAG, UserName_);
-                        String FollowerNum_ = user.FollowerNum;
+                        String FollowerNum_ = user.followerNum;
                         Log.e(TAG, FollowerNum_);
-                        String FollowingNum_ = user.FollowingNum;
+                        String FollowingNum_ = user.followingNum;
                         Log.e(TAG, FollowingNum_);
-                        String UserDescription_ = user.UserDescription;
+                        String UserDescription_ = user.description;
                         Log.e(TAG, UserDescription_);
-                        String UserEmail_ = user.UserEmail;
+                        String UserEmail_ = user.email;
                         Log.e(TAG, UserEmail_);
-                        String UserGender_ = user.UserGender;
+                        String UserGender_ = user.gender;
                         Log.e(TAG, UserGender_);
-                        String UserHeight_ = user.UserHeight;
+                        String UserHeight_ = user.height;
                         Log.e(TAG, UserHeight_);
-                        String UserWeight_ = user.UserWeight;
+                        String UserWeight_ = user.weight;
                         Log.e(TAG, UserWeight_);
-                        String UserCity_ = user.UserCity;
+                        String UserCity_ = user.city;
                         Log.e(TAG, UserCity_);
-                        String UserBirthday_ = user.UserBirthday;
+                        String UserBirthday_ = user.birthday;
                         Log.e(TAG, UserBirthday_);
-                        String UserOccupation_ = user.UserOccupation;
+                        String UserOccupation_ = user.occupation;
                         Log.e(TAG, UserOccupation_);
-                        String UserHobbies_ = user.UserHobbies;
+                        String UserHobbies_ = user.hobbies;
                         Log.e(TAG, UserHobbies_);
-                        String UserRelationshipStatus_ = user.UserRelationshipStatus;
+                        String UserRelationshipStatus_ = user.relationshipStatus;
                         Log.e(TAG, UserRelationshipStatus_);
-                        String UserBodyType_ = user.UserBodyType;
+                        String UserBodyType_ = user.bodyType;
                         Log.e(TAG, UserBodyType_);
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
                         FollowerNum.setText(FollowerNum_);
                         FollowingNum.setText(FollowingNum_);
+                        UserDescription.setText(UserDescription_);
                         UserID.setText(UserID_);
                         UserName.setText(UserName_);
-                        UserDescription.setText(UserDescription_);
                         UserEmail.setText(UserEmail_);
                         UserGender.setText(UserGender_);
                         UserHeight.setText(UserHeight_);

@@ -14,12 +14,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -136,14 +139,14 @@ public class EditUserProfile extends AppCompatActivity {
     }
 
 
-    public void retrivePost(String uid) {
+    private void retrivePost(String uid) {
         Log.e(TAG, "User " + uid + " is 111111111");
         // Disable button so there are no multi-posts
-        Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
 
         // [START single_value_read]
         final String userId = uid;
-        mDatabase.child("user-profiles").child(userId).addListenerForSingleValueEvent(
+        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -164,56 +167,26 @@ public class EditUserProfile extends AppCompatActivity {
                         //        Toast.LENGTH_SHORT).show();
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
-                        String UserProfileImage_ = user.UserProfileImage;
+
+                        String UserProfileImage_ = user.profileImageUrl;
                         Log.e(TAG, UserProfileImage_);
-                        String UserID_ = user.UserID;
+                        String UserID_ = user.userID;
                         Log.e(TAG, UserID_);
-                        String UserName_ = user.UserName;
+                        String UserName_ = user.name;
                         Log.e(TAG, UserName_);
-                        String FollowerNum_ = user.FollowerNum;
+                        String FollowerNum_ = user.followerNum;
                         Log.e(TAG, FollowerNum_);
-                        String FollowingNum_ = user.FollowingNum;
+                        String FollowingNum_ = user.followingNum;
                         Log.e(TAG, FollowingNum_);
-                        String UserDescription_ = user.UserDescription;
-                        Log.e(TAG, UserDescription_);
-                        String UserEmail_ = user.UserEmail;
-                        Log.e(TAG, UserEmail_);
-                        String UserGender_ = user.UserGender;
-                        Log.e(TAG, UserGender_);
-                        String UserHeight_ = user.UserHeight;
-                        Log.e(TAG, UserHeight_);
-                        String UserWeight_ = user.UserWeight;
-                        Log.e(TAG, UserWeight_);
-                        String UserCity_ = user.UserCity;
-                        Log.e(TAG, UserCity_);
-                        String UserBirthday_ = user.UserBirthday;
-                        Log.e(TAG, UserBirthday_);
-                        String UserOccupation_ = user.UserOccupation;
-                        Log.e(TAG, UserOccupation_);
-                        String UserHobbies_ = user.UserHobbies;
-                        Log.e(TAG, UserHobbies_);
-                        String UserRelationshipStatus_ = user.UserRelationshipStatus;
-                        Log.e(TAG, UserRelationshipStatus_);
-                        String UserBodyType_ = user.UserBodyType;
-                        Log.e(TAG, UserBodyType_);
+
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
+                        FollowerNum.setText(FollowerNum_);
+                        FollowingNum.setText(FollowingNum_);
                         UserID.setText(UserID_);
                         UserName.setText(UserName_);
-                        EditUserName.setText(UserName_);
-                        //FollowerNum.setText(FollowerNum_);
-                        //FollowingNum.setText(FollowingNum_);
-                        UserDescription.setText(UserDescription_);
-                        UserEmail.setText(UserEmail_);
-                        UserGender.setText(UserGender_);
-                        UserHeight.setText(UserHeight_);
-                        UserWeight.setText(UserWeight_);
-                        UserCity.setText(UserCity_);
-                        UserBirthday.setText(UserBirthday_);
-                        UserOccupation.setText(UserOccupation_);
-                        UserHobbies.setText(UserHobbies_);
-                        UserRelationshipStatus.setText(UserRelationshipStatus_);
-                        UserBodyType.setText(UserBodyType_);
+
+
 
                     }
 
@@ -244,12 +217,18 @@ public class EditUserProfile extends AppCompatActivity {
         String FollowerNum_ = "0";
         String FollowingNum_ = "0";
 
-        User post = new User(UserProfileImage_, UserID_, EditUserName_, FollowerNum_, FollowingNum_, UserDescription_, UserEmail_, UserGender_,
-                UserHeight_, UserWeight_, UserCity_, UserBirthday_, UserOccupation_, UserHobbies_, UserRelationshipStatus_, UserBodyType_);
+        //only for test
+        ArrayList<String> fansList = new ArrayList<String>();
+        ArrayList<String> likeList = new ArrayList<String>();
+        ArrayList<String> friendsList = new ArrayList<String>();
+        ArrayList<String> blockList = new ArrayList<String>();
+        ArrayList<String> dislikeList = new ArrayList<String>();
+
+        User post = new User(UserID_, EditUserName_, UserBirthday_, UserEmail_, UserBodyType_, UserCity_, UserDescription_, UserGender_, UserHobbies_, UserOccupation_, UserProfileImage_, UserRelationshipStatus_, UserHeight_, UserWeight_, fansList, likeList, friendsList, blockList, dislikeList, FollowerNum_, FollowingNum_ );
 
         Map<String, Object> postValues = post.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/user-profiles/" + UserID_ + '/', postValues);
+        childUpdates.put("/Users/" + UserID_ + '/', postValues);
         //childUpdates.put("/user-posts/" + UserID_ + "/", postValues);
 
         mDatabase.updateChildren(childUpdates);

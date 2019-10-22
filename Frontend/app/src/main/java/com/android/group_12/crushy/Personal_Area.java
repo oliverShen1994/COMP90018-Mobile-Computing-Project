@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -154,7 +155,7 @@ public class Personal_Area extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
-                        UserInfo user = dataSnapshot.getValue(UserInfo.class);
+                        User user = dataSnapshot.getValue(User.class);
 
                         //public User(String UserProfileImage, String UserID, String UserName, String FollowerNum,
                         // String FollowingNum, String UserDescription, String UserEmail, String UserGender, String UserHeight,
@@ -171,15 +172,15 @@ public class Personal_Area extends Fragment {
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
 
-                        String UserProfileImage_ = user.profileImage;
+                        String UserProfileImage_ = user.profileImageUrl;
                         Log.e(TAG, UserProfileImage_);
-                        String UserID_ = user.UserID;
+                        String UserID_ = user.userID;
                         Log.e(TAG, UserID_);
-                        String UserName_ = user.UserName;
+                        String UserName_ = user.name;
                         Log.e(TAG, UserName_);
-                        String FollowerNum_ = user.FollowerNum;
+                        String FollowerNum_ = user.followerNum;
                         Log.e(TAG, FollowerNum_);
-                        String FollowingNum_ = user.FollowingNum;
+                        String FollowingNum_ = user.followingNum;
                         Log.e(TAG, FollowingNum_);
 
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
