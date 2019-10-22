@@ -77,8 +77,8 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
             @Override
             public void onClick(View v) {
                 System.out.println("Like button clicked!");
-                getActivity().findViewById(R.id.dislike_button).setClickable(false);
-                getActivity().findViewById(R.id.like_button).setClickable(false);
+//                getActivity().findViewById(R.id.dislike_button).setClickable(false);
+//                getActivity().findViewById(R.id.like_button).setClickable(false);
 
                 //Todo: send request to backend to mark user as liked.
             }
@@ -89,8 +89,8 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
             @Override
             public void onClick(View v) {
                 System.out.println("Dislike button clicked!");
-                getActivity().findViewById(R.id.dislike_button).setClickable(false);
-                getActivity().findViewById(R.id.like_button).setClickable(false);
+//                getActivity().findViewById(R.id.dislike_button).setClickable(false);
+//                getActivity().findViewById(R.id.like_button).setClickable(false);
 
                 //Todo: send request to backend to mark user as disliked.
             }
