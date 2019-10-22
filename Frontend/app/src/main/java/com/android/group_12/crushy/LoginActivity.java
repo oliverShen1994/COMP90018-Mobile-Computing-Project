@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 sendUserToMainActivity();
                                 Toast.makeText(LoginActivity.this, "Logged in successful...", Toast.LENGTH_SHORT).show();
-                                currentUser = mAuth.getCurrentUser();
+//                                currentUser = mAuth.getCurrentUser();
                             } else {
                                 String message = task.getException().toString();
                                 Toast.makeText(LoginActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();

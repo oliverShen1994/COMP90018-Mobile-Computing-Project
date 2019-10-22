@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             System.out.println("User is not null");
             System.out.println("Current user: ");
+            System.out.println(currentUser.getUid());
             System.out.println(currentUser.toString());
 
             verifyUserExistence();

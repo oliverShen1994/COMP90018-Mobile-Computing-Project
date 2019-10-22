@@ -20,6 +20,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.group_12.crushy.Constants.Database;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,13 +46,13 @@ public class Personal_Area extends Fragment {
     //    private OnFragmentInteractionListener mListener;
     private int fragmentHeight;
     private int fragmentWidth;
-    //private FirebaseAuth mAuth;
     private ImageView UserImage;
     private TextView UserID,UserName,FollowerNum,FollowingNum;
     private LinearLayout MyProfile,Following,Follower;
     private RelativeLayout Calendar,BlockList,Setting,About;
     private static final String TAG = "Personal_Area";
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
 
     public Personal_Area(int fragmentHeight, int fragmentWidth) {
@@ -80,8 +83,8 @@ public class Personal_Area extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mAuth = FirebaseAuth.getInstance();
-        }
+        mAuth = FirebaseAuth.getInstance();
+    }
 
 
     @Override
@@ -103,9 +106,10 @@ public class Personal_Area extends Fragment {
         BlockList = (RelativeLayout) view.findViewById(R.id.Blockedlist);
         Setting = (RelativeLayout) view.findViewById(R.id.Setting);
         About = (RelativeLayout) view.findViewById(R.id.About);
-        //FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
-        retrivePost("0001");
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        Log.e(TAG, currentUser.getUid());
+//        updateUI(currentUser);
+        retrivePost(currentUser.getUid());
 
         Setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,12 +149,12 @@ public class Personal_Area extends Fragment {
 
         // [START single_value_read]
         final String userId = uid;
-        mDatabase.child("user-profiles").child(userId).addListenerForSingleValueEvent(
+        mDatabase.child(Database.USER_TABLE_NAME).child(uid).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
-                        User user = dataSnapshot.getValue(User.class);
+                        UserInfo user = dataSnapshot.getValue(UserInfo.class);
 
                         //public User(String UserProfileImage, String UserID, String UserName, String FollowerNum,
                         // String FollowingNum, String UserDescription, String UserEmail, String UserGender, String UserHeight,
@@ -167,7 +171,7 @@ public class Personal_Area extends Fragment {
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
 
-                        String UserProfileImage_ = user.UserProfileImage;
+                        String UserProfileImage_ = user.profileImage;
                         Log.e(TAG, UserProfileImage_);
                         String UserID_ = user.UserID;
                         Log.e(TAG, UserID_);
