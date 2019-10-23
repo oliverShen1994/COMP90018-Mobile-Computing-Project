@@ -3,6 +3,7 @@ package com.android.group_12.crushy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +17,9 @@ import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,37 +38,30 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditUserProfile extends AppCompatActivity {
     private CircleImageView UserProfileImage;
-    private TextView UserID, UserName, FollowerNum, FollowingNum;
+    private TextView UserID, UserName;
     private EditText EditUserName,  UserDescription, UserEmail,
             UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
             UserHobbies, UserRelationshipStatus, UserBodyType;
     private LinearLayout SaveButton, PreviousButton;
     private RelativeLayout EditImage;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final String TAG = "EditUserProfileActivity";
 
     private DatabaseReference mDatabase;
-    private static final String TAG = "EditUserProfileActivity";
+    private FirebaseAuth mAuth;
+    private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_profile);
-
+        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        InitializeFields();
-
-//        SaveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        initializeFields();
 
         PreviousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent ProfileIntent = new Intent(EditUserProfile.this, UserProfile.class);
-//                startActivity(ProfileIntent);
                 finish();
             }
         });
@@ -72,7 +69,6 @@ public class EditUserProfile extends AppCompatActivity {
         SaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String EditUserName_ = EditUserName.getText().toString();
                 String UserDescription_ = UserDescription.getText().toString();
                 String UserEmail_ = UserEmail.getText().toString();
@@ -85,12 +81,12 @@ public class EditUserProfile extends AppCompatActivity {
                 String UserHobbies_ = UserHobbies.getText().toString();
                 String UserRelationshipStatus_ = UserRelationshipStatus.getText().toString();
                 String UserBodyType_ = UserBodyType.getText().toString();
-
                 writeNewPost(EditUserName_, UserDescription_, UserEmail_, UserGender_, UserHeight_, UserWeight_, UserCity_, UserBirthday_,
                         UserOccupation_, UserHobbies_, UserRelationshipStatus_, UserBodyType_);
 
-                Intent ProfileIntent = new Intent(EditUserProfile.this, UserProfile.class);
-                startActivity(ProfileIntent);
+//                Intent ProfileIntent = new Intent(EditUserProfile.this, UserProfile.class);
+//                startActivity(ProfileIntent);
+                finish();
             }
         });
 
@@ -103,13 +99,12 @@ public class EditUserProfile extends AppCompatActivity {
         });
     }
 
-    private void InitializeFields() {
-
+    private void initializeFields() {
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
         UserID = (TextView) findViewById(R.id.UserID);
         UserName = (TextView) findViewById(R.id.UserName);
-        FollowerNum = (TextView)findViewById(R.id.FollowersNum);
-        FollowingNum = (TextView) findViewById(R.id.FollowingNum);
+//        FollowerNum = (TextView)findViewById(R.id.FollowersNum);
+//        FollowingNum = (TextView) findViewById(R.id.FollowingNum);
 
         EditUserName = (EditText) findViewById(R.id.EditUserName);
         UserDescription = (EditText) findViewById(R.id.EditUserDescription);
@@ -127,20 +122,19 @@ public class EditUserProfile extends AppCompatActivity {
         EditImage = (RelativeLayout) findViewById(R.id.UserImage);
         SaveButton = (LinearLayout) findViewById(R.id.SaveButton);
         PreviousButton = (LinearLayout) findViewById(R.id.PreviousButton);
-        retrivePost("0001");
-        //Test firebase retrieve:
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUserId = currentUser.getUid();
+        retrivePost(currentUserId);
     }
 
     public void onStart() {
-
         super.onStart();
-
     }
 
 
     private void retrivePost(String uid) {
-        Log.e(TAG, "User " + uid + " is 111111111");
+        Log.i(TAG, "User " + uid + " is 111111111");
         // Disable button so there are no multi-posts
         //Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
 
@@ -169,25 +163,26 @@ public class EditUserProfile extends AppCompatActivity {
                         // [END_EXCLUDE]
 
                         String UserProfileImage_ = user.profileImageUrl;
-                        Log.e(TAG, UserProfileImage_);
+
                         String UserID_ = user.userID;
-                        Log.e(TAG, UserID_);
                         String UserName_ = user.name;
-                        Log.e(TAG, UserName_);
-                        String FollowerNum_ = user.followerNum;
-                        Log.e(TAG, FollowerNum_);
-                        String FollowingNum_ = user.followingNum;
-                        Log.e(TAG, FollowingNum_);
+                        Glide.with(EditUserProfile.this)
+                                .load(UserProfileImage_)
+                                .into(UserProfileImage);
 
-                        //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
-
-                        FollowerNum.setText(FollowerNum_);
-                        FollowingNum.setText(FollowingNum_);
+                        UserDescription.setText(user.description);
+                        UserEmail.setText(user.email);
+                        UserGender.setText(user.gender);
+                        UserHeight.setText(user.height);
+                        UserWeight.setText(user.weight);
+                        UserCity.setText(user.city);
+                        UserBirthday.setText(user.birthday);
+                        UserOccupation.setText(user.occupation);
+                        UserHobbies.setText(user.hobbies);
+                        UserRelationshipStatus.setText(user.relationshipStatus);
+                        UserBodyType.setText(user.bodyType);
                         UserID.setText(UserID_);
                         UserName.setText(UserName_);
-
-
-
                     }
 
                     @Override
@@ -212,19 +207,12 @@ public class EditUserProfile extends AppCompatActivity {
         // String UserWeight, String UserCity, String UserBirthday, String UserOccupation, String UserHobbies,
         // String UserRelationshipStatus, String UserBodyType)
 
+        String UserID_ = currentUserId;
+
+        //fixme:only for test
         String UserProfileImage_ = "";
-        String UserID_ = "0001";
-        String FollowerNum_ = "0";
-        String FollowingNum_ = "0";
 
-        //only for test
-        ArrayList<String> fansList = new ArrayList<String>();
-        ArrayList<String> likeList = new ArrayList<String>();
-        ArrayList<String> friendsList = new ArrayList<String>();
-        ArrayList<String> blockList = new ArrayList<String>();
-        ArrayList<String> dislikeList = new ArrayList<String>();
-
-        User post = new User(UserID_, EditUserName_, UserBirthday_, UserEmail_, UserBodyType_, UserCity_, UserDescription_, UserGender_, UserHobbies_, UserOccupation_, UserProfileImage_, UserRelationshipStatus_, UserHeight_, UserWeight_, fansList, likeList, friendsList, blockList, dislikeList, FollowerNum_, FollowingNum_ );
+        User post = new User(UserID_, EditUserName_, UserBirthday_, UserEmail_, UserBodyType_, UserCity_, UserDescription_, UserGender_, UserHobbies_, UserOccupation_, UserProfileImage_, UserRelationshipStatus_, UserHeight_, UserWeight_);
 
         Map<String, Object> postValues = post.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
@@ -234,5 +222,28 @@ public class EditUserProfile extends AppCompatActivity {
         mDatabase.updateChildren(childUpdates);
     }
 
+/*
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            mImageUri = data.getData();
+
+            Glide.with(this)
+                    .load(mImageUri)
+                    .into(UserProfileImage);
+        }
+    }
+
+ */
 
 }

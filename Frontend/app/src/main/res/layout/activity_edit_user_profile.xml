@@ -51,6 +51,8 @@
             android:fontFamily="sans-serif"
             android:textColor="@color/white"
             android:text="ID: 00001" />
+
+
     </RelativeLayout>
 
     <LinearLayout
@@ -63,15 +65,13 @@
         android:clickable="true"
         >
         <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="Previous"
-            android:fontFamily="sans-serif"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:padding="10dp"
-            >
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:padding="10dp"
+        android:text="Previous"
+        android:textColor="@color/white"
+        android:textSize="20sp">
         </TextView>
     </LinearLayout>
 
@@ -93,10 +93,7 @@
             android:textColor="@color/white"
             android:padding="10dp"
             >
-
         </TextView>
-
-
     </LinearLayout>
 
 
