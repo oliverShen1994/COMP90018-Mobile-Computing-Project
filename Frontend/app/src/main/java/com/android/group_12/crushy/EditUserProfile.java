@@ -171,14 +171,21 @@ public class EditUserProfile extends AppCompatActivity {
                         // [END_EXCLUDE]
 
                         String UserProfileImage_ = user.profileImageUrl;
+
                         String UserID_ = user.userID;
                         String UserName_ = user.name;
-                        String FollowerNum_ = user.followerNum;
-                        System.out.println("FollowerNum_"+FollowerNum_);
-                        String FollowingNum_ = user.followingNum;
-                        System.out.println("FolloweingNum_"+FollowingNum_);
 
-                        //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+                        UserDescription.setText(user.description);
+                        UserEmail.setText(user.email);
+                        UserGender.setText(user.gender);
+                        UserHeight.setText(user.height);
+                        UserWeight.setText(user.weight);
+                        UserCity.setText(user.city);
+                        UserBirthday.setText(user.birthday);
+                        UserOccupation.setText(user.occupation);
+                        UserHobbies.setText(user.hobbies);
+                        UserRelationshipStatus.setText(user.relationshipStatus);
+                        UserBodyType.setText(user.bodyType);
                         UserID.setText(UserID_);
                         UserName.setText(UserName_);
                     }
@@ -209,15 +216,8 @@ public class EditUserProfile extends AppCompatActivity {
 
         //fixme:only for test
         String UserProfileImage_ = "";
-        String FollowerNum_ = "0";
-        String FollowingNum_ = "0";
-        ArrayList<String> fansList = new ArrayList<String>();
-        ArrayList<String> likeList = new ArrayList<String>();
-        ArrayList<String> friendsList = new ArrayList<String>();
-        ArrayList<String> blockList = new ArrayList<String>();
-        ArrayList<String> dislikeList = new ArrayList<String>();
 
-        User post = new User(UserID_, EditUserName_, UserBirthday_, UserEmail_, UserBodyType_, UserCity_, UserDescription_, UserGender_, UserHobbies_, UserOccupation_, UserProfileImage_, UserRelationshipStatus_, UserHeight_, UserWeight_, fansList, likeList, friendsList, blockList, dislikeList, FollowerNum_, FollowingNum_ );
+        User post = new User(UserID_, EditUserName_, UserBirthday_, UserEmail_, UserBodyType_, UserCity_, UserDescription_, UserGender_, UserHobbies_, UserOccupation_, UserProfileImage_, UserRelationshipStatus_, UserHeight_, UserWeight_);
 
         Map<String, Object> postValues = post.toMap();
         Map<String, Object> childUpdates = new HashMap<>();

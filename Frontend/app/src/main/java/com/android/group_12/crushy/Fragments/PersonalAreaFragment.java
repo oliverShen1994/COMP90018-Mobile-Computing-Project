@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
+import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.R;
 import com.android.group_12.crushy.Settings;
 import com.android.group_12.crushy.UserProfile;
@@ -180,15 +182,7 @@ public class PersonalAreaFragment extends Fragment {
                         Log.i(TAG, UserID_);
                         String UserName_ = user.name;
                         Log.i(TAG, UserName_);
-                        String FollowerNum_ = user.followerNum;
-                        Log.i(TAG, FollowerNum_);
-                        String FollowingNum_ = user.followingNum;
-                        Log.i(TAG, FollowingNum_);
 
-                        //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
-
-                        FollowerNum.setText(FollowerNum_);
-                        FollowingNum.setText(FollowingNum_);
                         UserID.setText(UserID_); // fixme:needed?
                         UserName.setText(UserName_);
                     }
@@ -200,6 +194,31 @@ public class PersonalAreaFragment extends Fragment {
                         // [END_EXCLUDE]
                     }
                 });
+
+        mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(uid).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user value
+                        UserFollow user = dataSnapshot.getValue(UserFollow.class);
+
+                        String FollowerNum_ = user.followerNum;
+                        //Log.i(TAG, FollowerNum_);
+                        String FollowingNum_ = user.followingNum;
+                        //Log.i(TAG, FollowingNum_);
+
+                        //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+
+                        FollowerNum.setText(FollowerNum_);
+                        FollowingNum.setText(FollowingNum_);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                }
+        );
         // [END single_value_read]
     }
 

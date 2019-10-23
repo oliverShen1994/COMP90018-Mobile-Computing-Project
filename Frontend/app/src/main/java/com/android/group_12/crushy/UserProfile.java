@@ -1,5 +1,6 @@
 package com.android.group_12.crushy;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
+import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -125,10 +127,6 @@ public class UserProfile extends AppCompatActivity {
                         Log.e(TAG, UserID_);
                         String UserName_ = user.name;
                         Log.e(TAG, UserName_);
-                        String FollowerNum_ = user.followerNum;
-                        Log.e(TAG, FollowerNum_);
-                        String FollowingNum_ = user.followingNum;
-                        Log.e(TAG, FollowingNum_);
                         String UserDescription_ = user.description;
                         Log.e(TAG, UserDescription_);
                         String UserEmail_ = user.email;
@@ -155,8 +153,7 @@ public class UserProfile extends AppCompatActivity {
 
                         UserName.setText(UserName_);
                         UserID.setText(UserID_);
-                        FollowerNum.setText(FollowerNum_);
-                        FollowingNum.setText(FollowingNum_);
+
                         UserDescription.setText(UserDescription_);
                         UserEmail.setText(UserEmail_);
                         UserGender.setText(UserGender_);
@@ -178,13 +175,35 @@ public class UserProfile extends AppCompatActivity {
                         // [END_EXCLUDE]
                     }
                 });
-        // [END single_value_read]
+
+        mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        UserFollow user = dataSnapshot.getValue(UserFollow.class);
+
+                        String FollowerNum_ = user.followerNum;
+                        Log.e(TAG, FollowerNum_);
+                        String FollowingNum_ = user.followingNum;
+                        Log.e(TAG, FollowingNum_);
+
+                        FollowerNum.setText(FollowerNum_);
+                        FollowingNum.setText(FollowingNum_);
+
+                    }
+                    // [END single_value_read]
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+
+                });
     }
 
+        public void onStart() {
 
-    public void onStart() {
-
-        super.onStart();
+            super.onStart();
 
     }
 }

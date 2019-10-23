@@ -23,14 +23,6 @@ public class User {
     public String relationshipStatus;
     public String height;
     public String weight;
-    public String followerNum;
-    public String followingNum;
-
-    ArrayList<String> fansList = new ArrayList<String>();
-    ArrayList<String> likeList = new ArrayList<String>();
-    ArrayList<String> friendsList = new ArrayList<String>();
-    ArrayList<String> blockList = new ArrayList<String>();
-    ArrayList<String> dislikeList = new ArrayList<String>();
 
     public Map<String, Boolean> stars = new HashMap<>();
 
@@ -40,9 +32,8 @@ public class User {
 
     public User(String userID, String name, String birthday, String email, String bodyType,
                 String city, String description, String gender, String hobbies, String occupation,
-                String profileImageUrl, String relationshipStatus, String height, String weight,
-                ArrayList<String> fansList, ArrayList<String> likeList, ArrayList<String> friendsList,
-                ArrayList<String> blockList, ArrayList<String> dislikeList, String followerNum, String followingNum) {
+                String profileImageUrl, String relationshipStatus, String height, String weight) {
+
         this.userID = userID;
         this.name = name;
         this.birthday = birthday;
@@ -57,13 +48,7 @@ public class User {
         this.relationshipStatus = relationshipStatus;
         this.height = height;
         this.weight = weight;
-        this.fansList = fansList;
-        this.likeList = likeList;
-        this.friendsList = friendsList;
-        this.blockList = blockList;
-        this.dislikeList = dislikeList;
-        this.followerNum = followerNum;
-        this.followingNum = followingNum;
+
     }
 
     // [START post_to_map]
@@ -85,13 +70,7 @@ public class User {
         result.put("relationshipStatus", relationshipStatus);
         result.put("height", height);
         result.put("weight", weight);
-        result.put("fansList", fansList);
-        result.put("likeList", likeList);
-        result.put("blockList", blockList);
-        result.put("dislikeList", dislikeList);
-        result.put("friendsList", friendsList);
-        result.put("followerNum", followerNum);
-        result.put("followingNum", followingNum);
+
         return result;
     }
 }

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
+import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -108,11 +109,19 @@ public class RegisterActivity extends AppCompatActivity {
                                 String followerNum = "0";
                                 String followingNum = "0";
                                 // The firebase route to the new user
-                                DatabaseReference currentRecord =rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserID);
-                                User user = new User(userid, name, birthday, email, bodyType, city, description, gender, hobbies, occupation, profileImageUrl, relationshipStatus, height, weight, fansList, likeList, friendsList, blockList, dislikeList, followerNum, followingNum);
+                                DatabaseReference currentRecordUser =rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserID);
+                                DatabaseReference currentUserFollowers =rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(currentUserID);
+
+                                User user = new User(userid, name, birthday, email, bodyType, city, description, gender, hobbies, occupation, profileImageUrl, relationshipStatus, height, weight);
+                                UserFollow userFollow = new UserFollow(fansList, likeList, friendsList, blockList, dislikeList, followerNum, followingNum);
                                 // wrap the user info content
                                 Map<String, Object> postValues = user.toMap();
-                                currentRecord.setValue(postValues);
+                                Map<String, Object> userFollowValues =  userFollow.toMap();
+                                //set value to User table
+                                currentRecordUser.setValue(postValues);
+                                //set value to UserFollow table
+                                currentUserFollowers.setValue(userFollowValues);
+
                                 sendUserToMainActivity();
                                 Toast.makeText(RegisterActivity.this, "Account created successfully", Toast.LENGTH_SHORT).show();
                             } else {
