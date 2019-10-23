@@ -101,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                                 currentUser = mAuth.getCurrentUser();
                             } else {
                                 String message = task.getException().toString();
+                                System.out.println("Error:" + message);
                                 Toast.makeText(LoginActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                             }
                             loadingBar.setVisibility(View.GONE);

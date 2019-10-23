@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateFragment(int selectedNavigationItemID) {
         Fragment fragment = new Fragment();
-
+//        Fragment friendListFragment =
         switch (selectedNavigationItemID) {
             case R.id.navigation_location: {
                 System.out.println("Location Based Friending");
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.navigation_friend_list: {
                 System.out.println("Friend list");
+                fragment = new FriendListFragment(this.fragmentHeight, this.screenSize.x);;
                 break;
             }
             case R.id.navigation_personal_area: {
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.first_level_fragment, fragment)
-                .addToBackStack(null)
+//                .addToBackStack(null)
                 .commit();
     }
 
