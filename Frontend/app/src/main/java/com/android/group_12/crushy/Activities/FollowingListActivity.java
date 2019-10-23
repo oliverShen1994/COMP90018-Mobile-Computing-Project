@@ -28,7 +28,6 @@ public class FollowingListActivity extends AppCompatActivity {
         mSearchView.setSubmitButtonEnabled(true);
         mSwitch = (Switch) findViewById(R.id.viewSwitch);
 
-        // 添加监听
         mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

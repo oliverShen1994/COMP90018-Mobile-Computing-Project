@@ -50,7 +50,7 @@ public class EditUserImage extends AppCompatActivity {
     }
 
     private void retrivePost(String uid) {
-        Log.e(TAG, "User " + uid + " is 111111111");
+        Log.i(TAG, "User " + uid + " is 111111111");
         // Disable button so there are no multi-posts
         //Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
 

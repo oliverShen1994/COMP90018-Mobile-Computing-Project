@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.Constants.RequestCode;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,6 +49,7 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent EditProfileIntent = new Intent(UserProfile.this, EditUserProfile.class);
+//                startActivityForResult(EditProfileIntent, RequestCode.UserProfile);
                 startActivity(EditProfileIntent);
             }
         });
@@ -67,8 +69,14 @@ public class UserProfile extends AppCompatActivity {
 //        });
     }
 
-    private void InitializeFields() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        InitializeFields();
+        //返回的时候走resume fixme:
+    }
 
+    private void InitializeFields() {
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
         UserID = (TextView) findViewById(R.id.UserID);
         UserName = (TextView) findViewById(R.id.UserName);
@@ -122,33 +130,33 @@ public class UserProfile extends AppCompatActivity {
                         // [END_EXCLUDE]
 
                         String UserProfileImage_ = user.profileImageUrl;
-                        Log.e(TAG, UserProfileImage_);
+                        Log.i(TAG, UserProfileImage_);
                         String UserID_ = user.userID;
-                        Log.e(TAG, UserID_);
+                        Log.i(TAG, UserID_);
                         String UserName_ = user.name;
-                        Log.e(TAG, UserName_);
+                        Log.i(TAG, UserName_);
                         String UserDescription_ = user.description;
-                        Log.e(TAG, UserDescription_);
+                        Log.i(TAG, UserDescription_);
                         String UserEmail_ = user.email;
-                        Log.e(TAG, UserEmail_);
+                        Log.i(TAG, UserEmail_);
                         String UserGender_ = user.gender;
-                        Log.e(TAG, UserGender_);
+                        Log.i(TAG, UserGender_);
                         String UserHeight_ = user.height;
-                        Log.e(TAG, UserHeight_);
+                        Log.i(TAG, UserHeight_);
                         String UserWeight_ = user.weight;
-                        Log.e(TAG, UserWeight_);
+                        Log.i(TAG, UserWeight_);
                         String UserCity_ = user.city;
-                        Log.e(TAG, UserCity_);
+                        Log.i(TAG, UserCity_);
                         String UserBirthday_ = user.birthday;
-                        Log.e(TAG, UserBirthday_);
+                        Log.i(TAG, UserBirthday_);
                         String UserOccupation_ = user.occupation;
-                        Log.e(TAG, UserOccupation_);
+                        Log.i(TAG, UserOccupation_);
                         String UserHobbies_ = user.hobbies;
-                        Log.e(TAG, UserHobbies_);
+                        Log.i(TAG, UserHobbies_);
                         String UserRelationshipStatus_ = user.relationshipStatus;
-                        Log.e(TAG, UserRelationshipStatus_);
+                        Log.i(TAG, UserRelationshipStatus_);
                         String UserBodyType_ = user.bodyType;
-                        Log.e(TAG, UserBodyType_);
+                        Log.i(TAG, UserBodyType_);
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
                         UserName.setText(UserName_);
