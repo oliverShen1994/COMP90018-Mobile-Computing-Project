@@ -7,19 +7,23 @@
     android:layout_height="match_parent"
     android:background="#008D4444"
     android:weightSum="2"
-    tools:context=".MainActivity">
+    tools:context=".Activities.MainActivity">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/first_level_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="411dp"
+        android:id="@+id/button_nav"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#00000000"
         app:itemIconTint="@color/design_default_color_primary_dark"

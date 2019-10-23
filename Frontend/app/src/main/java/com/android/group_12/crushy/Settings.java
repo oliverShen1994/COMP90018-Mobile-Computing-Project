@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.group_12.crushy.Activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Settings extends AppCompatActivity {
