@@ -46,6 +46,7 @@ public class EditUserProfile extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,6 @@ public class EditUserProfile extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         InitializeFields();
-
 //        SaveButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -132,7 +132,8 @@ public class EditUserProfile extends AppCompatActivity {
         PreviousButton = (LinearLayout) findViewById(R.id.PreviousButton);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        retrivePost(currentUser.getUid());
+        currentUserId = currentUser.getUid();
+        retrivePost(currentUserId);
     }
 
     public void onStart() {
@@ -204,12 +205,12 @@ public class EditUserProfile extends AppCompatActivity {
         // String UserWeight, String UserCity, String UserBirthday, String UserOccupation, String UserHobbies,
         // String UserRelationshipStatus, String UserBodyType)
 
+        String UserID_ = currentUserId;
+
+        //fixme:only for test
         String UserProfileImage_ = "";
-        String UserID_ = "0001";
         String FollowerNum_ = "0";
         String FollowingNum_ = "0";
-
-        //only for test
         ArrayList<String> fansList = new ArrayList<String>();
         ArrayList<String> likeList = new ArrayList<String>();
         ArrayList<String> friendsList = new ArrayList<String>();
