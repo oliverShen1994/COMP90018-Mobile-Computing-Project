@@ -1,5 +1,6 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Activities;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -10,8 +11,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.Constants.RequestCode;
+import com.android.group_12.crushy.Constants.ResultCode;
+import com.android.group_12.crushy.Fragments.LocationBaseFriendingFragment;
+import com.android.group_12.crushy.Fragments.PersonalAreaFragment;
+import com.android.group_12.crushy.FriendListFragment;
+import com.android.group_12.crushy.R;
 import com.android.group_12.crushy.Utils.ScreenUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateFragment(int selectedNavigationItemID) {
         Fragment fragment = new Fragment();
-//        Fragment friendListFragment =
         switch (selectedNavigationItemID) {
             case R.id.navigation_location: {
                 System.out.println("Location Based Friending");
@@ -50,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.navigation_personal_area: {
                 System.out.println("Personal Area");
-                fragment = new PersonalAreaFragment(this.fragmentHeight, this.screenSize.x);
+                fragment = PersonalAreaFragment.newInstance(this.fragmentHeight, this.screenSize.x);
                 break;
             }
             default: {
@@ -61,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.first_level_fragment, fragment)
-//                .addToBackStack(null)
                 .commit();
+//                .addToBackStack(null)
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -79,20 +86,18 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.mAuth = mAuth.getInstance();
-        this.rootRef = FirebaseDatabase.getInstance().getReference();
-        this.currentUser = mAuth.getCurrentUser();
-
         setContentView(R.layout.activity_main);
 
         this.navView = findViewById(R.id.button_nav);
         // Bind the event listener with the navigation view.
         this.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        this.mAuth = mAuth.getInstance();
+        this.rootRef = FirebaseDatabase.getInstance().getReference();
+        this.currentUser = mAuth.getCurrentUser();
     }
 
     @Override
@@ -104,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
             sendUserToLoginActivity();
         } else {
             System.out.println("User is not null");
+            System.out.println("Current user: ");
+            System.out.println(currentUser.getUid());
+//            System.out.println(currentUser.toString());
             verifyUserExistence(); // Verify user's existence.
 
             // Height information
@@ -121,6 +129,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        System.out.println(requestCode);
+        System.out.println(resultCode);
+        if (requestCode== RequestCode.PersonalArea){
+            switch(resultCode){
+                case ResultCode.Follower:
+                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
+                case ResultCode.Following:
+                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
+                case ResultCode.Setting:
+                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
+                case ResultCode.About:
+                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    Toast.makeText(MainActivity.this, "test default" , Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private void sendUserToLoginActivity() {
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(loginIntent);
@@ -134,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void verifyUserExistence() {
         String currentUserID = this.currentUser.getUid();
-
         rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

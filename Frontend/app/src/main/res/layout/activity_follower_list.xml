@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/followerList"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/profile_background"
+    tools:context=".Activities.FollowingListActivity">
+
+<!--    <SearchView-->
+<!--        app:layout_constraintRight_toLeftOf="@+id/viewSwitch"-->
+<!--        android:id="@+id/searchView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:queryHint="Please enter..."-->
+<!--        android:iconifiedByDefault="false" />-->
+
+<!--    <Switch-->
+<!--        android:layout_toRightOf="@+id/searchView"-->
+<!--        android:id="@+id/viewSwitch"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textOff="list"-->
+<!--        android:textOn="grid"-->
+<!--        android:thumb="@drawable/switch_thumb"-->
+<!--        android:track="@drawable/switch_track"-->
+<!--        android:showText="true"/>-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/personal_info_fragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_below="@+id/viewSwitch" />-->
+
+    <LinearLayout
+        android:id="@+id/personal_info_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
+
+</RelativeLayout>

@@ -8,26 +8,20 @@ import java.util.Map;
 
 public class User {
 
-    String userID;
-    String name;
-    String birthday;
-    String bodyType;
-    String city;
-    String description;
-    String gender;
-    String hobbies;
-    String occupation;
-    String profileImageUrl;
-    String relationshipStatus;
-    String height;
-    String weight;
-    String email;
-
-    ArrayList<String> fansList=new ArrayList<String>();
-    ArrayList<String> likeList=new ArrayList<String>();
-    ArrayList<String> friendsList=new ArrayList<String>();
-    ArrayList<String> blockList=new ArrayList<String>();
-    ArrayList<String> dislikeList=new ArrayList<String>();
+    public String userID;
+    public String name;
+    public String birthday;
+    public String bodyType;
+    public String city;
+    public String description;
+    public String email;
+    public String gender;
+    public String hobbies;
+    public String occupation;
+    public String profileImageUrl;
+    public String relationshipStatus;
+    public String height;
+    public String weight;
 
     public Map<String, Boolean> stars = new HashMap<>();
 
@@ -35,7 +29,10 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public User(String userID, String name, String email, String birthday, String bodyType, String city, String description, String gender, String hobbies, String occupation, String profileImageUrl, String relationshipStatus, String height, String weight, ArrayList<String> fansList, ArrayList<String> likeList, ArrayList<String> friendsList, ArrayList<String> blockList, ArrayList<String> dislikeList) {
+    public User(String userID, String name, String birthday, String email, String bodyType,
+                String city, String description, String gender, String hobbies, String occupation,
+                String profileImageUrl, String relationshipStatus, String height, String weight) {
+
         this.userID = userID;
         this.name = name;
         this.birthday = birthday;
@@ -51,11 +48,6 @@ public class User {
         this.height = height;
         this.weight = weight;
 
-        this.fansList=fansList;
-        this.likeList=likeList;
-        this.friendsList=friendsList;
-        this.blockList = blockList;
-        this.dislikeList = dislikeList;
     }
 
     // [START post_to_map]
@@ -77,14 +69,7 @@ public class User {
         result.put("relationshipStatus", relationshipStatus);
         result.put("height", height);
         result.put("weight", weight);
-        result.put("fansList", fansList);
-        result.put("likeList", likeList);
-        result.put("blockList", blockList);
-        result.put("dislikeList", dislikeList);
-        result.put("friendsList", friendsList);
 
         return result;
     }
-
-
 }
