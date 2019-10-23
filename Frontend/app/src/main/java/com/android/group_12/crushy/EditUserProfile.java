@@ -3,6 +3,7 @@ package com.android.group_12.crushy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,12 +38,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditUserProfile extends AppCompatActivity {
     private CircleImageView UserProfileImage;
-    private TextView UserID, UserName, FollowerNum, FollowingNum;
+    private TextView UserID, UserName;
     private EditText EditUserName,  UserDescription, UserEmail,
             UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
             UserHobbies, UserRelationshipStatus, UserBodyType;
     private LinearLayout SaveButton, PreviousButton;
     private RelativeLayout EditImage;
+    private static final int PICK_IMAGE_REQUEST = 1;
     private static final String TAG = "EditUserProfileActivity";
 
     private DatabaseReference mDatabase;
@@ -174,6 +177,9 @@ public class EditUserProfile extends AppCompatActivity {
 
                         String UserID_ = user.userID;
                         String UserName_ = user.name;
+                        Glide.with(EditUserProfile.this)
+                                .load(UserProfileImage_)
+                                .into(UserProfileImage);
 
                         UserDescription.setText(user.description);
                         UserEmail.setText(user.email);
@@ -227,5 +233,28 @@ public class EditUserProfile extends AppCompatActivity {
         mDatabase.updateChildren(childUpdates);
     }
 
+/*
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            mImageUri = data.getData();
+
+            Glide.with(this)
+                    .load(mImageUri)
+                    .into(UserProfileImage);
+        }
+    }
+
+ */
 
 }
