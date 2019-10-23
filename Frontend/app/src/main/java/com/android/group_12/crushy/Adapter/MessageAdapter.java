@@ -63,6 +63,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         if (imageurl.equals("")) {
 //            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
         } else {
+            System.out.println("imageurl is :" + imageurl);
             Glide.with(mContext).load(imageurl).into(holder.profileImage);
         }
     }
@@ -80,7 +81,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             show_message = itemView.findViewById(R.id.show_message);
-            profileImage = itemView.findViewById(R.id.user_profile_image);
+            profileImage = itemView.findViewById(R.id.profile_image_chat);
         }
     }
 

@@ -12,7 +12,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/profile_image_right"
+            android:id="@+id/profile_image_chat"
             android:visibility="gone"/>
 
         <TextView
