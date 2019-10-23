@@ -15,6 +15,7 @@ import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.Constants.RequestCode;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +45,7 @@ public class UserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        InitializeFields();
+        initializeFields();
         EditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,11 +73,11 @@ public class UserProfile extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        InitializeFields();
+        initializeFields();
         //返回的时候走resume fixme:
     }
 
-    private void InitializeFields() {
+    private void initializeFields() {
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
         UserID = (TextView) findViewById(R.id.UserID);
         UserName = (TextView) findViewById(R.id.UserName);
@@ -173,6 +174,9 @@ public class UserProfile extends AppCompatActivity {
                         UserOccupation.setText(UserOccupation_);
                         UserHobbies.setText(UserHobbies_);
                         UserRelationshipStatus.setText(UserRelationshipStatus_);
+                        Glide.with(UserProfile.this)
+                                .load(user.profileImageUrl)
+                                .into(UserProfileImage);
 
                     }
 
