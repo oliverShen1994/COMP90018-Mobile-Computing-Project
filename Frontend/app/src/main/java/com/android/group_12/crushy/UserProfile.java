@@ -45,7 +45,7 @@ public class UserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        InitializeFields();
+        initializeFields();
         EditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,11 +73,11 @@ public class UserProfile extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        InitializeFields();
+        initializeFields();
         //返回的时候走resume fixme:
     }
 
-    private void InitializeFields() {
+    private void initializeFields() {
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
         UserID = (TextView) findViewById(R.id.UserID);
         UserName = (TextView) findViewById(R.id.UserName);

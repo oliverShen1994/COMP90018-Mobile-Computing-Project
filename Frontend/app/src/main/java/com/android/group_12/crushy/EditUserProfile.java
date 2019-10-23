@@ -57,14 +57,7 @@ public class EditUserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_user_profile);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        InitializeFields();
-//        SaveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        initializeFields();
 
         PreviousButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,8 +99,7 @@ public class EditUserProfile extends AppCompatActivity {
         });
     }
 
-    private void InitializeFields() {
-
+    private void initializeFields() {
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
         UserID = (TextView) findViewById(R.id.UserID);
         UserName = (TextView) findViewById(R.id.UserName);
