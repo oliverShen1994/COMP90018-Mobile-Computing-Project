@@ -18,6 +18,7 @@ import com.android.group_12.crushy.Constants.RequestCode;
 import com.android.group_12.crushy.Constants.ResultCode;
 import com.android.group_12.crushy.Fragments.LocationBaseFriendingFragment;
 import com.android.group_12.crushy.Fragments.PersonalAreaFragment;
+import com.android.group_12.crushy.FriendListFragment;
 import com.android.group_12.crushy.R;
 import com.android.group_12.crushy.Utils.ScreenUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateFragment(int selectedNavigationItemID) {
         Fragment fragment = new Fragment();
-
         switch (selectedNavigationItemID) {
             case R.id.navigation_location: {
                 System.out.println("Location Based Friending");
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.navigation_friend_list: {
                 System.out.println("Friend list");
+                fragment = new FriendListFragment(this.fragmentHeight, this.screenSize.x);;
                 break;
             }
             case R.id.navigation_personal_area: {
