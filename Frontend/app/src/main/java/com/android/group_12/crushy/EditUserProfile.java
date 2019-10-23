@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,15 +42,16 @@ public class EditUserProfile extends AppCompatActivity {
             UserHobbies, UserRelationshipStatus, UserBodyType;
     private LinearLayout SaveButton, PreviousButton;
     private RelativeLayout EditImage;
+    private static final String TAG = "EditUserProfileActivity";
 
     private DatabaseReference mDatabase;
-    private static final String TAG = "EditUserProfileActivity";
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_profile);
-
+        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         InitializeFields();
@@ -108,8 +111,8 @@ public class EditUserProfile extends AppCompatActivity {
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
         UserID = (TextView) findViewById(R.id.UserID);
         UserName = (TextView) findViewById(R.id.UserName);
-        FollowerNum = (TextView)findViewById(R.id.FollowersNum);
-        FollowingNum = (TextView) findViewById(R.id.FollowingNum);
+//        FollowerNum = (TextView)findViewById(R.id.FollowersNum);
+//        FollowingNum = (TextView) findViewById(R.id.FollowingNum);
 
         EditUserName = (EditText) findViewById(R.id.EditUserName);
         UserDescription = (EditText) findViewById(R.id.EditUserDescription);
@@ -127,15 +130,13 @@ public class EditUserProfile extends AppCompatActivity {
         EditImage = (RelativeLayout) findViewById(R.id.UserImage);
         SaveButton = (LinearLayout) findViewById(R.id.SaveButton);
         PreviousButton = (LinearLayout) findViewById(R.id.PreviousButton);
-        retrivePost("0001");
-        //Test firebase retrieve:
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        retrivePost(currentUser.getUid());
     }
 
     public void onStart() {
-
         super.onStart();
-
     }
 
 
@@ -169,25 +170,16 @@ public class EditUserProfile extends AppCompatActivity {
                         // [END_EXCLUDE]
 
                         String UserProfileImage_ = user.profileImageUrl;
-                        Log.e(TAG, UserProfileImage_);
                         String UserID_ = user.userID;
-                        Log.e(TAG, UserID_);
                         String UserName_ = user.name;
-                        Log.e(TAG, UserName_);
                         String FollowerNum_ = user.followerNum;
-                        Log.e(TAG, FollowerNum_);
+                        System.out.println("FollowerNum_"+FollowerNum_);
                         String FollowingNum_ = user.followingNum;
-                        Log.e(TAG, FollowingNum_);
+                        System.out.println("FolloweingNum_"+FollowingNum_);
 
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
-
-                        FollowerNum.setText(FollowerNum_);
-                        FollowingNum.setText(FollowingNum_);
                         UserID.setText(UserID_);
                         UserName.setText(UserName_);
-
-
-
                     }
 
                     @Override

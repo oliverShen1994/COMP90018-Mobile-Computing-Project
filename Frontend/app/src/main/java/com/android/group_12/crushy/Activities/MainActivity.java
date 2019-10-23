@@ -85,16 +85,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.mAuth = mAuth.getInstance();
-        this.rootRef = FirebaseDatabase.getInstance().getReference();
-        this.currentUser = mAuth.getCurrentUser();
-
         setContentView(R.layout.activity_main);
 
         this.navView = findViewById(R.id.button_nav);
         // Bind the event listener with the navigation view.
         this.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        this.mAuth = mAuth.getInstance();
+        this.rootRef = FirebaseDatabase.getInstance().getReference();
+        this.currentUser = mAuth.getCurrentUser();
     }
 
     @Override
@@ -108,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("User is not null");
             System.out.println("Current user: ");
             System.out.println(currentUser.getUid());
-            System.out.println(currentUser.toString());
+//            System.out.println(currentUser.toString());
             verifyUserExistence(); // Verify user's existence.
 
             // Height information

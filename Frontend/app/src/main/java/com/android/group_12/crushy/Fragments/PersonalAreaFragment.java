@@ -107,7 +107,7 @@ public class PersonalAreaFragment extends Fragment {
         Setting = (RelativeLayout) view.findViewById(R.id.Setting);
         About = (RelativeLayout) view.findViewById(R.id.About);
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        Log.e(TAG, currentUser.getUid());
+        System.out.println("[PersonalAreaFragment]" + currentUser.getUid());
 //        updateUI(currentUser);
         retrivePost(currentUser.getUid());
 
@@ -143,7 +143,7 @@ public class PersonalAreaFragment extends Fragment {
     }
 
     private void retrivePost(String uid) {
-        Log.e(TAG, "User " + uid + " is 111111111");
+        Log.i(TAG, "User " + uid + " is 111111111");
         // Disable button so there are no multi-posts
         //Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
 
@@ -171,29 +171,26 @@ public class PersonalAreaFragment extends Fragment {
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
 
-                        System.out.println(dataSnapshot.toString());
-                        System.out.println(user.toString());
+//                        System.out.println(dataSnapshot.toString());
+//                        System.out.println(user.toString());
 
                         String UserProfileImage_ = user.profileImageUrl;
-                        Log.e(TAG, UserProfileImage_);
+                        Log.i(TAG, UserProfileImage_);
                         String UserID_ = user.userID;
-                        Log.e(TAG, UserID_);
+                        Log.i(TAG, UserID_);
                         String UserName_ = user.name;
-                        Log.e(TAG, UserName_);
+                        Log.i(TAG, UserName_);
                         String FollowerNum_ = user.followerNum;
-                        Log.e(TAG, FollowerNum_);
+                        Log.i(TAG, FollowerNum_);
                         String FollowingNum_ = user.followingNum;
-                        Log.e(TAG, FollowingNum_);
+                        Log.i(TAG, FollowingNum_);
 
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
                         FollowerNum.setText(FollowerNum_);
                         FollowingNum.setText(FollowingNum_);
-                        UserID.setText(UserID_);
+                        UserID.setText(UserID_); // fixme:needed?
                         UserName.setText(UserName_);
-
-
-
                     }
 
                     @Override

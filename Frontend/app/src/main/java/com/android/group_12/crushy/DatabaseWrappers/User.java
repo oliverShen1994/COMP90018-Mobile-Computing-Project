@@ -38,7 +38,11 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public User(String userID, String name, String birthday, String email, String bodyType, String city, String description, String gender, String hobbies, String occupation, String profileImageUrl, String relationshipStatus, String height, String weight, ArrayList<String> fansList, ArrayList<String> likeList, ArrayList<String> friendsList, ArrayList<String> blockList, ArrayList<String> dislikeList, String followerNum, String followingNum) {
+    public User(String userID, String name, String birthday, String email, String bodyType,
+                String city, String description, String gender, String hobbies, String occupation,
+                String profileImageUrl, String relationshipStatus, String height, String weight,
+                ArrayList<String> fansList, ArrayList<String> likeList, ArrayList<String> friendsList,
+                ArrayList<String> blockList, ArrayList<String> dislikeList, String followerNum, String followingNum) {
         this.userID = userID;
         this.name = name;
         this.birthday = birthday;

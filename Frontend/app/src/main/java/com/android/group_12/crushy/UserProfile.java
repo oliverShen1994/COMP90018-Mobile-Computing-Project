@@ -12,12 +12,13 @@ import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,17 +33,15 @@ public class UserProfile extends AppCompatActivity {
     private static final String TAG = "UserProfileActivity";
 
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-
+        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-
         InitializeFields();
-
         EditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,8 +65,6 @@ public class UserProfile extends AppCompatActivity {
 //        });
     }
 
-
-
     private void InitializeFields() {
 
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
@@ -89,7 +86,8 @@ public class UserProfile extends AppCompatActivity {
         EditButton = (LinearLayout) findViewById(R.id.EditButton);
         PreviousButton = (LinearLayout) findViewById(R.id.pro_previous);
 
-        retrivePost("0001");
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        retrivePost(currentUser.getUid());
     }
 
     private void retrivePost(String uid) {
@@ -99,7 +97,7 @@ public class UserProfile extends AppCompatActivity {
 
         // [START single_value_read]
         final String userId = uid;
-        mDatabase.child(DatabaseConstant.USER_TABLE__USER_NAME).child(userId).addListenerForSingleValueEvent(
+        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -155,21 +153,21 @@ public class UserProfile extends AppCompatActivity {
                         Log.e(TAG, UserBodyType_);
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
+                        UserName.setText(UserName_);
+                        UserID.setText(UserID_);
                         FollowerNum.setText(FollowerNum_);
                         FollowingNum.setText(FollowingNum_);
                         UserDescription.setText(UserDescription_);
-                        UserID.setText(UserID_);
-                        UserName.setText(UserName_);
                         UserEmail.setText(UserEmail_);
                         UserGender.setText(UserGender_);
                         UserHeight.setText(UserHeight_);
                         UserWeight.setText(UserWeight_);
+                        UserBodyType.setText(UserBodyType_);
                         UserCity.setText(UserCity_);
                         UserBirthday.setText(UserBirthday_);
                         UserOccupation.setText(UserOccupation_);
                         UserHobbies.setText(UserHobbies_);
                         UserRelationshipStatus.setText(UserRelationshipStatus_);
-                        UserBodyType.setText(UserBodyType_);
 
                     }
 
