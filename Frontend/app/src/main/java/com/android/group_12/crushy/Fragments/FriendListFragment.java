@@ -79,7 +79,7 @@ public class FriendListFragment extends CrushyFragment {
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
 //        viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
-        viewPagerAdapter.addFragment(new ContactsFragment(), "Friends");
+//        viewPagerAdapter.addFragment(new ContactsFragment(), "Friends");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 

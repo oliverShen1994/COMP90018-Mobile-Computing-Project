@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,10 +27,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ContactsFragment extends Fragment {
+public class ContactsFragment extends CrushyFragment {
     private RecyclerView recyclerView;
+    private Toolbar toolbar;
+
     private UserAdapter userAdapter;
     private List<Friends> mUsers;
+
+    public ContactsFragment(int fragmentHeight, int fragmentWidth) {
+        super(R.id.fragment_contacts, fragmentHeight, fragmentWidth);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,11 +46,19 @@ public class ContactsFragment extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.friend_list_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Friend List");
+
         recyclerView = view.findViewById(R.id.user_list);
-        recyclerView.setHasFixedSize(true);
+        toolbar = view.findViewById(R.id.friend_list_toolbar);
+
+        int toolbarHeight = toolbar.getLayoutParams().height;
+        ViewGroup.LayoutParams recyclerViewLayout =  recyclerView.getLayoutParams();
+        recyclerViewLayout.height = this.fragmentHeight - toolbarHeight;
+        recyclerView.setLayoutParams(recyclerViewLayout);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mUsers = new ArrayList<>();
         readUsers();
+        
         return view;
     }
 

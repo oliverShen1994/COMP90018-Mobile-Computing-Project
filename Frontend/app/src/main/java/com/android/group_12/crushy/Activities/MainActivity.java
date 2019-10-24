@@ -16,7 +16,7 @@ import com.android.group_12.crushy.Constants.IntentExtraParameterName;
 import com.android.group_12.crushy.Constants.RequestCode;
 import com.android.group_12.crushy.Constants.ResultCode;
 import com.android.group_12.crushy.Enums.MainActivityFragmentEnum;
-import com.android.group_12.crushy.ContactsFragment;
+import com.android.group_12.crushy.Fragments.ContactsFragment;
 import com.android.group_12.crushy.Fragments.LocationBaseFriendingFragment;
 import com.android.group_12.crushy.Fragments.PersonalAreaFragment;
 import com.android.group_12.crushy.Fragments.FriendListFragment;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (this.fragmentEnum.equals(FRIEND_LIST_USERS) || this.fragmentEnum.equals(FRIEND_LIST_CHAT)) {
             System.out.println("Friend list");
             // fragment = new FriendListFragment(this.fragmentHeight, this.screenSize.x);
-            fragment = new ContactsFragment();
+            fragment = new ContactsFragment(this.fragmentHeight, this.screenSize.x);
         } else if (this.fragmentEnum.equals(PERSONAL_AREA)) {
             System.out.println("Personal Area");
             fragment = PersonalAreaFragment.newInstance(this.fragmentHeight, this.screenSize.x);
