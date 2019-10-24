@@ -80,7 +80,7 @@ public class UserProfile extends AppCompatActivity {
 
     private void initializeFields() {
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
-        UserID = (TextView) findViewById(R.id.UserID);
+        UserID = (TextView) findViewById(R.id.UserDescription);
         UserName = (TextView) findViewById(R.id.UserName);
         FollowerNum = (TextView) findViewById(R.id.FollowersNum);
         FollowingNum = (TextView) findViewById(R.id.FollowingNum);
@@ -199,10 +199,14 @@ public class UserProfile extends AppCompatActivity {
                         String followingNum = "0";
 
                         if (user != null) {
-                            followerNum = user.followerNum;
-                            Log.e(TAG, followerNum);
-                            followingNum = user.followingNum;
-                            Log.e(TAG, followingNum);
+                            if(user.followerNum != null) {
+                                followerNum = user.followerNum;
+                                //Log.i(TAG, FollowerNum_);
+                            }
+                            if(user.followingNum != null) {
+                                followingNum = user.followingNum;
+                                //Log.i(TAG, FollowingNum_);
+                            }
                         }
 
                         FollowerNum.setText(followerNum);

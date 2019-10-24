@@ -71,8 +71,9 @@ public class EditUserImage extends AppCompatActivity {
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent EditIntent = new Intent(EditUserImage.this, EditUserProfile.class);
-                startActivity(EditIntent);
+//                Intent EditIntent = new Intent(EditUserImage.this, EditUserProfile.class);
+//                startActivity(EditIntent);
+                finish();
             }
         });
 

@@ -16,7 +16,7 @@ import com.android.group_12.crushy.Constants.IntentExtraParameterName;
 import com.android.group_12.crushy.Constants.RequestCode;
 import com.android.group_12.crushy.Constants.ResultCode;
 import com.android.group_12.crushy.Enums.MainActivityFragmentEnum;
-import com.android.group_12.crushy.ContactsFragment;
+import com.android.group_12.crushy.Fragments.ContactsFragment;
 import com.android.group_12.crushy.Fragments.LocationBaseFriendingFragment;
 import com.android.group_12.crushy.Fragments.PersonalAreaFragment;
 import com.android.group_12.crushy.Fragments.FriendListFragment;
