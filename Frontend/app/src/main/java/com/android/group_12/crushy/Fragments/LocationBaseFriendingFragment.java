@@ -237,7 +237,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                         senderLists.put("friendsList", senderFriendList);
                         senderLists.put("dislikeList", senderDislikeList);
                         senderLists.put("followerNum", senderFansList.size() + "");
-                        senderLists.put("followingNum", senderFansList.size() + "");
+                        senderLists.put("followingNum", senderLikeList.size() + "");
                         rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).setValue(senderLists);
 
                         Map<String, Object> receiverLists = new HashMap<>();
