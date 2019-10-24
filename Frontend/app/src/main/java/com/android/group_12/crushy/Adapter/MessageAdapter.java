@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
+import static com.android.group_12.crushy.Constants.IntentExtraParameterName.UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID;
+
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder>{
 
     public static final int MSG_TYPE_LEFT = 0;
@@ -92,7 +94,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, OtherProfilePageActivity.class);
-                    intent.putExtra("userID", userID);
+                    intent.putExtra(UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID, userID);
                     mContext.startActivity(intent);
                 }
             });

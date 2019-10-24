@@ -25,6 +25,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import static com.android.group_12.crushy.Constants.IntentExtraParameterName.UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID;
+
 public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.ViewHolder> {
     private Context context;
     // an array of PersonalInfo need to display at recyclerView
@@ -72,7 +74,7 @@ public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.Vi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, OtherProfilePageActivity.class);
-                intent.putExtra("userId", personalInfo.userID);
+                intent.putExtra(UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID, personalInfo.userID);
                 context.startActivity(intent);
             }
         });
