@@ -63,14 +63,16 @@ public class PersonalAreaFragment extends Fragment {
         this.fragmentHeight = fragmentHeight;
         this.fragmentWidth = fragmentWidth;
     }
+
     private OnFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     * <p>
+     * //     * @param param1 Parameter 1.
+     * //     * @param param2 Parameter 2.
      *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
      * @return A new instance of fragment PersonalAreaFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -228,11 +230,11 @@ public class PersonalAreaFragment extends Fragment {
                                 //Log.i(TAG, FollowingNum_);
                             }
 
-                            //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+                            //UserProfileImarge = (CircleImageView) findViewById(R.id.profile_image);
                         }
 
-                        PersonalAreaFragment.this.followerNum.setText(followerNum);
-                        PersonalAreaFragment.this.followingNum.setText(followingNum);
+                        FollowerNum.setText(followerNum);
+                        FollowingNum.setText(followingNum);
                     }
 
                     @Override

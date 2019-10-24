@@ -31,6 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserProfile extends AppCompatActivity {
 
     private CircleImageView UserProfileImage;
+
     private TextView UserID, UserName, FollowerNum, FollowingNum, UserDescription, UserEmail,
             UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
             UserHobbies, UserRelationshipStatus, UserBodyType;

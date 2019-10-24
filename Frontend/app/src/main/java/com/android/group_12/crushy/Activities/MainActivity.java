@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference rootRef;
     private MainActivityFragmentEnum fragmentEnum;
+    private Boolean showWelcomeToast;
 
     private void updateFragment() {
         Fragment fragment = new Fragment();
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         this.fragmentEnum = (MainActivityFragmentEnum) intent.getSerializableExtra(IntentExtraParameterName.MAIN_ACTIVITY_TARGETING_FRAGMENT);
+        this.showWelcomeToast = intent.getBooleanExtra(IntentExtraParameterName.MAIN_ACTIVITY_SHOW_WELCOME_TOAST, false);
     }
 
     @Override
@@ -185,7 +187,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(DatabaseConstant.USER_TABLE_COL_USER_NAME).exists()) {
-                    Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                    if (showWelcomeToast) {
+                        Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                        showWelcomeToast = false;
+                    }
                 } else {
                     Toast.makeText(MainActivity.this, "Oops, your name is not set...", Toast.LENGTH_SHORT).show();
                     sendUserToSettingsActivity();
