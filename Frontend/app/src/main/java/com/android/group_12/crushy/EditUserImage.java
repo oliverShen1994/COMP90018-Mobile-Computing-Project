@@ -79,7 +79,8 @@ public class EditUserImage extends AppCompatActivity {
         Save = (Button) findViewById(R.id.button2);
         Back = (Button) findViewById(R.id.button);
 
-        //retrivePost(currentUserId);
+        retrivePost(currentUserId);
+
 
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,9 +92,10 @@ public class EditUserImage extends AppCompatActivity {
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent EditIntent = new Intent(EditUserImage.this, EditUserProfile.class);
-//                startActivity(EditIntent);
-                finish();
+//                Intent personalProfileIntent;
+//                personalProfileIntent = new Intent(EditUserImage.this, UserProfile.class);
+//                startActivity(personalProfileIntent);
+                  finish();
             }
         });
 
@@ -112,7 +114,14 @@ public class EditUserImage extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
-                        String UserProfileImage_ = user.profileImageUrl;
+                        if (user.profileImageUrl != null) {
+                            UserImage.setImageResource(R.drawable.profile_image);
+                        }
+                        else{
+                            Glide.with(EditUserImage.this)
+                                    .load(user.profileImageUrl)
+                                    .into(UserImage);
+                        }
 
                     }
 

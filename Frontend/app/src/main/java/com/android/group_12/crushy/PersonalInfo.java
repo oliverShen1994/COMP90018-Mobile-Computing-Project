@@ -1,21 +1,23 @@
 package com.android.group_12.crushy;
 
+import android.net.Uri;
+
 public class PersonalInfo {
-    private int imageId;
+    private Uri imageUri;
     private String name;
-    public PersonalInfo(int image, String name){
-        this.imageId = image;
+    public PersonalInfo(String imageURI, String name){
+        this.imageUri = Uri.parse(imageURI);
         this.name = name;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setImageId(Uri imageUri) {
+        this.imageUri = imageUri;
     }
     public void setName(String name){
         this.name = name;
     }
-    public int getImageId(){
-        return this.imageId;
+    public Uri getImageId(){
+        return this.imageUri;
     }
     public String getName(){
         return this.name;

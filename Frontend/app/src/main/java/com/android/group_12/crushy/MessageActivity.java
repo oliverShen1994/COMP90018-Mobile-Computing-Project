@@ -32,6 +32,8 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.android.group_12.crushy.Constants.IntentExtraParameterName.UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID;
+
 public class MessageActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
@@ -40,7 +42,7 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseUser fuser;
     DatabaseReference reference;
 
-    ImageButton btn_send;
+    ImageButton btn_send, btn_back;
     EditText text_send;
 
     MessageAdapter messageAdapter;
@@ -49,6 +51,8 @@ public class MessageActivity extends AppCompatActivity {
 
 
     Intent intent;
+
+
 
     @Override
     public void onBackPressed() {
@@ -87,7 +91,7 @@ public class MessageActivity extends AppCompatActivity {
 
 
         intent = getIntent();
-        final String userId = intent.getStringExtra("userId");
+        final String userId = intent.getStringExtra(UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID);
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -111,7 +115,8 @@ public class MessageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Friends user = dataSnapshot.getValue(Friends.class);
                 username.setText(user.getName());
-                if (user.getProfileImageUrl().equals("")) {
+                String profileImageUrl = user.getProfileImageUrl();
+                if (profileImageUrl == null || profileImageUrl.equals("") || profileImageUrl.equals("N/A")) {
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 } else {
                     Glide.with(MessageActivity.this).load(user.getProfileImageUrl()).into(profile_image);
@@ -122,6 +127,14 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        btn_back = findViewById(R.id.back_btn);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
@@ -151,7 +164,7 @@ public class MessageActivity extends AppCompatActivity {
                         mChat.add(chat);
                     }
 
-                    messageAdapter = new MessageAdapter(MessageActivity.this, mChat, imageurl);
+                    messageAdapter = new MessageAdapter(MessageActivity.this, mChat, imageurl, userid);
                     recyclerView.setAdapter(messageAdapter);
                 }
 

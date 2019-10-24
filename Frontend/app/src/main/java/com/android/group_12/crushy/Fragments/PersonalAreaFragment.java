@@ -53,9 +53,9 @@ public class PersonalAreaFragment extends Fragment {
     private int fragmentHeight;
     private int fragmentWidth;
     private ImageView userImage;
-    private TextView userDescription,userName,followerNum,followingNum;
-    private LinearLayout myProfile,following,follower;
-    private RelativeLayout blockList,setting,about;
+    private TextView userDescription, userName, followerNum, followingNum;
+    private LinearLayout myProfile, following, follower;
+    private RelativeLayout blockList, setting, about;
     private static final String TAG = "PersonalAreaFragment";
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -173,10 +173,25 @@ public class PersonalAreaFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
-                        Glide.with(PersonalAreaFragment.this)
-                                .load(user.profileImageUrl)
-                                .into(userImage);
-                      
+
+                        //Log.e(TAG, "User " + userId + " is ");
+                        //Log.e(TAG, "the author is " + user.author);
+                        //Log.e(TAG, user.title);
+                        //Log.e(TAG, user.author);
+                        //Toast.makeText(EditUserProfile.this,
+                        //        "Error: could not fetch user.",
+                        //        Toast.LENGTH_SHORT).show();
+                        // Finish this Activity, back to the stream
+                        // [END_EXCLUDE]
+                        if (user.profileImageUrl.equals("")) {
+                            userImage.setImageResource(R.drawable.profile_image);
+                        }
+                        else{
+                            Glide.with(PersonalAreaFragment.this)
+                                    .load(user.profileImageUrl)
+                                    .into(userImage);
+                        }
+
                         String UserProfileImage_ = user.profileImageUrl;
                         Log.i(TAG, UserProfileImage_);
                         String UserDescription_ = user.description;
@@ -184,16 +199,15 @@ public class PersonalAreaFragment extends Fragment {
                         String UserName_ = user.name;
                         Log.i(TAG, UserName_);
 
-                        if (UserDescription_ == null){
+                        if (UserDescription_ == null) {
                             userDescription.setText("The user has not said anything...");
-                        }
-                        else {
+                        } else {
                             userDescription.setText(UserDescription_); //fixme:needed?
                         }
                         userName.setText(UserName_);
                         FragmentActivity fragmentActivity = getActivity();
                         if (fragmentActivity != null) {
-                            if (user.profileImageUrl != "") {
+                            if (!user.profileImageUrl.equals("")) {
                                 Glide.with(fragmentActivity)
                                         .load(user.profileImageUrl)
                                         .into(userImage);
@@ -220,25 +234,25 @@ public class PersonalAreaFragment extends Fragment {
                         // Get user value
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
 
-                        String followerNum = "0";
+                        String followerNumValue = "0";
                         //Log.i(TAG, FollowerNum_);
-                        String followingNum = "0";
+                        String followingNumValue = "0";
 
                         if (user != null) {
                             if(user.followerNum != null) {
-                                followerNum = user.followerNum;
+                                followerNumValue = user.followerNum;
                                 //Log.i(TAG, FollowerNum_);
                             }
                             if(user.followingNum != null) {
-                                followingNum = user.followingNum;
+                                followingNumValue = user.followingNum;
                                 //Log.i(TAG, FollowingNum_);
                             }
 
                             //UserProfileImarge = (CircleImageView) findViewById(R.id.profile_image);
                         }
 
-                        FollowerNum.setText(followerNum);
-                        FollowingNum.setText(followingNum);
+                        followerNum.setText(followerNumValue);
+                        followingNum.setText(followingNumValue);
                     }
 
                     @Override
