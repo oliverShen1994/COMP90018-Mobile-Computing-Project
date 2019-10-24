@@ -203,10 +203,14 @@ public class UserProfile extends AppCompatActivity {
                         String followingNumValue = "0";
 
                         if (user != null) {
-                            followerNumValue = user.followerNum;
-                            Log.e(TAG, followerNumValue);
-                            followingNumValue = user.followingNum;
-                            Log.e(TAG, followingNumValue);
+                            if(user.followerNum != null) {
+                                followerNum = user.followerNum;
+                                //Log.i(TAG, FollowerNum_);
+                            }
+                            if(user.followingNum != null) {
+                                followingNum = user.followingNum;
+                                //Log.i(TAG, FollowingNum_);
+                            }
                         }
 
                         followerNum.setText(followerNumValue);
