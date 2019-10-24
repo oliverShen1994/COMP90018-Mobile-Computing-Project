@@ -53,11 +53,6 @@
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
-<<<<<<< HEAD
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-=======
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
->>>>>>> 214c800fe623f1223ab823fadbe1235f199bca73
 
 </manifest>
