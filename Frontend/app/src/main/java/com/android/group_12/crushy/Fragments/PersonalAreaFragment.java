@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -205,6 +206,18 @@ public class PersonalAreaFragment extends Fragment {
                             userDescription.setText(UserDescription_); //fixme:needed?
                         }
                         userName.setText(UserName_);
+                        FragmentActivity fragmentActivity = getActivity();
+                        if (fragmentActivity != null) {
+                            if (user.profileImageUrl != "") {
+                                Glide.with(fragmentActivity)
+                                        .load(user.profileImageUrl)
+                                        .into(userImage);
+                            }
+                            //display the default image
+                            else {
+                                userImage.setImageResource(R.drawable.profile_image);
+                            }
+                        }
                     }
 
                     @Override
