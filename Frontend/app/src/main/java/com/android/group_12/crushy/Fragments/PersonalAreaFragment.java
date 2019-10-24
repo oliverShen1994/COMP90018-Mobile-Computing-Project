@@ -24,7 +24,6 @@ import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.R;
 import com.android.group_12.crushy.*;
-import com.android.group_12.crushy.Constants.*;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -51,9 +50,9 @@ public class PersonalAreaFragment extends Fragment {
     private int fragmentHeight;
     private int fragmentWidth;
     private ImageView userImage;
-    private TextView userID,userName,followerNum,followingNum;
-    private LinearLayout myProfile,following,follower;
-    private RelativeLayout calendar,blockList,setting,about;
+    private TextView UserID, UserName, FollowerNum, FollowingNum;
+    private LinearLayout myProfile, following, follower;
+    private RelativeLayout calendar, blockList, setting, about;
     private static final String TAG = "PersonalAreaFragment";
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -62,14 +61,16 @@ public class PersonalAreaFragment extends Fragment {
         this.fragmentHeight = fragmentHeight;
         this.fragmentWidth = fragmentWidth;
     }
+
     private OnFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     * <p>
+     * //     * @param param1 Parameter 1.
+     * //     * @param param2 Parameter 2.
      *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
      * @return A new instance of fragment PersonalAreaFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -94,10 +95,10 @@ public class PersonalAreaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_personal__area, container, false);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         userImage = (ImageView) view.findViewById(R.id.UserImageView);
-        userID = (TextView) view.findViewById(R.id.UserID);
-        userName = (TextView) view.findViewById(R.id.UserName);
-        followerNum = (TextView) view.findViewById(R.id.FollowersNum);
-        followingNum = (TextView) view.findViewById(R.id.FollowingNum);
+        UserID = (TextView) view.findViewById(R.id.UserID);
+        UserName = (TextView) view.findViewById(R.id.UserName);
+        FollowerNum = (TextView) view.findViewById(R.id.FollowersNum);
+        FollowingNum = (TextView) view.findViewById(R.id.FollowingNum);
         myProfile = (LinearLayout) view.findViewById(R.id.MyProfile);
         follower = (LinearLayout) view.findViewById(R.id.Follower);
         following = (LinearLayout) view.findViewById(R.id.Following);
@@ -188,8 +189,8 @@ public class PersonalAreaFragment extends Fragment {
                         String UserName_ = user.name;
                         Log.i(TAG, UserName_);
 
-                        userID.setText(UserID_); // fixme:needed?
-                        userName.setText(UserName_);
+                        UserID.setText(UserID_); // fixme:needed?
+                        UserName.setText(UserName_);
                     }
 
                     @Override
@@ -217,11 +218,11 @@ public class PersonalAreaFragment extends Fragment {
                             followingNum = user.followingNum;
                             //Log.i(TAG, FollowingNum_);
 
-                            //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+                            //UserProfileImarge = (CircleImageView) findViewById(R.id.profile_image);
                         }
 
-                        PersonalAreaFragment.this.followerNum.setText(followerNum);
-                        PersonalAreaFragment.this.followingNum.setText(followingNum);
+                        FollowerNum.setText(followerNum);
+                        FollowingNum.setText(followingNum);
                     }
 
                     @Override

@@ -31,6 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserProfile extends AppCompatActivity {
 
     private CircleImageView UserProfileImage;
+
     private TextView UserID, UserName, FollowerNum, FollowingNum, UserDescription, UserEmail,
             UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
             UserHobbies, UserRelationshipStatus, UserBodyType;
@@ -188,9 +189,9 @@ public class UserProfile extends AppCompatActivity {
 
                         if (user != null) {
                             followerNum = user.followerNum;
-                            Log.e(TAG, followerNum);
+//                            Log.e(TAG, followerNum);
                             followingNum = user.followingNum;
-                            Log.e(TAG, followingNum);
+//                            Log.e(TAG, followingNum);
                         }
 
                         FollowerNum.setText(followerNum);
