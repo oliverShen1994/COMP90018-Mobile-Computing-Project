@@ -80,7 +80,6 @@ public class ContactsFragment extends CrushyFragment {
 
                 userAdapter = new UserAdapter(getContext(), mUsers);
                 recyclerView.setAdapter(userAdapter);
-                userAdapter.notifyDataSetChanged();
             }
 
             @Override

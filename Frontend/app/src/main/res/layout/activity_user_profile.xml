@@ -111,30 +111,29 @@
             >
 
             <LinearLayout
+                android:id="@+id/Follower"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/FollowersNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NUM"
+                    android:fontFamily="sans-serif-light"
+                    android:text="0"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:fontFamily="sans-serif-light">
-
+                    android:textSize="20sp">
                 </TextView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Follower"
                     android:textAllCaps="true"
-                    android:text="Followers"
                     android:textColor="@color/white"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light">
-                </TextView>
+                    android:textSize="13sp"></TextView>
             </LinearLayout>
         </RelativeLayout>
 
@@ -149,6 +148,7 @@
             android:background="@drawable/profile_background"
             android:clickable="true">
             <LinearLayout
+                android:id="@+id/Following"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -158,17 +158,16 @@
                     android:id="@+id/FollowingNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NUM"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:fontFamily="sans-serif-light">
-
                 </TextView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAllCaps="true"
-                    android:text="Followering"
+                    android:text="Following"
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     android:fontFamily="sans-serif-light">
