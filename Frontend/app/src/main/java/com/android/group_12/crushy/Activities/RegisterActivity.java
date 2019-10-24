@@ -31,10 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Button createAccountButton;
     private EditText userEmail, userPassword, userPreferredName;
     private TextView alreadyHaveAccountLink;
-
     private FirebaseAuth mAuth;
     private ProgressBar loadingBar;
-
     private DatabaseReference rootRef;
 
     @Override
@@ -53,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         createAccountButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

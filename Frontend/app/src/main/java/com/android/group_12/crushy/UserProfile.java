@@ -38,6 +38,10 @@ public class UserProfile extends AppCompatActivity {
                      userHobbies, userRelationshipStatus, userBodyType;
     private LinearLayout editButton, previousButton, following, follower;
 
+    private TextView UserID, UserName, FollowerNum, FollowingNum, UserDescription, UserEmail,
+            UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
+            UserHobbies, UserRelationshipStatus, UserBodyType;
+    private LinearLayout EditButton, PreviousButton;
     private static final String TAG = "UserProfileActivity";
 
     private DatabaseReference mDatabase;

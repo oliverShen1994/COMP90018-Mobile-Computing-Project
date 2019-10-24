@@ -43,6 +43,7 @@ import java.util.Random;
  * to handle interaction events.
  */
 public class LocationBaseFriendingFragment extends CrushyFragment {
+
     private ImageButton likeButton;
     private ImageButton dislikeButton;
 
@@ -174,6 +175,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                         // Get user value
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
 
+
                         if (user != null) {
                             for (String liked : user.likeList) {
                                 senderLikeList.add(liked);
@@ -202,17 +204,20 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
-                        for (String liked : user.likeList) {
-                            receiverLikeList.add(liked);
-                        }
-                        for (String friend : user.friendsList) {
-                            receiverFriendList.add(friend);
-                        }
-                        for (String fans : user.fansList) {
-                            receiverFansList.add(fans);
-                        }
-                        for (String disLike : user.dislikeList) {
-                            receiverDislikeList.add(disLike);
+                        if(user != null) {
+                            for (String liked : user.likeList) {
+                                receiverLikeList.add(liked);
+                            }
+                            for (String friend : user.friendsList) {
+                                receiverFriendList.add(friend);
+                            }
+                            for (String fans : user.fansList) {
+                                receiverFansList.add(fans);
+                            }
+                            for (String disLike : user.dislikeList) {
+                                receiverDislikeList.add(disLike);
+                            }
+
                         }
                     }
 
@@ -242,18 +247,22 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
         }
 
         //update the firebase with the new values
-        Map<String, ArrayList<String>> senderLists = new HashMap<>();
+        Map<String, Object> senderLists = new HashMap<>();
         senderLists.put("fansList", senderFansList);
         senderLists.put("likeList", senderLikeList);
         senderLists.put("friendsList", senderFriendList);
         senderLists.put("dislikeList", senderDislikeList);
+        senderLists.put("followerNum", senderFansList.size() + "");
+        senderLists.put("followingNum", senderFansList.size() + "");
         rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).setValue(senderLists);
 
-        Map<String, ArrayList<String>> receiverLists = new HashMap<>();
+        Map<String, Object> receiverLists = new HashMap<>();
         receiverLists.put("fansList", receiverFansList);
         receiverLists.put("likeList", receiverLikeList);
         receiverLists.put("friendsList", receiverFriendList);
         receiverLists.put("dislikeList", receiverDislikeList);
+        receiverLists.put("followerNum", receiverFansList.size() + "");
+        receiverLists.put("followingNum", receiverLikeList.size() + "");
         rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).setValue(receiverLists);
 
     }
@@ -320,14 +329,23 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         final User user = dataSnapshot.getValue(User.class);
-                        if (!user.profileImageUrl.equals("")) {
+
+                        if(!user.profileImageUrl.equals("")){
                             FragmentActivity fragmentActivity = getActivity();
                             if (fragmentActivity != null) {
-                                Glide.with(fragmentActivity)
-                                        .load(user.profileImageUrl)
-                                        .into(userImage);
+                                if(user.profileImageUrl != "") {
+                                    Glide.with(fragmentActivity)
+                                            .load(user.profileImageUrl)
+                                            .into(userImage);
+                                }
+                                //display the default image
+                                else{
+                                    userImage.setImageResource(R.drawable.profile_image);
+                                }
+
                             }
                         }
+
                         userName.setText(user.name);
                         gender.setText(user.gender);
                         city.setText(user.city);
