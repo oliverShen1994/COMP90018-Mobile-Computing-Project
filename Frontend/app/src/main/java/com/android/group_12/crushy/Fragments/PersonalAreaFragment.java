@@ -53,9 +53,9 @@ public class PersonalAreaFragment extends Fragment {
     private int fragmentHeight;
     private int fragmentWidth;
     private ImageView userImage;
-    private TextView userDescription,userName,followerNum,followingNum;
-    private LinearLayout myProfile,following,follower;
-    private RelativeLayout blockList,setting,about;
+    private TextView userDescription, userName, followerNum, followingNum;
+    private LinearLayout myProfile, following, follower;
+    private RelativeLayout blockList, setting, about;
     private static final String TAG = "PersonalAreaFragment";
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -199,10 +199,9 @@ public class PersonalAreaFragment extends Fragment {
                         String UserName_ = user.name;
                         Log.i(TAG, UserName_);
 
-                        if (UserDescription_ == null){
+                        if (UserDescription_ == null) {
                             userDescription.setText("The user has not said anything...");
-                        }
-                        else {
+                        } else {
                             userDescription.setText(UserDescription_); //fixme:needed?
                         }
                         userName.setText(UserName_);

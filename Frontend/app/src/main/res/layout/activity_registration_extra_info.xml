@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:context=".Activities.RegistrationExtraInfoActivity">
+
+
+        <TextView
+            android:id="@+id/extra_info_welcome_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:padding="@dimen/horizontal_element_padding"
+            android:text="@string/registration_welcome_message"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/extra_info_explain_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/extra_info_welcome_text"
+            android:padding="@dimen/horizontal_element_padding"
+
+            android:text="@string/registration_detailed_welcome" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/description_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/extra_info_explain_text"
+            android:layout_marginStart="@dimen/horizontal_element_padding"
+            android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+            android:layout_marginEnd="@dimen/horizontal_element_padding"
+            android:background="@android:color/transparent"
+            android:hint="@string/registration_description_text_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textLongMessage|textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/occupation_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description_input"
+            android:layout_marginStart="@dimen/horizontal_element_padding"
+            android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+            android:layout_marginEnd="@dimen/horizontal_element_padding"
+            android:background="@android:color/transparent"
+            android:hint="@string/registration_occupation_text_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_occupation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textLongMessage|textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/gender_selection_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/occupation_input"
+            android:layout_marginStart="@dimen/horizontal_element_padding"
+            android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+            android:layout_marginEnd="@dimen/horizontal_element_padding"
+            android:hint="@string/registration_gender_selection_text">
+
+            <AutoCompleteTextView
+                android:id="@+id/gender_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/height_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gender_selection_input"
+            android:layout_marginStart="@dimen/horizontal_element_padding"
+            android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+            android:layout_marginEnd="@dimen/horizontal_element_padding"
+            android:background="@android:color/transparent"
+            android:hint="@string/registration_height">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/weight_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/height_input"
+            android:layout_marginStart="@dimen/horizontal_element_padding"
+            android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+            android:layout_marginEnd="@dimen/horizontal_element_padding"
+            android:background="@android:color/transparent"
+            android:hint="@string/registration_weight">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/body_type_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weight_input"
+            android:layout_marginStart="@dimen/horizontal_element_padding"
+            android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+            android:layout_marginEnd="@dimen/horizontal_element_padding"
+            android:background="@android:color/transparent"
+            android:hint="@string/registration_body_type">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_body_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dob_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/body_type_input"
+            android:layout_marginStart="@dimen/horizontal_element_padding"
+            android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+            android:layout_marginEnd="@dimen/horizontal_element_padding"
+            android:background="@android:color/transparent"
+            android:hint="@string/registration_dob">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_dob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="date|time" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/hobbies_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dob_input"
+            android:layout_marginStart="@dimen/horizontal_element_padding"
+            android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+            android:layout_marginEnd="@dimen/horizontal_element_padding"
+            android:background="@android:color/transparent"
+            android:hint="@string/registration_hobbies">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_hobbies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="textLongMessage|textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/relationship_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hobbies_input"
+            android:layout_marginStart="@dimen/horizontal_element_padding"
+            android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+            android:layout_marginEnd="@dimen/horizontal_element_padding"
+            android:background="@android:color/transparent"
+            android:hint="@string/registration_relationship_status">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_relationship"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="textLongMessage" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/update_registration_profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relationship_input"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="17dp"
+            android:background="@drawable/buttons"
+            android:text="@string/update_registration_profile_button_text"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/registraion_profile_skip_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/update_registration_profile_button"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="23dp"
+            android:background="@android:color/transparent"
+            android:text="@string/registration_profile_skip_button_text"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</ScrollView>

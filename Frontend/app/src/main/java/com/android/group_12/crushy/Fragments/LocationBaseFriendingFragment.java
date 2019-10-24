@@ -283,8 +283,11 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
-                        for(String disliked : userFollow.dislikeList){
-                            disLikeList_.add(disliked);
+
+                        if (userFollow != null && userFollow.dislikeList != null) {
+                            for (String disliked : userFollow.dislikeList) {
+                                disLikeList_.add(disliked);
+                            }
                         }
                     }
                     @Override
@@ -315,7 +318,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         final User user = dataSnapshot.getValue(User.class);
-                        if(!user.profileImageUrl.equals("")){
+                        if(user.profileImageUrl != null && !user.profileImageUrl.equals("") && !user.profileImageUrl.equals("N/A")){
                             FragmentActivity fragmentActivity = getActivity();
                             if (fragmentActivity != null) {
                                 if(user.profileImageUrl != "") {

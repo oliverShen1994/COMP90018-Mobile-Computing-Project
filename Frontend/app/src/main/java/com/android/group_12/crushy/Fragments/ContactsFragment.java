@@ -49,16 +49,20 @@ public class ContactsFragment extends CrushyFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_contacts, container, false);
+        View view = inflater.inflate(R.layout.fragment_contacts, container, false);
         Toolbar toolbar = view.findViewById(R.id.friend_list_toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Friend List");
+
+        AppCompatActivity appCompatActivity = ((AppCompatActivity) getActivity());
+        if (appCompatActivity != null) {
+            appCompatActivity.setSupportActionBar(toolbar);
+            appCompatActivity.getSupportActionBar().setTitle("Friend List");
+        }
 
         recyclerView = view.findViewById(R.id.user_list);
         toolbar = view.findViewById(R.id.friend_list_toolbar);
 
         int toolbarHeight = toolbar.getLayoutParams().height;
-        ViewGroup.LayoutParams recyclerViewLayout =  recyclerView.getLayoutParams();
+        ViewGroup.LayoutParams recyclerViewLayout = recyclerView.getLayoutParams();
         recyclerViewLayout.height = this.fragmentHeight - toolbarHeight;
         recyclerView.setLayoutParams(recyclerViewLayout);
 
@@ -68,7 +72,7 @@ public class ContactsFragment extends CrushyFragment {
         getFriends();
         System.out.println(Arrays.toString(mFriends.toArray()));
         readUsers();
-        
+
         return view;
     }
 
@@ -97,7 +101,7 @@ public class ContactsFragment extends CrushyFragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Friends user = snapshot.getValue(Friends.class);
                     assert user != null;
                     assert firebaseUser != null;
