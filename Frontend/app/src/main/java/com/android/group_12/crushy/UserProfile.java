@@ -174,7 +174,7 @@ public class UserProfile extends AppCompatActivity {
                         userRelationshipStatus.setText(UserRelationshipStatus_);
 
                         if (user.profileImageUrl.equals("")) {
-                            UserProfileImage.setImageResource(R.drawable.profile_image);
+                            userProfileImage.setImageResource(R.drawable.profile_image);
                         }
                         else{
                             Glide.with(UserProfile.this)
