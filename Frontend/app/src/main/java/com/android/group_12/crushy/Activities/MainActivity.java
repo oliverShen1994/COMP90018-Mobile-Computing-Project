@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference rootRef;
     private MainActivityFragmentEnum fragmentEnum;
+    private Boolean showWelcomeToast;
 
     private void updateFragment() {
         Fragment fragment = new Fragment();
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (this.fragmentEnum.equals(FRIEND_LIST_USERS) || this.fragmentEnum.equals(FRIEND_LIST_CHAT)) {
             System.out.println("Friend list");
             // fragment = new FriendListFragment(this.fragmentHeight, this.screenSize.x);
-            fragment = new ContactsFragment();
+            fragment = new ContactsFragment(this.fragmentHeight, this.screenSize.x);
         } else if (this.fragmentEnum.equals(PERSONAL_AREA)) {
             System.out.println("Personal Area");
             fragment = PersonalAreaFragment.newInstance(this.fragmentHeight, this.screenSize.x);
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         this.fragmentEnum = (MainActivityFragmentEnum) intent.getSerializableExtra(IntentExtraParameterName.MAIN_ACTIVITY_TARGETING_FRAGMENT);
+        this.showWelcomeToast = intent.getBooleanExtra(IntentExtraParameterName.MAIN_ACTIVITY_SHOW_WELCOME_TOAST, false);
     }
 
     @Override
@@ -185,7 +187,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(DatabaseConstant.USER_TABLE_COL_USER_NAME).exists()) {
-                    Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                    if (showWelcomeToast) {
+                        Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                        showWelcomeToast = false;
+                    }
                 } else {
                     Toast.makeText(MainActivity.this, "Oops, your name is not set...", Toast.LENGTH_SHORT).show();
                     sendUserToSettingsActivity();

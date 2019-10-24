@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.group_12.crushy.Constants.IntentExtraParameterName;
 import com.android.group_12.crushy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -70,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         Intent mainActivityIntent = new Intent(LoginActivity.this, MainActivity.class);
         // Make sure user will not go back to the login activity when press back button.
         mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        mainActivityIntent.putExtra(IntentExtraParameterName.MAIN_ACTIVITY_SHOW_WELCOME_TOAST, true);
+
         startActivity(mainActivityIntent);
     }
 

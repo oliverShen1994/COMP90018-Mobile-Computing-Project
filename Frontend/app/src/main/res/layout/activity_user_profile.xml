@@ -16,12 +16,13 @@
             android:id="@+id/UserImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
             android:layout_centerHorizontal="true">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:src="@drawable/profile_image"
                 app:civ_border_width="5dp"
                 app:civ_border_color="#FF000000"
@@ -38,18 +39,10 @@
             android:fontFamily="sans-serif"
             android:text="UserName"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:paddingBottom="5dp"/>
 
-        <TextView
-            android:id="@+id/UserID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/UserName"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="sans-serif"
-            android:text="ID: 00001"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+
     </RelativeLayout>
 
     <LinearLayout
