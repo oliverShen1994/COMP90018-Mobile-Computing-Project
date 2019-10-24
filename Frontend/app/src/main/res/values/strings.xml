@@ -113,4 +113,30 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logo_image_description">Logo Image</string>
+    <string name="already_have_an_account">Already have an Account?</string>
+    <string name="create_account_button_text">Create Account</string>
+    <string name="password_input_text">Password</string>
+    <string name="preferred_name_input_text">Preferred Name</string>
+    <string name="email_input_text">Email</string>
+    <string name="login_button_text">LogIn</string>
+    <string name="phone_button_text">Phone</string>
+    <string name="or_login_using_your_text">Or Login using your</string>
+
+    <string name="registration_welcome_message">Welcome To Crushy</string>
+    <string name="registration_detailed_welcome">Just few more fields to fill...</string>
+    <string name="registration_description_text_input">Tell others about your self</string>
+    <string name="registration_occupation_text_input">Occupation</string>
+    <string name="registration_gender_selection_text">Gender</string>
+    <string name="registration_height">Height (cm)</string>
+    <string name="registration_weight">Weight (kg)</string>
+    <string name="registration_body_type">Body Type</string>
+    <string name="registration_dob">Date of Birth (dd/mm/yyyy)</string>
+    <string name="registration_hobbies">Hobbies</string>
+    <string name="registration_relationship_status">Relationship Status</string>
+
+    <string name="update_registration_profile_button_text">Update Profile</string>
+    <string name="registration_profile_skip_button_text">Skip</string>
+    <string name="forget_your_password">Forget Your Password?</string>
+    <string name="need_new_account">Need New Account?</string>
 </resources>
