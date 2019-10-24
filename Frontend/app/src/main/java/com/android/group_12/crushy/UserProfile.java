@@ -188,18 +188,13 @@ public class UserProfile extends AppCompatActivity {
                         String followingNum = "0";
 
                         if (user != null) {
-                            if(user.followerNum != null) {
-                                followerNum = user.followerNum;
-                                //Log.i(TAG, FollowerNum_);
-                            }
-                            if(user.followingNum != null) {
-                                followingNum = user.followingNum;
-                                //Log.i(TAG, FollowingNum_);
-                            }
+                            followerNum = user.followerNum;
+                            Log.e(TAG, followerNum);
+                            followingNum = user.followingNum;
+                            Log.e(TAG, followingNum);
+                            FollowerNum.setText(followerNum);
+                            FollowingNum.setText(followingNum);
                         }
-
-                        FollowerNum.setText(followerNum);
-                        FollowingNum.setText(followingNum);
 
                     }
                     // [END single_value_read]
