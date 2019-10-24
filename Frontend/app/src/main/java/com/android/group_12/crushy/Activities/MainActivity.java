@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+//        sendUserToLoginActivity();
+//        sendUserToExtraInfoActivity();
 
 //        mAuth.signOut();
 //        currentUser = null;
@@ -172,6 +174,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void sendUserToLoginActivity() {
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(loginIntent);
+    }
+
+    private void sendUserToExtraInfoActivity() {
+        Intent loginIntent = new Intent(MainActivity.this, RegistrationExtraInfoActivity.class);
         startActivity(loginIntent);
     }
 
