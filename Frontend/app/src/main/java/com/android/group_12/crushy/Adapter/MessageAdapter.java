@@ -9,9 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.group_12.crushy.DatabaseWrappers.Chat;
+import com.android.group_12.crushy.MessageActivity;
+import com.android.group_12.crushy.OtherProfilePageActivity;
 import com.android.group_12.crushy.R;
 import com.bumptech.glide.Glide;
 
@@ -30,15 +33,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private Context mContext;
     private List<Chat> mChat;
     private String imageurl;
+    private String userID;
 
 
 
     FirebaseUser fuser;
 
-    public MessageAdapter(Context mContext, List<Chat> mChat, String imageurl) {
+    public MessageAdapter(Context mContext, List<Chat> mChat, String imageurl, String userID) {
         this.mChat = mChat;
         this.mContext = mContext;
         this.imageurl = imageurl;
+        this.userID = userID;
+        System.out.println(userID);
     }
 
     @NonNull
@@ -78,10 +84,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         public TextView show_message;
         public ImageView profileImage;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
             show_message = itemView.findViewById(R.id.show_message);
             profileImage = itemView.findViewById(R.id.profile_image_chat);
+            profileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, OtherProfilePageActivity.class);
+                    intent.putExtra("userID", userID);
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 

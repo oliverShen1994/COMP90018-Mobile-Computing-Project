@@ -288,8 +288,10 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
                         UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
 
-                        for (String disliked : userFollow.dislikeList) {
-                            disLikeList_.add(disliked);
+                        if (userFollow != null && userFollow.dislikeList != null) {
+                            for (String disliked : userFollow.dislikeList) {
+                                disLikeList_.add(disliked);
+                            }
                         }
                     }
 

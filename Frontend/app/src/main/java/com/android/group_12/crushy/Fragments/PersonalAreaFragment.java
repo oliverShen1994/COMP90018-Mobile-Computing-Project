@@ -182,9 +182,15 @@ public class PersonalAreaFragment extends Fragment {
                         //        Toast.LENGTH_SHORT).show();
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
-                        Glide.with(PersonalAreaFragment.this)
-                                .load(user.profileImageUrl)
-                                .into(userImage);
+                        if (user.profileImageUrl.equals("")) {
+                            userImage.setImageResource(R.drawable.profile_image);
+                        }
+                        else{
+                            Glide.with(PersonalAreaFragment.this)
+                                    .load(user.profileImageUrl)
+                                    .into(userImage);
+                        }
+
                         String UserProfileImage_ = user.profileImageUrl;
                         Log.i(TAG, UserProfileImage_);
                         String UserDescription_ = user.description;
@@ -216,25 +222,25 @@ public class PersonalAreaFragment extends Fragment {
                         // Get user value
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
 
-                        String followerNum = "0";
+                        String followerNumValue = "0";
                         //Log.i(TAG, FollowerNum_);
-                        String followingNum = "0";
+                        String followingNumValue = "0";
 
                         if (user != null) {
                             if(user.followerNum != null) {
-                                followerNum = user.followerNum;
+                                followerNumValue = user.followerNum;
                                 //Log.i(TAG, FollowerNum_);
                             }
                             if(user.followingNum != null) {
-                                followingNum = user.followingNum;
+                                followingNumValue = user.followingNum;
                                 //Log.i(TAG, FollowingNum_);
                             }
 
                             //UserProfileImarge = (CircleImageView) findViewById(R.id.profile_image);
                         }
 
-                        FollowerNum.setText(followerNum);
-                        FollowingNum.setText(followingNum);
+                        followerNum.setText(followerNumValue);
+                        followingNum.setText(followingNumValue);
                     }
 
                     @Override

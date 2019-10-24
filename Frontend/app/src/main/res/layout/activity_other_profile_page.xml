@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserProfile">
+
+    <RelativeLayout
+        android:id="@+id/Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/profile_background">
+
+        <RelativeLayout
+            android:id="@+id/UserImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:layout_centerHorizontal="true">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/profile_image"
+                app:civ_border_width="5dp"
+                app:civ_border_color="#FF000000"
+                ></de.hdodenhof.circleimageview.CircleImageView>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/UserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/UserImage"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:text="UserName"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:paddingBottom="5dp"/>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/pro_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:clickable="true"
+        >
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Previous"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            >
+
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Follow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/Card">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:background="@drawable/profile_background"
+            android:clickable="true"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/FollowersNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NUM"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-light">
+
+                </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+                    android:text="Followers"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-light">
+                </TextView>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:background="@drawable/profile_background"
+            android:clickable="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/FollowingNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NUM"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-light">
+
+                </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+                    android:text="Followering"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-light">
+
+                </TextView>
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/Follow"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/profile_underline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Description:"
+                    android:fontFamily="sans-serif"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingVertical="5dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/UserDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="The user did not enter anything"
+                    android:paddingLeft="5dp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/profile_underline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="E-mail:"
+                    android:fontFamily="sans-serif"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingVertical="5dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/UserEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="Email adress"
+                    android:paddingLeft="5dp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/profile_underline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gender:"
+                    android:fontFamily="sans-serif"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingVertical="5dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/UserGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="Male"
+                    android:paddingLeft="5dp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/profile_underline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Height:"
+                    android:fontFamily="sans-serif"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingVertical="5dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/UserHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="height"
+                    android:paddingLeft="5dp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/profile_underline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Weight:"
+                    android:fontFamily="sans-serif"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingVertical="5dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/UserWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="weight"
+                    android:paddingLeft="5dp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/profile_underline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Body Type:"
+                    android:fontFamily="sans-serif"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingVertical="5dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/UserBodyType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="Average"
+                    android:paddingLeft="5dp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/profile_underline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="City:"
+                    android:fontFamily="sans-serif"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingVertical="5dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/UserCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="City"
+                    android:paddingLeft="5dp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/profile_underline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Birthday:"
+                    android:fontFamily="sans-serif"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingVertical="5dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/UserBirthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="DAY/MONTH"
+                    android:paddingLeft="5dp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/profile_underline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Occupation:"
+                    android:fontFamily="sans-serif"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingVertical="5dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/UserOccupation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="Occupation"
+                    android:paddingLeft="5dp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/profile_underline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hobbies:"
+                    android:fontFamily="sans-serif"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingVertical="5dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/UserHobbies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="Hobbies"
+                    android:paddingLeft="5dp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/profile_underline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Relationship Status:"
+                    android:fontFamily="sans-serif"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingVertical="5dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/UserRelationshipStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="Relationship status"
+                    android:paddingLeft="5dp">
+                </TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+
+
+</RelativeLayout>
