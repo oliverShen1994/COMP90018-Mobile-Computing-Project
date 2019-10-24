@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.R;
 import com.android.group_12.crushy.*;
 import com.android.group_12.crushy.Constants.*;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -62,6 +64,7 @@ public class PersonalAreaFragment extends Fragment {
         this.fragmentHeight = fragmentHeight;
         this.fragmentWidth = fragmentWidth;
     }
+
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -180,6 +183,18 @@ public class PersonalAreaFragment extends Fragment {
 
                         userID.setText(UserID_); // fixme:needed?
                         userName.setText(UserName_);
+                        FragmentActivity fragmentActivity = getActivity();
+                        if (fragmentActivity != null) {
+                            if (user.profileImageUrl != "") {
+                                Glide.with(fragmentActivity)
+                                        .load(user.profileImageUrl)
+                                        .into(userImage);
+                            }
+                            //display the default image
+                            else {
+                                userImage.setImageResource(R.drawable.profile_image);
+                            }
+                        }
                     }
 
                     @Override

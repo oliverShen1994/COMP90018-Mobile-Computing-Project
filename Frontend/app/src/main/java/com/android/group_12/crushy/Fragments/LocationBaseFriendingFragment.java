@@ -325,9 +325,15 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                         if(!user.profileImageUrl.equals("")){
                             FragmentActivity fragmentActivity = getActivity();
                             if (fragmentActivity != null) {
-                                Glide.with(fragmentActivity)
-                                        .load(user.profileImageUrl)
-                                        .into(userImage);
+                                if(user.profileImageUrl != "") {
+                                    Glide.with(fragmentActivity)
+                                            .load(user.profileImageUrl)
+                                            .into(userImage);
+                                }
+                                //display the default image
+                                else{
+                                    userImage.setImageResource(R.drawable.profile_image);
+                                }
                             }
                         }
 
