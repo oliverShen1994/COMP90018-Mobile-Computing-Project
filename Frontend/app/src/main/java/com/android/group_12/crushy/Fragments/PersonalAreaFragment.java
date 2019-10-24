@@ -17,12 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.group_12.crushy.Activities.FollowerListActivity;
+import com.android.group_12.crushy.Activities.FollowingListActivity;
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.R;
-import com.android.group_12.crushy.Settings;
-import com.android.group_12.crushy.UserProfile;
+import com.android.group_12.crushy.*;
+import com.android.group_12.crushy.Constants.*;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,22 +50,19 @@ public class PersonalAreaFragment extends Fragment {
     //    private OnFragmentInteractionListener mListener;
     private int fragmentHeight;
     private int fragmentWidth;
-    private ImageView UserImage;
-    private TextView UserID,UserName,FollowerNum,FollowingNum;
-    private LinearLayout MyProfile,Following,Follower;
-    private RelativeLayout Calendar,BlockList,Setting,About;
+    private ImageView userImage;
+    private TextView userID,userName,followerNum,followingNum;
+    private LinearLayout myProfile,following,follower;
+    private RelativeLayout calendar,blockList,setting,about;
     private static final String TAG = "PersonalAreaFragment";
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
-
 
     public PersonalAreaFragment(int fragmentHeight, int fragmentWidth) {
         this.fragmentHeight = fragmentHeight;
         this.fragmentWidth = fragmentWidth;
     }
     private OnFragmentInteractionListener mListener;
-
-
 
     /**
      * Use this factory method to create a new instance of
@@ -88,59 +87,73 @@ public class PersonalAreaFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_personal__area, container, false);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        UserImage = (ImageView) view.findViewById(R.id.UserImageView);
-        UserID = (TextView) view.findViewById(R.id.UserID);
-        UserName = (TextView) view.findViewById(R.id.UserName);
-        FollowerNum = (TextView) view.findViewById(R.id.FollowersNum);
-        FollowingNum = (TextView) view.findViewById(R.id.FollowingNum);
-        MyProfile = (LinearLayout) view.findViewById(R.id.MyProfile);
-        Follower = (LinearLayout) view.findViewById(R.id.Follower);
-        Following = (LinearLayout) view.findViewById(R.id.Following);
-        Calendar = (RelativeLayout) view.findViewById(R.id.Calendar);
-        BlockList = (RelativeLayout) view.findViewById(R.id.Blockedlist);
-        Setting = (RelativeLayout) view.findViewById(R.id.Setting);
-        About = (RelativeLayout) view.findViewById(R.id.About);
+        userImage = (ImageView) view.findViewById(R.id.UserImageView);
+        userID = (TextView) view.findViewById(R.id.UserID);
+        userName = (TextView) view.findViewById(R.id.UserName);
+        followerNum = (TextView) view.findViewById(R.id.FollowersNum);
+        followingNum = (TextView) view.findViewById(R.id.FollowingNum);
+        myProfile = (LinearLayout) view.findViewById(R.id.MyProfile);
+        follower = (LinearLayout) view.findViewById(R.id.Follower);
+        following = (LinearLayout) view.findViewById(R.id.Following);
+        calendar = (RelativeLayout) view.findViewById(R.id.Calendar);
+        blockList = (RelativeLayout) view.findViewById(R.id.Blockedlist);
+        setting = (RelativeLayout) view.findViewById(R.id.Setting);
+        about = (RelativeLayout) view.findViewById(R.id.About);
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        System.out.println("[PersonalAreaFragment]" + currentUser.getUid());
 //        updateUI(currentUser);
         retrivePost(currentUser.getUid());
 
-        Setting.setOnClickListener(new View.OnClickListener() {
+        follower.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent SettingPage;
-                SettingPage = new Intent(getActivity(), Settings.class);
-                startActivity(SettingPage);
+                Intent followerIntent;
+                followerIntent = new Intent(getActivity(), FollowerListActivity.class);
+                startActivity(followerIntent);
             }
         });
 
-        MyProfile.setOnClickListener(new View.OnClickListener() {
+        following.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent PersonalFilePage;
-                PersonalFilePage = new Intent(getActivity(), UserProfile.class);
-                startActivity(PersonalFilePage);
+                Intent followingIntent;
+                followingIntent = new Intent(getActivity(), FollowingListActivity.class);
+                startActivity(followingIntent);
             }
         });
 
-        About.setOnClickListener(new View.OnClickListener() {
+        setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent AboutPage;
-                AboutPage = new Intent(getActivity(), com.android.group_12.crushy.About.class);
-                startActivity(AboutPage);
+                Intent settingIntent;
+                settingIntent = new Intent(getActivity(), Settings.class);
+                startActivity(settingIntent);
             }
         });
 
+        myProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent personalProfileIntent;
+                personalProfileIntent = new Intent(getActivity(), UserProfile.class);
+                startActivity(personalProfileIntent);
+            }
+        });
 
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent aboutPage;
+                aboutPage = new Intent(getActivity(), About.class);
+                startActivity(aboutPage);
+//                getActivity().startActivityForResult(aboutPage, RequestCode.PersonalArea);
+            }
+        });
         return view;
     }
 
@@ -158,11 +171,6 @@ public class PersonalAreaFragment extends Fragment {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
 
-                        //public User(String UserProfileImage, String UserID, String UserName, String FollowerNum,
-                        // String FollowingNum, String UserDescription, String UserEmail, String UserGender, String UserHeight,
-                        // String UserWeight, String UserCity, String UserBirthday, String UserOccupation, String UserHobbies,
-                        // String UserRelationshipStatus, String UserBodyType)
-
                         //Log.e(TAG, "User " + userId + " is ");
                         //Log.e(TAG, "the author is " + user.author);
                         //Log.e(TAG, user.title);
@@ -173,9 +181,6 @@ public class PersonalAreaFragment extends Fragment {
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
 
-//                        System.out.println(dataSnapshot.toString());
-//                        System.out.println(user.toString());
-
                         String UserProfileImage_ = user.profileImageUrl;
                         Log.i(TAG, UserProfileImage_);
                         String UserID_ = user.userID;
@@ -183,8 +188,8 @@ public class PersonalAreaFragment extends Fragment {
                         String UserName_ = user.name;
                         Log.i(TAG, UserName_);
 
-                        UserID.setText(UserID_); // fixme:needed?
-                        UserName.setText(UserName_);
+                        userID.setText(UserID_); // fixme:needed?
+                        userName.setText(UserName_);
                     }
 
                     @Override
@@ -202,15 +207,21 @@ public class PersonalAreaFragment extends Fragment {
                         // Get user value
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
 
-                        String FollowerNum_ = user.followerNum;
+                        String followerNum = "0";
                         //Log.i(TAG, FollowerNum_);
-                        String FollowingNum_ = user.followingNum;
-                        //Log.i(TAG, FollowingNum_);
+                        String followingNum = "0";
 
-                        //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+                        if (user != null) {
+                            followerNum = user.followerNum;
+                            //Log.i(TAG, FollowerNum_);
+                            followingNum = user.followingNum;
+                            //Log.i(TAG, FollowingNum_);
 
-                        FollowerNum.setText(FollowerNum_);
-                        FollowingNum.setText(FollowingNum_);
+                            //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+                        }
+
+                        PersonalAreaFragment.this.followerNum.setText(followerNum);
+                        PersonalAreaFragment.this.followingNum.setText(followingNum);
                     }
 
                     @Override
@@ -221,8 +232,6 @@ public class PersonalAreaFragment extends Fragment {
         );
         // [END single_value_read]
     }
-
-
 
 //    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 //        System.out.println("PA, line 73");

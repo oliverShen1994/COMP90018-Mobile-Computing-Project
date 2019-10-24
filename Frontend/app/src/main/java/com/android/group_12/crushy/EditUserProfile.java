@@ -57,20 +57,11 @@ public class EditUserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_user_profile);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        InitializeFields();
-//        SaveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        initializeFields();
 
         PreviousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent ProfileIntent = new Intent(EditUserProfile.this, UserProfile.class);
-//                startActivity(ProfileIntent);
                 finish();
             }
         });
@@ -78,7 +69,6 @@ public class EditUserProfile extends AppCompatActivity {
         SaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String EditUserName_ = EditUserName.getText().toString();
                 String UserDescription_ = UserDescription.getText().toString();
                 String UserEmail_ = UserEmail.getText().toString();
@@ -91,12 +81,12 @@ public class EditUserProfile extends AppCompatActivity {
                 String UserHobbies_ = UserHobbies.getText().toString();
                 String UserRelationshipStatus_ = UserRelationshipStatus.getText().toString();
                 String UserBodyType_ = UserBodyType.getText().toString();
-
                 writeNewPost(EditUserName_, UserDescription_, UserEmail_, UserGender_, UserHeight_, UserWeight_, UserCity_, UserBirthday_,
                         UserOccupation_, UserHobbies_, UserRelationshipStatus_, UserBodyType_);
 
-                Intent ProfileIntent = new Intent(EditUserProfile.this, UserProfile.class);
-                startActivity(ProfileIntent);
+//                Intent ProfileIntent = new Intent(EditUserProfile.this, UserProfile.class);
+//                startActivity(ProfileIntent);
+                finish();
             }
         });
 
@@ -109,8 +99,7 @@ public class EditUserProfile extends AppCompatActivity {
         });
     }
 
-    private void InitializeFields() {
-
+    private void initializeFields() {
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
         UserID = (TextView) findViewById(R.id.UserID);
         UserName = (TextView) findViewById(R.id.UserName);
@@ -145,7 +134,7 @@ public class EditUserProfile extends AppCompatActivity {
 
 
     private void retrivePost(String uid) {
-        Log.e(TAG, "User " + uid + " is 111111111");
+        Log.i(TAG, "User " + uid + " is 111111111");
         // Disable button so there are no multi-posts
         //Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
 

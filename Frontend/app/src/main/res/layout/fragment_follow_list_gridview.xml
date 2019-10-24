@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.FollowListFragment">
+    android:orientation="vertical"
+    tools:context=".Fragments.FollowerListFragment">
+
+    <RelativeLayout
+        android:id="@+id/followListTool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <SearchView
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:id="@+id/searchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:queryHint="Please enter..."
+            android:iconifiedByDefault="false" />
+
+        <Switch
+            android:id="@+id/viewSwitch"
+            android:layout_toRightOf="@+id/searchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textOff="list"
+            android:textOn="grid"
+            android:background="@drawable/profile_background"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            android:showText="true"/>
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/follow_recycler"

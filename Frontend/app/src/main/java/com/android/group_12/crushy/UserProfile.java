@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.Constants.RequestCode;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.bumptech.glide.Glide;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -30,8 +32,8 @@ public class UserProfile extends AppCompatActivity {
 
     private CircleImageView UserProfileImage;
     private TextView UserID, UserName, FollowerNum, FollowingNum, UserDescription, UserEmail,
-                     UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
-                     UserHobbies, UserRelationshipStatus, UserBodyType;
+            UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
+            UserHobbies, UserRelationshipStatus, UserBodyType;
     private LinearLayout EditButton, PreviousButton;
     private static final String TAG = "UserProfileActivity";
 
@@ -44,11 +46,12 @@ public class UserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        InitializeFields();
+        initializeFields();
         EditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent EditProfileIntent = new Intent(UserProfile.this, EditUserProfile.class);
+//                startActivityForResult(EditProfileIntent, RequestCode.UserProfile);
                 startActivity(EditProfileIntent);
             }
         });
@@ -68,12 +71,18 @@ public class UserProfile extends AppCompatActivity {
 //        });
     }
 
-    private void InitializeFields() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initializeFields();
+        //返回的时候走resume fixme:
+    }
 
+    private void initializeFields() {
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
         UserID = (TextView) findViewById(R.id.UserID);
         UserName = (TextView) findViewById(R.id.UserName);
-        FollowerNum = (TextView)findViewById(R.id.FollowersNum);
+        FollowerNum = (TextView) findViewById(R.id.FollowersNum);
         FollowingNum = (TextView) findViewById(R.id.FollowingNum);
         UserDescription = (TextView) findViewById(R.id.UserDescription);
         UserEmail = (TextView) findViewById(R.id.UserEmail);
@@ -107,33 +116,33 @@ public class UserProfile extends AppCompatActivity {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
                         String UserProfileImage_ = user.profileImageUrl;
-                        Log.e(TAG, UserProfileImage_);
+                        Log.i(TAG, UserProfileImage_);
                         String UserID_ = user.userID;
-                        Log.e(TAG, UserID_);
+                        Log.i(TAG, UserID_);
                         String UserName_ = user.name;
-                        Log.e(TAG, UserName_);
+                        Log.i(TAG, UserName_);
                         String UserDescription_ = user.description;
-                        Log.e(TAG, UserDescription_);
+                        Log.i(TAG, UserDescription_);
                         String UserEmail_ = user.email;
-                        Log.e(TAG, UserEmail_);
+                        Log.i(TAG, UserEmail_);
                         String UserGender_ = user.gender;
-                        Log.e(TAG, UserGender_);
+                        Log.i(TAG, UserGender_);
                         String UserHeight_ = user.height;
-                        Log.e(TAG, UserHeight_);
+                        Log.i(TAG, UserHeight_);
                         String UserWeight_ = user.weight;
-                        Log.e(TAG, UserWeight_);
+                        Log.i(TAG, UserWeight_);
                         String UserCity_ = user.city;
-                        Log.e(TAG, UserCity_);
+                        Log.i(TAG, UserCity_);
                         String UserBirthday_ = user.birthday;
-                        Log.e(TAG, UserBirthday_);
+                        Log.i(TAG, UserBirthday_);
                         String UserOccupation_ = user.occupation;
-                        Log.e(TAG, UserOccupation_);
+                        Log.i(TAG, UserOccupation_);
                         String UserHobbies_ = user.hobbies;
-                        Log.e(TAG, UserHobbies_);
+                        Log.i(TAG, UserHobbies_);
                         String UserRelationshipStatus_ = user.relationshipStatus;
-                        Log.e(TAG, UserRelationshipStatus_);
+                        Log.i(TAG, UserRelationshipStatus_);
                         String UserBodyType_ = user.bodyType;
-                        Log.e(TAG, UserBodyType_);
+                        Log.i(TAG, UserBodyType_);
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
                         UserName.setText(UserName_);
@@ -174,13 +183,18 @@ public class UserProfile extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
 
-                        String FollowerNum_ = user.followerNum;
-                        Log.e(TAG, FollowerNum_);
-                        String FollowingNum_ = user.followingNum;
-                        Log.e(TAG, FollowingNum_);
+                        String followerNum = "0";
+                        String followingNum = "0";
 
-                        FollowerNum.setText(FollowerNum_);
-                        FollowingNum.setText(FollowingNum_);
+                        if (user != null) {
+                            followerNum = user.followerNum;
+                            Log.e(TAG, followerNum);
+                            followingNum = user.followingNum;
+                            Log.e(TAG, followingNum);
+                        }
+
+                        FollowerNum.setText(followerNum);
+                        FollowingNum.setText(followingNum);
 
                     }
                     // [END single_value_read]
@@ -193,9 +207,15 @@ public class UserProfile extends AppCompatActivity {
                 });
     }
 
-        public void onStart() {
+    public void onStart() {
 
-            super.onStart();
+        super.onStart();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.out.println("In user profile, back pressed");
     }
 }
