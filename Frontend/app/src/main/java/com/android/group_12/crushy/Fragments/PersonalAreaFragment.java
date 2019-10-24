@@ -208,7 +208,7 @@ public class PersonalAreaFragment extends Fragment {
                         userName.setText(UserName_);
                         FragmentActivity fragmentActivity = getActivity();
                         if (fragmentActivity != null) {
-                            if (user.profileImageUrl != "") {
+                            if (!user.profileImageUrl.equals("")) {
                                 Glide.with(fragmentActivity)
                                         .load(user.profileImageUrl)
                                         .into(userImage);
