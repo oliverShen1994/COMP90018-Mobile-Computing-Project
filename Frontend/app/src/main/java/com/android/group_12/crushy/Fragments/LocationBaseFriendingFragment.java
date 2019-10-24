@@ -46,7 +46,6 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
     private ImageButton likeButton;
     private ImageButton dislikeButton;
-
     public static String LIKE = "0";
     public static String DISLIKE = "1";
     public ImageView userImage;
@@ -84,8 +83,6 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         currentUserId = currentUser.getUid();
-
-
         // Adjust the image view.
         ImageView userImageView = fragmentLayout.findViewById(R.id.potential_friend_image);
         ViewGroup.MarginLayoutParams imageViewParams = (ViewGroup.MarginLayoutParams) userImageView.getLayoutParams();
@@ -149,15 +146,14 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                 pickNextUser();
             }
         });
+
         retriveUserIDs();
         //pickNextUser();
-
         return fragmentLayout;
     }
 
     //Like or Dislike
-    public static void LikeDislikeFunction(DatabaseReference rootRef, final String sender, String receiver, final String Flag){
-
+    public void LikeDislikeFunction(final DatabaseReference rootRef, final String sender, final String receiver, final String Flag){
         final ArrayList<String> senderFriendList = new ArrayList<String>();
         final ArrayList<String> senderLikeList = new ArrayList<String>();
         final ArrayList<String> senderDislikeList = new ArrayList<String>();
@@ -167,7 +163,6 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
         final ArrayList<String> receiverFansList= new ArrayList<String>();
         final ArrayList<String> receiverLikeList= new ArrayList<String>();
         final ArrayList<String> receiverDislikeList= new ArrayList<String>();
-
         rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -196,7 +191,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                     }
                 });
 
-        rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(receiver).addListenerForSingleValueEvent(
+        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -216,6 +211,43 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                 receiverDislikeList.add(disLike);
                             }
                         }
+
+                        if(Flag == LIKE){
+
+                            senderLikeList.add(receiver);
+                            receiverFansList.add(sender);
+
+                            // if her likeList has me,
+                            // congratulation! we matched !!!
+                            if(receiverLikeList.contains(sender)){
+                                senderFriendList.add(receiver);
+                                receiverFriendList.add(sender);
+                            }
+
+                        }
+
+                        if(Flag == DISLIKE){
+                            senderDislikeList.add(receiver);
+                        }
+
+                        //update the firebase with the new values
+                        Map<String, Object> senderLists = new HashMap<>();
+                        senderLists.put("fansList", senderFansList);
+                        senderLists.put("likeList", senderLikeList);
+                        senderLists.put("friendsList", senderFriendList);
+                        senderLists.put("dislikeList", senderDislikeList);
+                        senderLists.put("followerNum", senderFansList.size() + "");
+                        senderLists.put("followingNum", senderFansList.size() + "");
+                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).setValue(senderLists);
+
+                        Map<String, Object> receiverLists = new HashMap<>();
+                        receiverLists.put("fansList", receiverFansList);
+                        receiverLists.put("likeList", receiverLikeList);
+                        receiverLists.put("friendsList", receiverFriendList);
+                        receiverLists.put("dislikeList", receiverDislikeList);
+                        receiverLists.put("followerNum", receiverFansList.size() + "");
+                        receiverLists.put("followingNum", receiverLikeList.size() + "");
+                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).setValue(receiverLists);
                     }
 
                     @Override
@@ -225,48 +257,11 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                 });
         // if I like her, add her to my likeList, add me to her fansList, if her likeList has me, add me
         // to her friendList, add her to my friendList
-        if(Flag == LIKE){
-
-            senderLikeList.add(receiver);
-            receiverFansList.add(sender);
-
-            // if her likeList has me,
-            // congratulation! we matched !!!
-            if(receiverLikeList.contains(sender)){
-                senderFriendList.add(receiver);
-                receiverFriendList.add(sender);
-            }
-
-        }
-
-        if(Flag == DISLIKE){
-            senderDislikeList.add(receiver);
-        }
-
-        //update the firebase with the new values
-        Map<String, Object> senderLists = new HashMap<>();
-        senderLists.put("fansList", senderFansList);
-        senderLists.put("likeList", senderLikeList);
-        senderLists.put("friendsList", senderFriendList);
-        senderLists.put("dislikeList", senderDislikeList);
-        senderLists.put("followerNum", senderFansList.size() + "");
-        senderLists.put("followingNum", senderFansList.size() + "");
-        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).setValue(senderLists);
-
-        Map<String, Object> receiverLists = new HashMap<>();
-        receiverLists.put("fansList", receiverFansList);
-        receiverLists.put("likeList", receiverLikeList);
-        receiverLists.put("friendsList", receiverFriendList);
-        receiverLists.put("dislikeList", receiverDislikeList);
-        receiverLists.put("followerNum", receiverFansList.size() + "");
-        receiverLists.put("followingNum", receiverLikeList.size() + "");
-        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).setValue(receiverLists);
 
     }
 
 
     private void retriveUserIDs() {
-
         mDatabase.child(DatabaseConstant.USER_TABLE_NAME).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -278,7 +273,6 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                             pickNextUser();
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
@@ -336,7 +330,6 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                 }
                             }
                         }
-
                         userName.setText(user.name);
                         gender.setText(user.gender);
                         city.setText(user.city);
