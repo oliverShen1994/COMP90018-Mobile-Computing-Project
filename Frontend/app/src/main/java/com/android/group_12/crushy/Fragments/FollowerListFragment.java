@@ -8,7 +8,9 @@ import android.widget.CompoundButton;
 import android.widget.SearchView;
 import android.widget.Switch;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -16,9 +18,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
-import com.android.group_12.crushy.FollowListAdapter;
 import com.android.group_12.crushy.Adapter.FollowListAdapter;
-import com.android.group_12.crushy.PersonalInfo;
 import com.android.group_12.crushy.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,15 +33,14 @@ import java.util.ArrayList;
 public class FollowerListFragment extends Fragment {
     static String LAYOUT_TYPE = "type";
     private int layout = R.layout.fragment_follow_list_gridview;
-    private RecyclerView gridView;
-    private RecyclerView listView;
+    private RecyclerView dataView;
     private SearchView mSearchView;
     private Switch mSwitch;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private String currentUserId;
     private ArrayList<String> followerList;
-    private ArrayList<PersonalInfo> followersInfo;
+    private ArrayList<User> followerInfo;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -60,9 +59,10 @@ public class FollowerListFragment extends Fragment {
         if (this.getArguments() != null)
             this.layout = getArguments().getInt(LAYOUT_TYPE);
         View view = inflater.inflate(this.layout, container, false);
+        this.dataView = view.findViewById(R.id.follow_recycler);
+
         initializeWidget(view);
-        fetchFollowerList(this.currentUserId);
-        initializeList(view, this.followerList);
+        initializeFollowerList(view, this.currentUserId);
 
         return view;
     }
@@ -100,67 +100,65 @@ public class FollowerListFragment extends Fragment {
 
     }
 
-    private void initializeList(View view, ArrayList<String> followList) {
+    private void initializeList() {
         //To bind GridView adapter to View
         if(this.layout == R.layout.fragment_follow_list_listview){
-            FollowListAdapter adapter = new FollowListAdapter(this.followersInfo, R.layout.follow_list_list_token);
+            //TODO: reimplement method getPersons()
+            FollowListAdapter adapter = new FollowListAdapter(this.followerInfo, R.layout.follow_list_list_token);
+            this.dataView.setAdapter(adapter);
 //            FollowListAdapter adapter = new FollowListAdapter(getPersons(), R.layout.follow_list_list_token);
-            this.listView = view.findViewById(R.id.follow_recycler);
-            this.listView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL,false));
-            this.listView.setAdapter(adapter);
+            this.dataView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL,false));
         }
         else if(this.layout == R.layout.fragment_follow_list_gridview) {
-            FollowListAdapter adapter = new FollowListAdapter(this.followersInfo, R.layout.follow_list_grid_token);
-//            FollowListAdapter adapter = new FollowListAdapter(getPersons(), R.layout.follow_list_grid_token);
-            this.gridView = view.findViewById(R.id.follow_recycler);
-            this.gridView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+            //TODO: reimplement method getPersons()
+            FollowListAdapter adapter = new FollowListAdapter(this.followerInfo, R.layout.follow_list_grid_token);
+            this.dataView.setAdapter(adapter);
+            this.dataView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 //            this.gridView.setLayoutManager(new GridLayoutManager(this.getContext(), 2, GridLayoutManager.VERTICAL, false));
-            this.gridView.setAdapter(adapter);
         }
     }
 
-    private void fetchFollowerList(String userId) {
+    private void initializeFollowerList(View view, String userId) {
         mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(userId).addListenerForSingleValueEvent(
-            new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // Get user value
-                    UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
-                    FollowerListFragment.this.followerList = userFollow.fansList;
-                    FollowerListFragment.this.followersInfo = new ArrayList<>();
-                    // fixme: 如何保证先获取list再更新UI？？？
-                    System.out.println("++++++++output fan list+++++++");
-                    System.out.println(FollowerListFragment.this.followerList.toString());
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user value
+                        UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
+                        assert currentUserId != null;
+                        followerList = userFollow.likeList;
+                        followerInfo = new ArrayList<User>();
+                        // fixme: 如何保证先获取list再更新UI？？？
+                        System.out.println("++++++++output fan list+++++++");
+                        System.out.println(FollowerListFragment.this.followerList.toString());
+                        System.out.println(followerList.toString());
 
-                    for(String userId: FollowerListFragment.this.followerList){
-                        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
-                                new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        // Get user value
-                                        User user = dataSnapshot.getValue(User.class);
-                                        String imageUrl = user.profileImageUrl;
-                                        String name = user.name;    
-                                        System.out.println("++++++++output info of every fan on list+++++++");
-                                        System.out.println(imageUrl);
-                                        System.out.println(name);
-                                        FollowerListFragment.this.followersInfo.add(new PersonalInfo(imageUrl, name));
+                        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                followerInfo.clear();
+                                for (DataSnapshot dss: dataSnapshot.getChildren()) {
+                                    User user = dss.getValue(User.class);
+                                    assert user != null;
+
+                                    if (followerList.contains(user.userID)) {
+                                        followerInfo.add(user);
                                     }
+                                }
+                                initializeList();
+                            }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                    }
-                                });
+                            }
+                        });
                     }
-                }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
+                    }
+                });
     }
 
     private void updateFragment(int selectedFragmentID) {
@@ -170,22 +168,5 @@ public class FollowerListFragment extends Fragment {
                 .commit();
 //                .addToBackStack(null)
     }
-
-    // TODO: switch to database information
-//    private ArrayList<PersonalInfo> getPersons() {
-//        ArrayList<PersonalInfo> persons = new ArrayList<>();
-//        persons.add(new PersonalInfo(R.drawable.apple, "Apple"));
-//        persons.add(new PersonalInfo(R.drawable.bananas, "Bananas"));
-//        persons.add(new PersonalInfo(R.drawable.cherry, "Cherry"));
-//        persons.add(new PersonalInfo(R.drawable.grapes, "Grapes"));
-//        persons.add(new PersonalInfo(R.drawable.lemon, "Lemon"));
-//        persons.add(new PersonalInfo(R.drawable.orange, "Orange"));
-//        persons.add(new PersonalInfo(R.drawable.melon, "Melon"));
-//        persons.add(new PersonalInfo(R.drawable.peach, "Peach"));
-//        persons.add(new PersonalInfo(R.drawable.pear, "Pear"));
-//        persons.add(new PersonalInfo(R.drawable.pear, "Pear2"));
-//
-//        return persons;
-//    }
 
 }

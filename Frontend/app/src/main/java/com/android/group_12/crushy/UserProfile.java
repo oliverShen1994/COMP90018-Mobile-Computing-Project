@@ -161,25 +161,25 @@ public class UserProfile extends AppCompatActivity {
                         Log.i(TAG, UserBodyType_);
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
-                        UserName.setText(UserName_);
-                        UserID.setText(UserID_);
+                        userName.setText(UserName_);
+                        userID.setText(UserID_);
 
-                        UserDescription.setText(UserDescription_);
-                        UserEmail.setText(UserEmail_);
-                        UserGender.setText(UserGender_);
-                        UserHeight.setText(UserHeight_);
-                        UserWeight.setText(UserWeight_);
-                        UserBodyType.setText(UserBodyType_);
-                        UserCity.setText(UserCity_);
-                        UserBirthday.setText(UserBirthday_);
-                        UserOccupation.setText(UserOccupation_);
-                        UserHobbies.setText(UserHobbies_);
-                        UserRelationshipStatus.setText(UserRelationshipStatus_);
+                        userDescription.setText(UserDescription_);
+                        userEmail.setText(UserEmail_);
+                        userGender.setText(UserGender_);
+                        userHeight.setText(UserHeight_);
+                        userWeight.setText(UserWeight_);
+                        userBodyType.setText(UserBodyType_);
+                        userCity.setText(UserCity_);
+                        userBirthday.setText(UserBirthday_);
+                        userOccupation.setText(UserOccupation_);
+                        userHobbies.setText(UserHobbies_);
+                        userRelationshipStatus.setText(UserRelationshipStatus_);
 
                         if(!user.profileImageUrl.equals("")) {
                             Glide.with(UserProfile.this)
                                     .load(user.profileImageUrl)
-                                    .into(UserProfileImage);
+                                    .into(userProfileImage);
                         }
 
 
