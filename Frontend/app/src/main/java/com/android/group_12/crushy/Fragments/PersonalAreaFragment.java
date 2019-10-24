@@ -199,7 +199,7 @@ public class PersonalAreaFragment extends Fragment {
                         String UserName_ = user.name;
                         Log.i(TAG, UserName_);
 
-                        if (UserDescription_ == null) {
+                        if (UserDescription_.equals("")) {
                             userDescription.setText("The user has not said anything...");
                         } else {
                             userDescription.setText(UserDescription_); //fixme:needed?
