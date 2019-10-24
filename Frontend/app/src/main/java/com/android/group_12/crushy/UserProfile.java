@@ -115,22 +115,6 @@ public class UserProfile extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
-
-                        //public User(String UserProfileImage, String UserID, String UserName, String FollowerNum,
-                        // String FollowingNum, String UserDescription, String UserEmail, String UserGender, String UserHeight,
-                        // String UserWeight, String UserCity, String UserBirthday, String UserOccupation, String UserHobbies,
-                        // String UserRelationshipStatus, String UserBodyType)
-
-                        //Log.e(TAG, "User " + userId + " is ");
-                        //Log.e(TAG, "the author is " + user.author);
-                        //Log.e(TAG, user.title);
-                        //Log.e(TAG, user.author);
-                        //Toast.makeText(EditUserProfile.this,
-                        //        "Error: could not fetch user.",
-                        //        Toast.LENGTH_SHORT).show();
-                        // Finish this Activity, back to the stream
-                        // [END_EXCLUDE]
-
                         String UserProfileImage_ = user.profileImageUrl;
                         Log.i(TAG, UserProfileImage_);
                         String UserID_ = user.userID;
@@ -175,9 +159,13 @@ public class UserProfile extends AppCompatActivity {
                         UserOccupation.setText(UserOccupation_);
                         UserHobbies.setText(UserHobbies_);
                         UserRelationshipStatus.setText(UserRelationshipStatus_);
-                        Glide.with(UserProfile.this)
-                                .load(user.profileImageUrl)
-                                .into(UserProfileImage);
+
+                        if(!user.profileImageUrl.equals("")) {
+                            Glide.with(UserProfile.this)
+                                    .load(user.profileImageUrl)
+                                    .into(UserProfileImage);
+                        }
+
 
                     }
 
