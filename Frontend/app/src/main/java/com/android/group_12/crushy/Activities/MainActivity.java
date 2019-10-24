@@ -1,6 +1,5 @@
 package com.android.group_12.crushy.Activities;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -11,11 +10,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.Constants.RequestCode;
 import com.android.group_12.crushy.Constants.ResultCode;
+import com.android.group_12.crushy.ContactsFragment;
 import com.android.group_12.crushy.Fragments.LocationBaseFriendingFragment;
 import com.android.group_12.crushy.Fragments.PersonalAreaFragment;
 import com.android.group_12.crushy.FriendListFragment;
@@ -52,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.navigation_friend_list: {
                 System.out.println("Friend list");
-                fragment = new FriendListFragment(this.fragmentHeight, this.screenSize.x);;
+//                fragment = new FriendListFragment(this.fragmentHeight, this.screenSize.x);
+                fragment = new ContactsFragment();
                 break;
             }
             case R.id.navigation_personal_area: {
