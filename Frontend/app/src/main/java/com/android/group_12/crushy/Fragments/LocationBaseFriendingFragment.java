@@ -3,6 +3,7 @@ package com.android.group_12.crushy.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +16,22 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
+import com.android.group_12.crushy.EditUserProfile;
 import com.android.group_12.crushy.R;
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 /**
@@ -35,6 +43,11 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
     public static String LIKE = "0";
     public static String DISLIKE = "1";
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private String currentUserId;
+    private String TAG = "LocationBaseFriendingFragment";
+    private ArrayList<String> userIDs = new ArrayList<>();
 
     public LocationBaseFriendingFragment(int fragmentHeight, int fragmentWidth) {
         super(R.layout.fragment_location_base_friending, fragmentHeight, fragmentWidth);
@@ -45,6 +58,10 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment by calling parent's method.
         View fragmentLayout = super.onCreateView(inflater, container, savedInstanceState);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUserId = currentUser.getUid();
 
         // Adjust the image view.
         ImageView userImageView = fragmentLayout.findViewById(R.id.potential_friend_image);
@@ -231,4 +248,51 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
     }
 
 
+    private void retriveUserIDs() {
+        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (final DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                            final User user = dataSnapshot1.getValue(User.class);
+                            userIDs.add(user.userID);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                    }
+                });
+    }
+
+    private String pickNextUser(){
+        Integer length =  userIDs.size();
+        Random r = new Random();
+        Integer userIndex = r.nextInt(length);
+        return userIDs.get(userIndex);
+    }
+
+    private void fillInLayout(){
+        String userId = pickNextUser();
+        retrieveUser(userId);
+    }
+
+    private void retrieveUser(String userId){
+        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener(){
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        final User user = dataSnapshot.getValue(User.class);
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                }
+        );}
 }
