@@ -24,6 +24,8 @@ import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.R;
 import com.android.group_12.crushy.*;
+import com.android.group_12.crushy.Constants.*;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,9 +52,9 @@ public class PersonalAreaFragment extends Fragment {
     private int fragmentHeight;
     private int fragmentWidth;
     private ImageView userImage;
-    private TextView UserID, UserName, FollowerNum, FollowingNum;
-    private LinearLayout myProfile, following, follower;
-    private RelativeLayout calendar, blockList, setting, about;
+    private TextView userDescription,userName,followerNum,followingNum;
+    private LinearLayout myProfile,following,follower;
+    private RelativeLayout blockList,setting,about;
     private static final String TAG = "PersonalAreaFragment";
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -95,14 +97,13 @@ public class PersonalAreaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_personal__area, container, false);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         userImage = (ImageView) view.findViewById(R.id.UserImageView);
-        UserID = (TextView) view.findViewById(R.id.UserID);
-        UserName = (TextView) view.findViewById(R.id.UserName);
-        FollowerNum = (TextView) view.findViewById(R.id.FollowersNum);
-        FollowingNum = (TextView) view.findViewById(R.id.FollowingNum);
+        userDescription = (TextView) view.findViewById(R.id.UserDescription);
+        userName = (TextView) view.findViewById(R.id.UserName);
+        followerNum = (TextView) view.findViewById(R.id.FollowersNum);
+        followingNum = (TextView) view.findViewById(R.id.FollowingNum);
         myProfile = (LinearLayout) view.findViewById(R.id.MyProfile);
         follower = (LinearLayout) view.findViewById(R.id.Follower);
         following = (LinearLayout) view.findViewById(R.id.Following);
-        calendar = (RelativeLayout) view.findViewById(R.id.Calendar);
         blockList = (RelativeLayout) view.findViewById(R.id.Blockedlist);
         setting = (RelativeLayout) view.findViewById(R.id.Setting);
         about = (RelativeLayout) view.findViewById(R.id.About);
@@ -181,16 +182,23 @@ public class PersonalAreaFragment extends Fragment {
                         //        Toast.LENGTH_SHORT).show();
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
-
+                        Glide.with(PersonalAreaFragment.this)
+                                .load(user.profileImageUrl)
+                                .into(userImage);
                         String UserProfileImage_ = user.profileImageUrl;
                         Log.i(TAG, UserProfileImage_);
-                        String UserID_ = user.userID;
-                        Log.i(TAG, UserID_);
+                        String UserDescription_ = user.description;
+                        Log.i(TAG, UserDescription_);
                         String UserName_ = user.name;
                         Log.i(TAG, UserName_);
 
-                        UserID.setText(UserID_); // fixme:needed?
-                        UserName.setText(UserName_);
+                        if (UserDescription_ == null){
+                            userDescription.setText("The user has not said anything...");
+                        }
+                        else {
+                            userDescription.setText(UserDescription_); //fixme:needed?
+                        }
+                        userName.setText(UserName_);
                     }
 
                     @Override
@@ -213,10 +221,14 @@ public class PersonalAreaFragment extends Fragment {
                         String followingNum = "0";
 
                         if (user != null) {
-                            followerNum = user.followerNum;
-                            //Log.i(TAG, FollowerNum_);
-                            followingNum = user.followingNum;
-                            //Log.i(TAG, FollowingNum_);
+                            if(user.followerNum != null) {
+                                followerNum = user.followerNum;
+                                //Log.i(TAG, FollowerNum_);
+                            }
+                            if(user.followingNum != null) {
+                                followingNum = user.followingNum;
+                                //Log.i(TAG, FollowingNum_);
+                            }
 
                             //UserProfileImarge = (CircleImageView) findViewById(R.id.profile_image);
                         }
