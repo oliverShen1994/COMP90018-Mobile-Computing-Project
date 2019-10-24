@@ -17,6 +17,7 @@ import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.FollowListAdapter;
+import com.android.group_12.crushy.Adapter.FollowListAdapter;
 import com.android.group_12.crushy.PersonalInfo;
 import com.android.group_12.crushy.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -139,7 +140,7 @@ public class FollowerListFragment extends Fragment {
                                         // Get user value
                                         User user = dataSnapshot.getValue(User.class);
                                         String imageUrl = user.profileImageUrl;
-                                        String name = user.name;
+                                        String name = user.name;    
                                         System.out.println("++++++++output info of every fan on list+++++++");
                                         System.out.println(imageUrl);
                                         System.out.println(name);

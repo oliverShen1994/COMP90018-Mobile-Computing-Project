@@ -17,6 +17,7 @@ import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.FollowListAdapter;
+import com.android.group_12.crushy.Adapter.FollowListAdapter;
 import com.android.group_12.crushy.PersonalInfo;
 import com.android.group_12.crushy.R;
 import com.google.firebase.auth.FirebaseAuth;

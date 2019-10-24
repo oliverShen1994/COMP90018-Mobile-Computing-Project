@@ -166,9 +166,11 @@ public class EditUserProfile extends AppCompatActivity {
 
                         String UserID_ = user.userID;
                         String UserName_ = user.name;
-                        Glide.with(EditUserProfile.this)
-                                .load(UserProfileImage_)
-                                .into(UserProfileImage);
+                        if(!UserProfileImage_.equals("")) {
+                            Glide.with(EditUserProfile.this)
+                                    .load(UserProfileImage_)
+                                    .into(UserProfileImage);
+                        }
 
                         UserDescription.setText(user.description);
                         UserEmail.setText(user.email);

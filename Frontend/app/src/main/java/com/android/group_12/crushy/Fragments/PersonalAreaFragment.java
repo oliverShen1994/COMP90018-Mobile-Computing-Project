@@ -207,15 +207,21 @@ public class PersonalAreaFragment extends Fragment {
                         // Get user value
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
 
-                        String FollowerNum_ = user.followerNum;
+                        String followerNum = "0";
                         //Log.i(TAG, FollowerNum_);
-                        String FollowingNum_ = user.followingNum;
-                        //Log.i(TAG, FollowingNum_);
+                        String followingNum = "0";
 
-                        //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+                        if (user != null) {
+                            followerNum = user.followerNum;
+                            //Log.i(TAG, FollowerNum_);
+                            followingNum = user.followingNum;
+                            //Log.i(TAG, FollowingNum_);
 
-                        followerNum.setText(FollowerNum_);
-                        followingNum.setText(FollowingNum_);
+                            //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+                        }
+
+                        PersonalAreaFragment.this.followerNum.setText(followerNum);
+                        PersonalAreaFragment.this.followingNum.setText(followingNum);
                     }
 
                     @Override

@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -36,6 +37,7 @@ public class UserProfile extends AppCompatActivity {
                      userGender, userHeight, userWeight, userCity, userBirthday, userOccupation,
                      userHobbies, userRelationshipStatus, userBodyType;
     private LinearLayout editButton, previousButton, following, follower;
+
     private static final String TAG = "UserProfileActivity";
 
     private DatabaseReference mDatabase;
@@ -129,22 +131,6 @@ public class UserProfile extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
-
-                        //public User(String UserProfileImage, String UserID, String UserName, String FollowerNum,
-                        // String FollowingNum, String UserDescription, String UserEmail, String UserGender, String UserHeight,
-                        // String UserWeight, String UserCity, String UserBirthday, String UserOccupation, String UserHobbies,
-                        // String UserRelationshipStatus, String UserBodyType)
-
-                        //Log.e(TAG, "User " + userId + " is ");
-                        //Log.e(TAG, "the author is " + user.author);
-                        //Log.e(TAG, user.title);
-                        //Log.e(TAG, user.author);
-                        //Toast.makeText(EditUserProfile.this,
-                        //        "Error: could not fetch user.",
-                        //        Toast.LENGTH_SHORT).show();
-                        // Finish this Activity, back to the stream
-                        // [END_EXCLUDE]
-
                         String UserProfileImage_ = user.profileImageUrl;
                         Log.i(TAG, UserProfileImage_);
                         String UserID_ = user.userID;
@@ -175,23 +161,27 @@ public class UserProfile extends AppCompatActivity {
                         Log.i(TAG, UserBodyType_);
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
-                        userName.setText(UserName_);
-                        userID.setText(UserID_);
+                        UserName.setText(UserName_);
+                        UserID.setText(UserID_);
 
-                        userDescription.setText(UserDescription_);
-                        userEmail.setText(UserEmail_);
-                        userGender.setText(UserGender_);
-                        userHeight.setText(UserHeight_);
-                        userWeight.setText(UserWeight_);
-                        userBodyType.setText(UserBodyType_);
-                        userCity.setText(UserCity_);
-                        userBirthday.setText(UserBirthday_);
-                        userOccupation.setText(UserOccupation_);
-                        userHobbies.setText(UserHobbies_);
-                        userRelationshipStatus.setText(UserRelationshipStatus_);
-                        Glide.with(UserProfile.this)
-                                .load(user.profileImageUrl)
-                                .into(userProfileImage);
+                        UserDescription.setText(UserDescription_);
+                        UserEmail.setText(UserEmail_);
+                        UserGender.setText(UserGender_);
+                        UserHeight.setText(UserHeight_);
+                        UserWeight.setText(UserWeight_);
+                        UserBodyType.setText(UserBodyType_);
+                        UserCity.setText(UserCity_);
+                        UserBirthday.setText(UserBirthday_);
+                        UserOccupation.setText(UserOccupation_);
+                        UserHobbies.setText(UserHobbies_);
+                        UserRelationshipStatus.setText(UserRelationshipStatus_);
+
+                        if(!user.profileImageUrl.equals("")) {
+                            Glide.with(UserProfile.this)
+                                    .load(user.profileImageUrl)
+                                    .into(UserProfileImage);
+                        }
+
 
                     }
 
@@ -209,13 +199,18 @@ public class UserProfile extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
 
-                        String FollowerNum_ = user.followerNum;
-                        Log.e(TAG, FollowerNum_);
-                        String FollowingNum_ = user.followingNum;
-                        Log.e(TAG, FollowingNum_);
+                        String followerNumValue = "0";
+                        String followingNumValue = "0";
 
-                        followerNum.setText(FollowerNum_);
-                        followingNum.setText(FollowingNum_);
+                        if (user != null) {
+                            followerNumValue = user.followerNum;
+                            Log.e(TAG, followerNumValue);
+                            followingNumValue = user.followingNum;
+                            Log.e(TAG, followingNumValue);
+                        }
+
+                        followerNum.setText(followerNumValue);
+                        followingNum.setText(followingNumValue);
                     }
                     // [END single_value_read]
 
@@ -226,9 +221,15 @@ public class UserProfile extends AppCompatActivity {
                 });
     }
 
-        public void onStart() {
+    public void onStart() {
 
-            super.onStart();
+        super.onStart();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.out.println("In user profile, back pressed");
     }
 }
