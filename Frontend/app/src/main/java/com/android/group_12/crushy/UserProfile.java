@@ -31,6 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserProfile extends AppCompatActivity {
 
     private CircleImageView UserProfileImage;
+
     private TextView UserID, UserName, FollowerNum, FollowingNum, UserDescription, UserEmail,
             UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
             UserHobbies, UserRelationshipStatus, UserBodyType;
@@ -80,7 +81,7 @@ public class UserProfile extends AppCompatActivity {
 
     private void initializeFields() {
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
-        UserID = (TextView) findViewById(R.id.UserID);
+        UserID = (TextView) findViewById(R.id.UserDescription);
         UserName = (TextView) findViewById(R.id.UserName);
         FollowerNum = (TextView) findViewById(R.id.FollowersNum);
         FollowingNum = (TextView) findViewById(R.id.FollowingNum);

@@ -76,9 +76,9 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
         userImage = fragmentLayout.findViewById(R.id.potential_friend_image);
         userName = fragmentLayout.findViewById(R.id.nick_name);
-        gender=fragmentLayout.findViewById(R.id.gender);
-        city= fragmentLayout.findViewById(R.id.city);
-        hobby= fragmentLayout.findViewById(R.id.hobbies);
+        gender = fragmentLayout.findViewById(R.id.gender);
+        city = fragmentLayout.findViewById(R.id.city);
+        hobby = fragmentLayout.findViewById(R.id.hobbies);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -156,17 +156,17 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
     }
 
     //Like or Dislike
-    public static void LikeDislikeFunction(DatabaseReference rootRef, final String sender, String receiver, final String Flag){
+    public static void LikeDislikeFunction(DatabaseReference rootRef, final String sender, String receiver, final String Flag) {
 
         final ArrayList<String> senderFriendList = new ArrayList<String>();
         final ArrayList<String> senderLikeList = new ArrayList<String>();
         final ArrayList<String> senderDislikeList = new ArrayList<String>();
         final ArrayList<String> senderFansList = new ArrayList<String>();
 
-        final ArrayList<String> receiverFriendList= new ArrayList<String>();
-        final ArrayList<String> receiverFansList= new ArrayList<String>();
-        final ArrayList<String> receiverLikeList= new ArrayList<String>();
-        final ArrayList<String> receiverDislikeList= new ArrayList<String>();
+        final ArrayList<String> receiverFriendList = new ArrayList<String>();
+        final ArrayList<String> receiverFansList = new ArrayList<String>();
+        final ArrayList<String> receiverLikeList = new ArrayList<String>();
+        final ArrayList<String> receiverDislikeList = new ArrayList<String>();
 
         rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -174,7 +174,9 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
-                        if(user != null) {
+
+
+                        if (user != null) {
                             for (String liked : user.likeList) {
                                 senderLikeList.add(liked);
                             }
@@ -215,6 +217,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                             for (String disLike : user.dislikeList) {
                                 receiverDislikeList.add(disLike);
                             }
+
                         }
                     }
 
@@ -225,21 +228,21 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                 });
         // if I like her, add her to my likeList, add me to her fansList, if her likeList has me, add me
         // to her friendList, add her to my friendList
-        if(Flag == LIKE){
+        if (Flag == LIKE) {
 
             senderLikeList.add(receiver);
             receiverFansList.add(sender);
 
             // if her likeList has me,
             // congratulation! we matched !!!
-            if(receiverLikeList.contains(sender)){
+            if (receiverLikeList.contains(sender)) {
                 senderFriendList.add(receiver);
                 receiverFriendList.add(sender);
             }
 
         }
 
-        if(Flag == DISLIKE){
+        if (Flag == DISLIKE) {
             senderDislikeList.add(receiver);
         }
 
@@ -286,14 +289,19 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                 });
 
         mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserId).addListenerForSingleValueEvent(
-                new ValueEventListener(){
+                new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        System.out.println("dataSnapshot");
+                        System.out.println(dataSnapshot);
+
                         UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
-                        for(String disliked : userFollow.dislikeList){
+
+                        for (String disliked : userFollow.dislikeList) {
                             disLikeList_.add(disliked);
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -302,26 +310,26 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
         );
     }
 
-    private void pickNextUser(){
-        Integer length =  userIDs.size();
+    private void pickNextUser() {
+        Integer length = userIDs.size();
         Random r = new Random();
         Integer userIndex = r.nextInt(length);
         String nextUserId_ = userIDs.get(userIndex);
-        if(!disLikeList_.contains(nextUserId_)){
+        if (!disLikeList_.contains(nextUserId_)) {
             retrieveUser(userIDs.get(userIndex));
-        }
-        else{
+        } else {
             pickNextUser();
         }
     }
 
-    private void retrieveUser(String userId){
+    private void retrieveUser(String userId) {
         mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
-                new ValueEventListener(){
+                new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         final User user = dataSnapshot.getValue(User.class);
+
                         if(!user.profileImageUrl.equals("")){
                             FragmentActivity fragmentActivity = getActivity();
                             if (fragmentActivity != null) {
@@ -334,6 +342,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                 else{
                                     userImage.setImageResource(R.drawable.profile_image);
                                 }
+
                             }
                         }
 
