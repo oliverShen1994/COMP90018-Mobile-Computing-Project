@@ -24,4 +24,10 @@ public class About extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        System.out.println("In about page, onBackPressed triggered");
+        super.onBackPressed();
+    }
 }

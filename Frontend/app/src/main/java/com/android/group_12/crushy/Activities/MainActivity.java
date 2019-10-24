@@ -1,6 +1,5 @@
 package com.android.group_12.crushy.Activities;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -11,14 +10,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.Constants.IntentExtraParameterName;
 import com.android.group_12.crushy.Constants.RequestCode;
 import com.android.group_12.crushy.Constants.ResultCode;
+import com.android.group_12.crushy.Enums.MainActivityFragmentEnum;
+import com.android.group_12.crushy.ContactsFragment;
 import com.android.group_12.crushy.Fragments.LocationBaseFriendingFragment;
 import com.android.group_12.crushy.Fragments.PersonalAreaFragment;
-import com.android.group_12.crushy.FriendListFragment;
+import com.android.group_12.crushy.Fragments.FriendListFragment;
 import com.android.group_12.crushy.R;
 import com.android.group_12.crushy.Utils.ScreenUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,6 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import static com.android.group_12.crushy.Enums.MainActivityFragmentEnum.*;
 
 public class MainActivity extends AppCompatActivity {
     private Point screenSize;
@@ -41,29 +44,21 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
     private DatabaseReference rootRef;
+    private MainActivityFragmentEnum fragmentEnum;
 
-    private void updateFragment(int selectedNavigationItemID) {
+    private void updateFragment() {
         Fragment fragment = new Fragment();
-        switch (selectedNavigationItemID) {
-            case R.id.navigation_location: {
-                System.out.println("Location Based Friending");
-                fragment = new LocationBaseFriendingFragment(this.fragmentHeight, this.screenSize.x);
-                break;
-            }
-            case R.id.navigation_friend_list: {
-                System.out.println("Friend list");
-                fragment = new FriendListFragment(this.fragmentHeight, this.screenSize.x);;
-                break;
-            }
-            case R.id.navigation_personal_area: {
-                System.out.println("Personal Area");
-                fragment = PersonalAreaFragment.newInstance(this.fragmentHeight, this.screenSize.x);
-                break;
-            }
-            default: {
-                // do nothing
-            }
 
+        if (this.fragmentEnum == null || this.fragmentEnum.equals(LOCATION_BASED_FRIENDING)) {
+            System.out.println("Location Based Friending");
+            fragment = new LocationBaseFriendingFragment(this.fragmentHeight, this.screenSize.x);
+        } else if (this.fragmentEnum.equals(FRIEND_LIST_USERS) || this.fragmentEnum.equals(FRIEND_LIST_CHAT)) {
+            System.out.println("Friend list");
+            // fragment = new FriendListFragment(this.fragmentHeight, this.screenSize.x);
+            fragment = new ContactsFragment();
+        } else if (this.fragmentEnum.equals(PERSONAL_AREA)) {
+            System.out.println("Personal Area");
+            fragment = PersonalAreaFragment.newInstance(this.fragmentHeight, this.screenSize.x);
         }
 
         getSupportFragmentManager().beginTransaction()
@@ -78,7 +73,24 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             try {
-                updateFragment(item.getItemId());
+                switch (item.getItemId()) {
+                    case R.id.navigation_location: {
+                        fragmentEnum = LOCATION_BASED_FRIENDING;
+                        break;
+                    }
+                    case R.id.navigation_friend_list: {
+                        fragmentEnum = FRIEND_LIST_USERS;
+                        break;
+                    }
+                    case R.id.navigation_personal_area: {
+                        fragmentEnum = PERSONAL_AREA;
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+                }
+                updateFragment();
                 return true;
             } catch (Exception e) {
                 return false;
@@ -98,11 +110,17 @@ public class MainActivity extends AppCompatActivity {
         this.mAuth = mAuth.getInstance();
         this.rootRef = FirebaseDatabase.getInstance().getReference();
         this.currentUser = mAuth.getCurrentUser();
+
+        Intent intent = this.getIntent();
+        this.fragmentEnum = (MainActivityFragmentEnum) intent.getSerializableExtra(IntentExtraParameterName.MAIN_ACTIVITY_TARGETING_FRAGMENT);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+//        mAuth.signOut();
+//        currentUser = null;
 
         if (currentUser == null) {
             System.out.println("User is null");
@@ -125,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             this.printHeightInfo();
 
             // Open navigation location fragment by default.
-            this.updateFragment(R.id.navigation_location);
+            this.updateFragment();
         }
     }
 
@@ -133,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         System.out.println(requestCode);
         System.out.println(resultCode);
-        if (requestCode== RequestCode.PersonalArea){
-            switch(resultCode){
+        if (requestCode == RequestCode.PersonalArea) {
+            switch (resultCode) {
                 case ResultCode.Follower:
                     Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
                 case ResultCode.Following:
@@ -145,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
                     break;
                 default:
-                    Toast.makeText(MainActivity.this, "test default" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "test default", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -166,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(DatabaseConstant.USER_TABLE__USER_NAME).exists()) {
+                if (dataSnapshot.child(DatabaseConstant.USER_TABLE_COL_USER_NAME).exists()) {
                     Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Oops, your name is not set...", Toast.LENGTH_SHORT).show();

@@ -1,4 +1,4 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Fragments;
 
 import android.os.Bundle;
 
@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.group_12.crushy.DatabaseWrappers.Friends;
-import com.android.group_12.crushy.Fragments.CrushyFragment;
+import com.android.group_12.crushy.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -78,8 +78,8 @@ public class FriendListFragment extends CrushyFragment {
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
-        viewPagerAdapter.addFragment(new ContactsFragment(), "Users");
+//        viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
+        viewPagerAdapter.addFragment(new ContactsFragment(), "Friends");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -95,6 +95,7 @@ public class FriendListFragment extends CrushyFragment {
             this.fragments = new ArrayList<>();
             this.titles = new ArrayList<>();
         }
+
         @NonNull
         @Override
         public Fragment getItem(int position) {

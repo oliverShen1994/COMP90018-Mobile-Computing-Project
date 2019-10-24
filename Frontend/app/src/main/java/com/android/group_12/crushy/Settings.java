@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Settings extends AppCompatActivity {
     private Button logoutButton, Back;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,5 +41,11 @@ public class Settings extends AppCompatActivity {
     private void sendUserToLoginActivity() {
         Intent loginIntent = new Intent(Settings.this, LoginActivity.class);
         startActivity(loginIntent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        System.out.println("In settings activity, back pressed.");
+        super.onBackPressed();
     }
 }

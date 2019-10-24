@@ -13,14 +13,18 @@
         <activity android:name=".MessageActivity"></activity>
         <activity
             android:name=".Settings"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".About"
             android:screenOrientation="portrait" />
-        <activity android:name=".About"
+        <activity
+            android:name=".EditUserImage"
             android:screenOrientation="portrait" />
-        <activity android:name=".EditUserImage"
+        <activity
+            android:name=".EditUserProfile"
             android:screenOrientation="portrait" />
-        <activity android:name=".EditUserProfile"
-            android:screenOrientation="portrait" />
-        <activity android:name=".UserProfile"
+        <activity
+            android:name=".UserProfile"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LoginActivity"
@@ -28,16 +32,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.RegisterActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Activities.FollowingListActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Activities.FollowerListActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Activities.MainActivity"
             android:label="@string/app_name"
@@ -45,13 +46,18 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+=======
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+>>>>>>> 214c800fe623f1223ab823fadbe1235f199bca73
 
 </manifest>
