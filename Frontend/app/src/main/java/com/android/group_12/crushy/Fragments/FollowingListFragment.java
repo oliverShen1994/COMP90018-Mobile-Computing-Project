@@ -104,14 +104,14 @@ public class FollowingListFragment extends Fragment {
         //To bind GridView adapter to View
         if(this.layout == R.layout.fragment_follow_list_listview){
             //TODO: reimplement method getPersons()
-            FollowListAdapter adapter = new FollowListAdapter(this.followingInfo, R.layout.follow_list_list_token);
+            FollowListAdapter adapter = new FollowListAdapter(this.followingInfo, R.layout.follow_list_list_token, getContext());
             this.dataView.setAdapter(adapter);
 //            FollowListAdapter adapter = new FollowListAdapter(getPersons(), R.layout.follow_list_list_token);
             this.dataView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL,false));
         }
         else if(this.layout == R.layout.fragment_follow_list_gridview) {
             //TODO: reimplement method getPersons()
-            FollowListAdapter adapter = new FollowListAdapter(this.followingInfo, R.layout.follow_list_grid_token);
+            FollowListAdapter adapter = new FollowListAdapter(this.followingInfo, R.layout.follow_list_grid_token, getContext());
             this.dataView.setAdapter(adapter);
             this.dataView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 //            this.gridView.setLayoutManager(new GridLayoutManager(this.getContext(), 2, GridLayoutManager.VERTICAL, false));

@@ -104,14 +104,14 @@ public class FollowerListFragment extends Fragment {
         //To bind GridView adapter to View
         if(this.layout == R.layout.fragment_follow_list_listview){
             //TODO: reimplement method getPersons()
-            FollowListAdapter adapter = new FollowListAdapter(this.followerInfo, R.layout.follow_list_list_token);
+            FollowListAdapter adapter = new FollowListAdapter(this.followerInfo, R.layout.follow_list_list_token, getContext());
             this.dataView.setAdapter(adapter);
 //            FollowListAdapter adapter = new FollowListAdapter(getPersons(), R.layout.follow_list_list_token);
             this.dataView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL,false));
         }
         else if(this.layout == R.layout.fragment_follow_list_gridview) {
             //TODO: reimplement method getPersons()
-            FollowListAdapter adapter = new FollowListAdapter(this.followerInfo, R.layout.follow_list_grid_token);
+            FollowListAdapter adapter = new FollowListAdapter(this.followerInfo, R.layout.follow_list_grid_token, getContext());
             this.dataView.setAdapter(adapter);
             this.dataView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 //            this.gridView.setLayoutManager(new GridLayoutManager(this.getContext(), 2, GridLayoutManager.VERTICAL, false));
@@ -128,7 +128,6 @@ public class FollowerListFragment extends Fragment {
                     followerList = userFollow.fansList;
                     followerInfo = new ArrayList<>();
                     System.out.println("++++++++output fan list+++++++");
-                    System.out.println(FollowerListFragment.this.followerList.toString());
                     System.out.println(followerList.toString());
 
                     mDatabase.child(DatabaseConstant.USER_TABLE_NAME).addValueEventListener(new ValueEventListener() {
@@ -143,7 +142,8 @@ public class FollowerListFragment extends Fragment {
                                     }
                                 }
                             }
-                            System.out.println("!!!!!output like list!!!!!!");
+                            System.out.println("!!!!!output fan list!!!!!!");
+                            System.out.println(followerInfo.toString());
                             initializeList();
                         }
 

@@ -35,13 +35,14 @@ public class UserProfile extends AppCompatActivity {
     private CircleImageView userProfileImage;
     private TextView userName, followerNum, followingNum, userDescription, userEmail,
                      userGender, userHeight, userWeight, userCity, userBirthday, userOccupation,
-                     userHobbies, userRelationshipStatus, userBodyType;
+                     userHobbies, userRelationshipStatus, userBodyType, editView;
     private LinearLayout editButton, previousButton, following, follower;
 
     private static final String TAG = "UserProfileActivity";
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,8 @@ public class UserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUserId = currentUser.getUid();
         initializeFields();
 
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -113,8 +116,7 @@ public class UserProfile extends AppCompatActivity {
         editButton = (LinearLayout) findViewById(R.id.EditButton);
         previousButton = (LinearLayout) findViewById(R.id.pro_previous);
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        retrivePost(currentUser.getUid());
+        retrivePost(currentUserId);
     }
 
     private void retrivePost(String uid) {
@@ -159,7 +161,6 @@ public class UserProfile extends AppCompatActivity {
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
                         userName.setText(UserName_);
-
                         userDescription.setText(UserDescription_);
                         userEmail.setText(UserEmail_);
                         userGender.setText(UserGender_);
@@ -177,8 +178,6 @@ public class UserProfile extends AppCompatActivity {
                                     .load(user.profileImageUrl)
                                     .into(userProfileImage);
                         }
-
-
                     }
 
                     @Override
@@ -194,7 +193,6 @@ public class UserProfile extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
-
                         String followerNumValue = "0";
                         String followingNumValue = "0";
 
