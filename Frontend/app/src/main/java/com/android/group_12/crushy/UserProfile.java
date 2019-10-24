@@ -33,15 +33,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserProfile extends AppCompatActivity {
 
     private CircleImageView userProfileImage;
-    private TextView userID, userName, followerNum, followingNum, userDescription, userEmail,
+    private TextView userName, followerNum, followingNum, userDescription, userEmail,
                      userGender, userHeight, userWeight, userCity, userBirthday, userOccupation,
                      userHobbies, userRelationshipStatus, userBodyType;
     private LinearLayout editButton, previousButton, following, follower;
 
-    private TextView UserID, UserName, FollowerNum, FollowingNum, UserDescription, UserEmail,
-            UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
-            UserHobbies, UserRelationshipStatus, UserBodyType;
-    private LinearLayout EditButton, PreviousButton;
     private static final String TAG = "UserProfileActivity";
 
     private DatabaseReference mDatabase;
@@ -98,7 +94,6 @@ public class UserProfile extends AppCompatActivity {
 
     private void initializeFields() {
         userProfileImage = (CircleImageView) findViewById(R.id.profile_image);
-        userID = (TextView) findViewById(R.id.UserID);
         userName = (TextView) findViewById(R.id.UserName);
         followerNum = (TextView)findViewById(R.id.FollowersNum);
         followingNum = (TextView) findViewById(R.id.FollowingNum);
@@ -137,8 +132,6 @@ public class UserProfile extends AppCompatActivity {
                         User user = dataSnapshot.getValue(User.class);
                         String UserProfileImage_ = user.profileImageUrl;
                         Log.i(TAG, UserProfileImage_);
-                        String UserID_ = user.userID;
-                        Log.i(TAG, UserID_);
                         String UserName_ = user.name;
                         Log.i(TAG, UserName_);
                         String UserDescription_ = user.description;
@@ -166,7 +159,6 @@ public class UserProfile extends AppCompatActivity {
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
                         userName.setText(UserName_);
-                        userID.setText(UserID_);
 
                         userDescription.setText(UserDescription_);
                         userEmail.setText(UserEmail_);
@@ -208,13 +200,14 @@ public class UserProfile extends AppCompatActivity {
 
                         if (user != null) {
                             if(user.followerNum != null) {
-                                followerNum = user.followerNum;
+                                followerNumValue = user.followerNum;
                                 //Log.i(TAG, FollowerNum_);
                             }
                             if(user.followingNum != null) {
-                                followingNum = user.followingNum;
+                                followingNumValue = user.followingNum;
                                 //Log.i(TAG, FollowingNum_);
                             }
+                            //UserProfileImarge = (CircleImageView) findViewById(R.id.profile_image);
                         }
 
                         followerNum.setText(followerNumValue);

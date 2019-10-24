@@ -127,9 +127,8 @@ public class FollowingListFragment extends Fragment {
                     UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
                     assert currentUserId != null;
                     followingList = userFollow.likeList;
-                    followingInfo = new ArrayList<User>();
-                    // fixme: 如何保证先获取list再更新UI？？？
-                    System.out.println("++++++++output fan list+++++++");
+                    followingInfo = new ArrayList<>();
+                    System.out.println("++++++++output like list+++++++");
                     System.out.println(FollowingListFragment.this.followingList.toString());
                     System.out.println(followingList.toString());
 
@@ -139,12 +138,13 @@ public class FollowingListFragment extends Fragment {
                             followingInfo.clear();
                             for (DataSnapshot dss: dataSnapshot.getChildren()) {
                                 User user = dss.getValue(User.class);
-                                assert user != null;
-
-                                if (followingList.contains(user.userID)) {
-                                    followingInfo.add(user);
+                                if(user != null){
+                                    if (followingList.contains(user.userID)) {
+                                        followingInfo.add(user);
+                                    }
                                 }
                             }
+                            System.out.println("!!!!!output like list!!!!!!");
                             initializeList();
                         }
                         @Override

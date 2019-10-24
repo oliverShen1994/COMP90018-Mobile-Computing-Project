@@ -62,7 +62,7 @@ public class FollowerListFragment extends Fragment {
         this.dataView = view.findViewById(R.id.follow_recycler);
 
         initializeWidget(view);
-        initializeFollowerList(view, this.currentUserId);
+        initializeFollowerList(this.currentUserId);
 
         return view;
     }
@@ -118,47 +118,46 @@ public class FollowerListFragment extends Fragment {
         }
     }
 
-    private void initializeFollowerList(View view, String userId) {
+    private void initializeFollowerList(String userId) {
         mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(userId).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get user value
-                        UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
-                        assert currentUserId != null;
-                        followerList = userFollow.likeList;
-                        followerInfo = new ArrayList<User>();
-                        // fixme: 如何保证先获取list再更新UI？？？
-                        System.out.println("++++++++output fan list+++++++");
-                        System.out.println(FollowerListFragment.this.followerList.toString());
-                        System.out.println(followerList.toString());
+            new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // Get user value
+                    UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
+                    followerList = userFollow.fansList;
+                    followerInfo = new ArrayList<>();
+                    System.out.println("++++++++output fan list+++++++");
+                    System.out.println(FollowerListFragment.this.followerList.toString());
+                    System.out.println(followerList.toString());
 
-                        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                followerInfo.clear();
-                                for (DataSnapshot dss: dataSnapshot.getChildren()) {
-                                    User user = dss.getValue(User.class);
-                                    assert user != null;
-
+                    mDatabase.child(DatabaseConstant.USER_TABLE_NAME).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            followerInfo.clear();
+                            for (DataSnapshot dss: dataSnapshot.getChildren()) {
+                                User user = dss.getValue(User.class);
+                                if(user != null){
                                     if (followerList.contains(user.userID)) {
                                         followerInfo.add(user);
                                     }
                                 }
-                                initializeList();
                             }
+                            System.out.println("!!!!!output like list!!!!!!");
+                            initializeList();
+                        }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        });
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                }
+            });
     }
 
     private void updateFragment(int selectedFragmentID) {
