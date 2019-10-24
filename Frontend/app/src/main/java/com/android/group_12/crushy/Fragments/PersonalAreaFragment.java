@@ -173,10 +173,25 @@ public class PersonalAreaFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
-                        Glide.with(PersonalAreaFragment.this)
-                                .load(user.profileImageUrl)
-                                .into(userImage);
-                      
+
+                        //Log.e(TAG, "User " + userId + " is ");
+                        //Log.e(TAG, "the author is " + user.author);
+                        //Log.e(TAG, user.title);
+                        //Log.e(TAG, user.author);
+                        //Toast.makeText(EditUserProfile.this,
+                        //        "Error: could not fetch user.",
+                        //        Toast.LENGTH_SHORT).show();
+                        // Finish this Activity, back to the stream
+                        // [END_EXCLUDE]
+                        if (user.profileImageUrl.equals("")) {
+                            userImage.setImageResource(R.drawable.profile_image);
+                        }
+                        else{
+                            Glide.with(PersonalAreaFragment.this)
+                                    .load(user.profileImageUrl)
+                                    .into(userImage);
+                        }
+
                         String UserProfileImage_ = user.profileImageUrl;
                         Log.i(TAG, UserProfileImage_);
                         String UserDescription_ = user.description;

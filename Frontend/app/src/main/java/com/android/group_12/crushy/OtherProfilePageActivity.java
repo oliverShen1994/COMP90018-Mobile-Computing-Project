@@ -11,12 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.group_12.crushy.Activities.FollowerListActivity;
-import com.android.group_12.crushy.Activities.FollowingListActivity;
 import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.Constants.IntentExtraParameterName;
 import com.android.group_12.crushy.Constants.RequestCode;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
+import com.android.group_12.crushy.Enums.MainActivityFragmentEnum;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,93 +30,60 @@ import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class UserProfile extends AppCompatActivity {
+public class OtherProfilePageActivity extends AppCompatActivity {
+    private CircleImageView UserProfileImage;
 
-    private CircleImageView userProfileImage;
-    private TextView userName, followerNum, followingNum, userDescription, userEmail,
-                     userGender, userHeight, userWeight, userCity, userBirthday, userOccupation,
-                     userHobbies, userRelationshipStatus, userBodyType, editView;
-    private LinearLayout editButton, previousButton, following, follower;
-
-    private static final String TAG = "UserProfileActivity";
+    private TextView UserID, UserName, FollowerNum, FollowingNum, UserDescription, UserEmail,
+            UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
+            UserHobbies, UserRelationshipStatus, UserBodyType;
+    private LinearLayout PreviousButton;
+    private static final String TAG = "OtherUserActivity";
 
     private DatabaseReference mDatabase;
-    private FirebaseAuth mAuth;
-    private String currentUserId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
-        mAuth = FirebaseAuth.getInstance();
+        setContentView(R.layout.activity_other_profile_page);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        currentUserId = currentUser.getUid();
-        initializeFields();
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent EditProfileIntent = new Intent(UserProfile.this, EditUserProfile.class);
-//                startActivityForResult(EditProfileIntent, RequestCode.UserProfile);
-                startActivity(EditProfileIntent);
-            }
-        });
-
-        previousButton.setOnClickListener(new View.OnClickListener() {
+        Intent intent = getIntent();
+        String aimID = intent.getStringExtra("userID");
+        System.out.println(aimID);
+        initializeFields(aimID);
+        PreviousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
 
-        follower.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent followerIntent;
-                followerIntent = new Intent(UserProfile.this, FollowerListActivity.class);
-                startActivity(followerIntent);
-            }
-        });
 
-        following.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent followingIntent;
-                followingIntent = new Intent(UserProfile.this, FollowingListActivity.class);
-                startActivity(followingIntent);
-            }
-        });
+
+
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initializeFields();
-    }
+    private void initializeFields(String id) {
+        UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+        UserID = (TextView) findViewById(R.id.UserDescription);
+        UserName = (TextView) findViewById(R.id.UserName);
+        FollowerNum = (TextView) findViewById(R.id.FollowersNum);
+        FollowingNum = (TextView) findViewById(R.id.FollowingNum);
+        UserDescription = (TextView) findViewById(R.id.UserDescription);
+        UserEmail = (TextView) findViewById(R.id.UserEmail);
+        UserGender = (TextView) findViewById(R.id.UserGender);
+        UserHeight = (TextView) findViewById(R.id.UserHeight);
+        UserWeight = (TextView) findViewById(R.id.UserWeight);
+        UserCity = (TextView) findViewById(R.id.UserCity);
+        UserBirthday = (TextView) findViewById(R.id.UserBirthday);
+        UserOccupation = (TextView) findViewById(R.id.UserOccupation);
+        UserHobbies = (TextView) findViewById(R.id.UserHobbies);
+        UserRelationshipStatus = (TextView) findViewById(R.id.UserRelationshipStatus);
+        UserBodyType = (TextView) findViewById(R.id.UserBodyType);
+        PreviousButton = (LinearLayout) findViewById(R.id.pro_previous);
 
-    private void initializeFields() {
-        userProfileImage = (CircleImageView) findViewById(R.id.profile_image);
-        userName = (TextView) findViewById(R.id.UserName);
-        followerNum = (TextView)findViewById(R.id.FollowersNum);
-        followingNum = (TextView) findViewById(R.id.FollowingNum);
-        userDescription = (TextView) findViewById(R.id.UserDescription);
-        userEmail = (TextView) findViewById(R.id.UserEmail);
-        userGender = (TextView) findViewById(R.id.UserGender);
-        userHeight = (TextView) findViewById(R.id.UserHeight);
-        userWeight = (TextView) findViewById(R.id.UserWeight);
-        userCity = (TextView) findViewById(R.id.UserCity);
-        userBirthday = (TextView) findViewById(R.id.UserBirthday);
-        userOccupation = (TextView) findViewById(R.id.UserOccupation);
-        userHobbies = (TextView) findViewById(R.id.UserHobbies);
-        userRelationshipStatus = (TextView) findViewById(R.id.UserRelationshipStatus);
-        userBodyType = (TextView) findViewById(R.id.UserBodyType);
-        follower = (LinearLayout) findViewById(R.id.Follower);
-        following = (LinearLayout) findViewById(R.id.Following);
-        editButton = (LinearLayout) findViewById(R.id.EditButton);
-        previousButton = (LinearLayout) findViewById(R.id.pro_previous);
-
-        retrivePost(currentUserId);
+        retrivePost(id);
     }
 
     private void retrivePost(String uid) {
@@ -134,6 +101,8 @@ public class UserProfile extends AppCompatActivity {
                         User user = dataSnapshot.getValue(User.class);
                         String UserProfileImage_ = user.profileImageUrl;
                         Log.i(TAG, UserProfileImage_);
+                        String UserID_ = user.userID;
+                        Log.i(TAG, UserID_);
                         String UserName_ = user.name;
                         Log.i(TAG, UserName_);
                         String UserDescription_ = user.description;
@@ -160,27 +129,30 @@ public class UserProfile extends AppCompatActivity {
                         Log.i(TAG, UserBodyType_);
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
-                        userName.setText(UserName_);
-                        userDescription.setText(UserDescription_);
-                        userEmail.setText(UserEmail_);
-                        userGender.setText(UserGender_);
-                        userHeight.setText(UserHeight_);
-                        userWeight.setText(UserWeight_);
-                        userBodyType.setText(UserBodyType_);
-                        userCity.setText(UserCity_);
-                        userBirthday.setText(UserBirthday_);
-                        userOccupation.setText(UserOccupation_);
-                        userHobbies.setText(UserHobbies_);
-                        userRelationshipStatus.setText(UserRelationshipStatus_);
+                        UserName.setText(UserName_);
+                        UserID.setText(UserID_);
+
+                        UserDescription.setText(UserDescription_);
+                        UserEmail.setText(UserEmail_);
+                        UserGender.setText(UserGender_);
+                        UserHeight.setText(UserHeight_);
+                        UserWeight.setText(UserWeight_);
+                        UserBodyType.setText(UserBodyType_);
+                        UserCity.setText(UserCity_);
+                        UserBirthday.setText(UserBirthday_);
+                        UserOccupation.setText(UserOccupation_);
+                        UserHobbies.setText(UserHobbies_);
+                        UserRelationshipStatus.setText(UserRelationshipStatus_);
 
                         if (user.profileImageUrl.equals("")) {
                             UserProfileImage.setImageResource(R.drawable.profile_image);
                         }
                         else{
-                            Glide.with(UserProfile.this)
+                            Glide.with(OtherProfilePageActivity.this)
                                     .load(user.profileImageUrl)
-                                    .into(userProfileImage);
+                                    .into(UserProfileImage);
                         }
+
                     }
 
                     @Override
@@ -196,23 +168,24 @@ public class UserProfile extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
-                        String followerNumValue = "0";
-                        String followingNumValue = "0";
+
+                        String followerNum = "0";
+                        String followingNum = "0";
 
                         if (user != null) {
                             if(user.followerNum != null) {
-                                followerNumValue = user.followerNum;
+                                followerNum = user.followerNum;
                                 //Log.i(TAG, FollowerNum_);
                             }
                             if(user.followingNum != null) {
-                                followingNumValue = user.followingNum;
+                                followingNum = user.followingNum;
                                 //Log.i(TAG, FollowingNum_);
                             }
-                            //UserProfileImarge = (CircleImageView) findViewById(R.id.profile_image);
                         }
 
-                        followerNum.setText(followerNumValue);
-                        followingNum.setText(followingNumValue);
+                        FollowerNum.setText(followerNum);
+                        FollowingNum.setText(followingNum);
+
                     }
                     // [END single_value_read]
 
@@ -220,18 +193,7 @@ public class UserProfile extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
+
                 });
-    }
-
-    public void onStart() {
-
-        super.onStart();
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        System.out.println("In user profile, back pressed");
     }
 }
