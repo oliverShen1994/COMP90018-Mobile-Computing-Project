@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.group_12.crushy.Activities.FollowerListActivity;
+import com.android.group_12.crushy.Activities.FollowingListActivity;
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.Constants.RequestCode;
 import com.android.group_12.crushy.DatabaseWrappers.User;
@@ -29,11 +31,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserProfile extends AppCompatActivity {
 
-    private CircleImageView UserProfileImage;
-    private TextView UserID, UserName, FollowerNum, FollowingNum, UserDescription, UserEmail,
-                     UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
-                     UserHobbies, UserRelationshipStatus, UserBodyType;
-    private LinearLayout EditButton, PreviousButton;
+    private CircleImageView userProfileImage;
+    private TextView userID, userName, followerNum, followingNum, userDescription, userEmail,
+                     userGender, userHeight, userWeight, userCity, userBirthday, userOccupation,
+                     userHobbies, userRelationshipStatus, userBodyType;
+    private LinearLayout editButton, previousButton, following, follower;
     private static final String TAG = "UserProfileActivity";
 
     private DatabaseReference mDatabase;
@@ -46,7 +48,8 @@ public class UserProfile extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         initializeFields();
-        EditButton.setOnClickListener(new View.OnClickListener() {
+
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent EditProfileIntent = new Intent(UserProfile.this, EditUserProfile.class);
@@ -55,47 +58,59 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
-        PreviousButton.setOnClickListener(new View.OnClickListener() {
+        previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
 
-//        PreviousButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        follower.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent followerIntent;
+                followerIntent = new Intent(UserProfile.this, FollowerListActivity.class);
+                startActivity(followerIntent);
+            }
+        });
+
+        following.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent followingIntent;
+                followingIntent = new Intent(UserProfile.this, FollowingListActivity.class);
+                startActivity(followingIntent);
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         initializeFields();
-        //返回的时候走resume fixme:
     }
 
     private void initializeFields() {
-        UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
-        UserID = (TextView) findViewById(R.id.UserID);
-        UserName = (TextView) findViewById(R.id.UserName);
-        FollowerNum = (TextView)findViewById(R.id.FollowersNum);
-        FollowingNum = (TextView) findViewById(R.id.FollowingNum);
-        UserDescription = (TextView) findViewById(R.id.UserDescription);
-        UserEmail = (TextView) findViewById(R.id.UserEmail);
-        UserGender = (TextView) findViewById(R.id.UserGender);
-        UserHeight = (TextView) findViewById(R.id.UserHeight);
-        UserWeight = (TextView) findViewById(R.id.UserWeight);
-        UserCity = (TextView) findViewById(R.id.UserCity);
-        UserBirthday = (TextView) findViewById(R.id.UserBirthday);
-        UserOccupation = (TextView) findViewById(R.id.UserOccupation);
-        UserHobbies = (TextView) findViewById(R.id.UserHobbies);
-        UserRelationshipStatus = (TextView) findViewById(R.id.UserRelationshipStatus);
-        UserBodyType = (TextView) findViewById(R.id.UserBodyType);
-        EditButton = (LinearLayout) findViewById(R.id.EditButton);
-        PreviousButton = (LinearLayout) findViewById(R.id.pro_previous);
+        userProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+        userID = (TextView) findViewById(R.id.UserID);
+        userName = (TextView) findViewById(R.id.UserName);
+        followerNum = (TextView)findViewById(R.id.FollowersNum);
+        followingNum = (TextView) findViewById(R.id.FollowingNum);
+        userDescription = (TextView) findViewById(R.id.UserDescription);
+        userEmail = (TextView) findViewById(R.id.UserEmail);
+        userGender = (TextView) findViewById(R.id.UserGender);
+        userHeight = (TextView) findViewById(R.id.UserHeight);
+        userWeight = (TextView) findViewById(R.id.UserWeight);
+        userCity = (TextView) findViewById(R.id.UserCity);
+        userBirthday = (TextView) findViewById(R.id.UserBirthday);
+        userOccupation = (TextView) findViewById(R.id.UserOccupation);
+        userHobbies = (TextView) findViewById(R.id.UserHobbies);
+        userRelationshipStatus = (TextView) findViewById(R.id.UserRelationshipStatus);
+        userBodyType = (TextView) findViewById(R.id.UserBodyType);
+        follower = (LinearLayout) findViewById(R.id.Follower);
+        following = (LinearLayout) findViewById(R.id.Following);
+        editButton = (LinearLayout) findViewById(R.id.EditButton);
+        previousButton = (LinearLayout) findViewById(R.id.pro_previous);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         retrivePost(currentUser.getUid());
@@ -160,23 +175,23 @@ public class UserProfile extends AppCompatActivity {
                         Log.i(TAG, UserBodyType_);
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
 
-                        UserName.setText(UserName_);
-                        UserID.setText(UserID_);
+                        userName.setText(UserName_);
+                        userID.setText(UserID_);
 
-                        UserDescription.setText(UserDescription_);
-                        UserEmail.setText(UserEmail_);
-                        UserGender.setText(UserGender_);
-                        UserHeight.setText(UserHeight_);
-                        UserWeight.setText(UserWeight_);
-                        UserBodyType.setText(UserBodyType_);
-                        UserCity.setText(UserCity_);
-                        UserBirthday.setText(UserBirthday_);
-                        UserOccupation.setText(UserOccupation_);
-                        UserHobbies.setText(UserHobbies_);
-                        UserRelationshipStatus.setText(UserRelationshipStatus_);
+                        userDescription.setText(UserDescription_);
+                        userEmail.setText(UserEmail_);
+                        userGender.setText(UserGender_);
+                        userHeight.setText(UserHeight_);
+                        userWeight.setText(UserWeight_);
+                        userBodyType.setText(UserBodyType_);
+                        userCity.setText(UserCity_);
+                        userBirthday.setText(UserBirthday_);
+                        userOccupation.setText(UserOccupation_);
+                        userHobbies.setText(UserHobbies_);
+                        userRelationshipStatus.setText(UserRelationshipStatus_);
                         Glide.with(UserProfile.this)
                                 .load(user.profileImageUrl)
-                                .into(UserProfileImage);
+                                .into(userProfileImage);
 
                     }
 
@@ -199,9 +214,8 @@ public class UserProfile extends AppCompatActivity {
                         String FollowingNum_ = user.followingNum;
                         Log.e(TAG, FollowingNum_);
 
-                        FollowerNum.setText(FollowerNum_);
-                        FollowingNum.setText(FollowingNum_);
-
+                        followerNum.setText(FollowerNum_);
+                        followingNum.setText(FollowingNum_);
                     }
                     // [END single_value_read]
 
@@ -209,7 +223,6 @@ public class UserProfile extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-
                 });
     }
 
