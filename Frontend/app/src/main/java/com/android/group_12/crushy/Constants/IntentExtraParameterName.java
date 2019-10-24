@@ -8,5 +8,7 @@ public class IntentExtraParameterName {
     public static final String REGISTRATION_EXTRA_INFO_ACTIVITY_EMAIL = "regExtraInfoEmail";
     public static final String REGISTRATION_EXTRA_INFO_ACTIVITY_USER_ID = "regExtraInfoUserID";
 
+    public static final String UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID = "regExtraInfoUserID";
+
     public static final String FIREBASE_AUTHENTICATION_OBJECT = "mAuthObject";
 }
