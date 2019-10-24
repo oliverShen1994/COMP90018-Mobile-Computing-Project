@@ -48,7 +48,7 @@ public class EditUserProfile extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
-    private String currentUserId;
+    private String currentUserId, imageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +80,9 @@ public class EditUserProfile extends AppCompatActivity {
                 String UserHobbies_ = UserHobbies.getText().toString();
                 String UserRelationshipStatus_ = UserRelationshipStatus.getText().toString();
                 String UserBodyType_ = UserBodyType.getText().toString();
+                String UserProfileImage_ = imageUrl;
                 writeNewPost(EditUserName_, UserDescription_, UserEmail_, UserGender_, UserHeight_, UserWeight_, UserCity_, UserBirthday_,
-                        UserOccupation_, UserHobbies_, UserRelationshipStatus_, UserBodyType_);
+                        UserOccupation_,  UserProfileImage_, UserHobbies_, UserRelationshipStatus_, UserBodyType_);
 
 //                Intent ProfileIntent = new Intent(EditUserProfile.this, UserProfile.class);
 //                startActivity(ProfileIntent);
@@ -164,10 +165,14 @@ public class EditUserProfile extends AppCompatActivity {
 
                         String UserID_ = user.userID;
                         String UserName_ = user.name;
-                        if(!UserProfileImage_.equals("")) {
+                        if (user.profileImageUrl.equals("")) {
+                            UserProfileImage.setImageResource(R.drawable.profile_image);
+                        }
+                        else{
                             Glide.with(EditUserProfile.this)
-                                    .load(UserProfileImage_)
+                                    .load(user.profileImageUrl)
                                     .into(UserProfileImage);
+                            imageUrl = user.profileImageUrl;
                         }
 
                         UserDescription.setText(user.description);
@@ -195,7 +200,7 @@ public class EditUserProfile extends AppCompatActivity {
 
     public void writeNewPost(String EditUserName_, String UserDescription_, String UserEmail_, String UserGender_,
                              String UserHeight_, String UserWeight_, String UserCity_, String UserBirthday_,
-                 String UserOccupation_, String UserHobbies_, String UserRelationshipStatus_, String UserBodyType_){
+                 String UserOccupation_, String UserProfileImage_,String UserHobbies_, String UserRelationshipStatus_, String UserBodyType_){
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         //String key = mDatabase.child("posts").push().getKey();
@@ -207,8 +212,8 @@ public class EditUserProfile extends AppCompatActivity {
 
         String UserID_ = currentUserId;
 
-        //fixme:only for test
-        String UserProfileImage_ = "";
+
+
 
         User post = new User(UserID_, EditUserName_, UserBirthday_, UserEmail_, UserBodyType_, UserCity_, UserDescription_, UserGender_, UserHobbies_, UserOccupation_, UserProfileImage_, UserRelationshipStatus_, UserHeight_, UserWeight_);
 

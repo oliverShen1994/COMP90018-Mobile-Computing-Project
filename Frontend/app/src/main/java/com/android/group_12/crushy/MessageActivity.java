@@ -40,7 +40,7 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseUser fuser;
     DatabaseReference reference;
 
-    ImageButton btn_send;
+    ImageButton btn_send, btn_back;
     EditText text_send;
 
     MessageAdapter messageAdapter;
@@ -49,6 +49,8 @@ public class MessageActivity extends AppCompatActivity {
 
 
     Intent intent;
+
+
 
     @Override
     public void onBackPressed() {
@@ -124,6 +126,14 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+
+        btn_back = findViewById(R.id.back_btn);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void sendMessage(String sender, String receiver, String message) {
@@ -151,7 +161,7 @@ public class MessageActivity extends AppCompatActivity {
                         mChat.add(chat);
                     }
 
-                    messageAdapter = new MessageAdapter(MessageActivity.this, mChat, imageurl);
+                    messageAdapter = new MessageAdapter(MessageActivity.this, mChat, imageurl, userid);
                     recyclerView.setAdapter(messageAdapter);
                 }
 
