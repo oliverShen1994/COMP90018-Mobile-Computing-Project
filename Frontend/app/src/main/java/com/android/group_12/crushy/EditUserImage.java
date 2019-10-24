@@ -10,9 +10,11 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -58,11 +60,13 @@ public class EditUserImage extends AppCompatActivity {
     private static final String TAG = "Edit_Image";
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
-    private String currentUserId;
+    private String currentUserId, mCurrentPhotoPath;
     private FirebaseAuth mAuth;
+    private File photoFile = null;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private static final int CAMERA_REQUEST = 2;
+    private static final int CAPTURE_IMAGE_REQUEST = 2;
     private Uri mImageUri;
+    private static final String IMAGE_DIRECTORY_NAME = "VLEMONN";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,14 +158,16 @@ public class EditUserImage extends AppCompatActivity {
                     .into(UserImage);
         }
 
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            UserImage.setImageBitmap(photo);
-
-            mImageUri = data.getData();
-
+        if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == RESULT_OK) {
+            Bitmap myBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+            UserImage.setImageBitmap(myBitmap);
+        }
+        else
+        {
+            displayMessage(getBaseContext(),"Request cancelled or something went wrong.");
         }
     }
+
 
     private String getFileExtension(Uri uri){
         ContentResolver cr = getContentResolver();
@@ -209,6 +215,10 @@ public class EditUserImage extends AppCompatActivity {
         super.onStart();
     }
 
+    /**
+     * The codes below is mainly referred from the blog "Android Capture Image From Camera and Get Image Save Path" by Mayank Sanghvi.
+     * Acknowledgement: https://vlemon.com/blog/android/android-capture-image-from-camera-and-get-image-save-path/
+     */
     private void showBottomDialog(){
         //1、使用Dialog、设置style
         final Dialog dialog = new Dialog(this,R.style.DialogTheme);
@@ -228,11 +238,7 @@ public class EditUserImage extends AppCompatActivity {
         dialog.findViewById(R.id.tv_take_photo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(EditUserImage.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    dialog.findViewById(R.id.tv_take_photo).setEnabled(false);
-                    ActivityCompat.requestPermissions(EditUserImage.this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
-                }
-                startCamera();
+                captureImage();
             }
         });
 
@@ -252,26 +258,75 @@ public class EditUserImage extends AppCompatActivity {
 
     }
 
-        public void startCamera(){
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            Uri file = Uri.fromFile(getOutputMediaFile());
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
-            startActivityForResult(intent, CAMERA_REQUEST);
+    private void captureImage()
+    {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
+        else
+        {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                // Create the File where the photo should go
+                try {
 
-    private static File getOutputMediaFile(){
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "CameraDemo");
+                    photoFile = createImageFile();
+                    displayMessage(getBaseContext(),photoFile.getAbsolutePath());
+                    Log.i("Mayank",photoFile.getAbsolutePath());
 
-        if (!mediaStorageDir.exists()){
-            if (!mediaStorageDir.mkdirs()){
-                return null;
+                    // Continue only if the File was successfully created
+                    if (photoFile != null) {
+                        Uri photoURI = FileProvider.getUriForFile(this,
+                                "com.vlemonn.blog.captureimage.fileprovider",
+                                photoFile);
+
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                        mImageUri = photoURI;
+                        startActivityForResult(takePictureIntent, CAPTURE_IMAGE_REQUEST);
+                    }
+                } catch (Exception ex) {
+                    // Error occurred while creating the File
+                    displayMessage(getBaseContext(),ex.getMessage().toString());
+                }
+
+
+            }else
+            {
+                displayMessage(getBaseContext(),"Nullll");
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void displayMessage(Context context, String message)
+    {
+        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 0) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                captureImage();
             }
         }
 
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        return new File(mediaStorageDir.getPath() + File.separator +
-                "IMG_"+ timeStamp + ".jpg");
     }
-
 }
