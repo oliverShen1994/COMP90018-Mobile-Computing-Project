@@ -215,10 +215,7 @@ public class EditUserImage extends AppCompatActivity {
         super.onStart();
     }
 
-    /**
-     * The codes below is mainly referred from the blog "Android Capture Image From Camera and Get Image Save Path" by Mayank Sanghvi.
-     * Acknowledgement: https://vlemon.com/blog/android/android-capture-image-from-camera-and-get-image-save-path/
-     */
+
     private void showBottomDialog(){
         //1、使用Dialog、设置style
         final Dialog dialog = new Dialog(this,R.style.DialogTheme);
@@ -258,9 +255,12 @@ public class EditUserImage extends AppCompatActivity {
 
     }
 
+    /**
+     * The codes below is mainly referred from the blog "Android Capture Image From Camera and Get Image Save Path" by Mayank Sanghvi.
+     * Acknowledgement: https://vlemon.com/blog/android/android-capture-image-from-camera-and-get-image-save-path/
+     */
     private void captureImage()
     {
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
