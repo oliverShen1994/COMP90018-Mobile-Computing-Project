@@ -1,4 +1,4 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.group_12.crushy.PersonalInfo;
+import com.android.group_12.crushy.R;
 
 import java.util.List;
 

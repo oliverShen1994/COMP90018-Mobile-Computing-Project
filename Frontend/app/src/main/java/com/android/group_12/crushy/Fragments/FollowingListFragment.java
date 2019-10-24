@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.android.group_12.crushy.FollowListAdapter;
+import com.android.group_12.crushy.Adapter.FollowListAdapter;
 import com.android.group_12.crushy.PersonalInfo;
 import com.android.group_12.crushy.R;
 

@@ -51,6 +51,12 @@ public class MessageActivity extends AppCompatActivity {
     Intent intent;
 
     @Override
+    public void onBackPressed() {
+        System.out.println("Back pressed!");
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
