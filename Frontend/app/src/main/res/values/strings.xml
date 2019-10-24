@@ -113,4 +113,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logo_image_description">Logo Image</string>
+    <string name="already_have_an_account">Already have an Account?</string>
+    <string name="create_account_button_text">Create Account</string>
+    <string name="password_input_text">Password</string>
+    <string name="preferred_name_input_text">Preferred Name</string>
+    <string name="email_input_text">Email</string>
 </resources>

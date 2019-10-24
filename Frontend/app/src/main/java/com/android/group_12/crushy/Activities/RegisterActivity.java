@@ -17,8 +17,11 @@ import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.R;
+import com.android.group_12.crushy.Utils.EmailValidationUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -28,9 +31,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-    private Button createAccountButton;
-    private EditText userEmail, userPassword, userPreferredName;
-    private TextView alreadyHaveAccountLink;
+    private MaterialButton createAccountButton, alreadyHaveAccountLink;
+    private TextInputEditText userEmail, userPassword, userPreferredName;
 
     private FirebaseAuth mAuth;
     private ProgressBar loadingBar;
@@ -68,8 +70,12 @@ public class RegisterActivity extends AppCompatActivity {
         String password = userPassword.getText().toString();
         String preferredName = userPreferredName.getText().toString();
 
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(RegisterActivity.this, "Please enter email...", Toast.LENGTH_SHORT).show();
+        System.out.println("Email: " + email);
+        System.out.println("Password: " + password);
+        System.out.println("Preferred Name: " + preferredName);
+
+        if (TextUtils.isEmpty(email) || !EmailValidationUtil.isValid(email)) {
+            Toast.makeText(RegisterActivity.this, "Please enter a valid email...", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(RegisterActivity.this, "Please enter password...", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(preferredName)) {
