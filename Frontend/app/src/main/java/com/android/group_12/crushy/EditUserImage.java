@@ -2,13 +2,27 @@ package com.android.group_12.crushy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +45,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class EditUserImage extends AppCompatActivity {
@@ -42,6 +61,7 @@ public class EditUserImage extends AppCompatActivity {
     private String currentUserId;
     private FirebaseAuth mAuth;
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int CAMERA_REQUEST = 2;
     private Uri mImageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +100,7 @@ public class EditUserImage extends AppCompatActivity {
         UserImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openFileChooser();
+                showBottomDialog();
             }
         });
     }
@@ -123,6 +143,14 @@ public class EditUserImage extends AppCompatActivity {
             Glide.with(this)
                     .load(mImageUri)
                     .into(UserImage);
+        }
+
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            UserImage.setImageBitmap(photo);
+
+            mImageUri = data.getData();
+
         }
     }
 
@@ -171,4 +199,70 @@ public class EditUserImage extends AppCompatActivity {
     public void onStart() {
         super.onStart();
     }
+
+    private void showBottomDialog(){
+        //1、使用Dialog、设置style
+        final Dialog dialog = new Dialog(this,R.style.DialogTheme);
+        //2、设置布局
+        View view = View.inflate(this,R.layout.dialog_custom_layout,null);
+        dialog.setContentView(view);
+
+        Window window = dialog.getWindow();
+        //设置弹出位置
+        window.setGravity(Gravity.BOTTOM);
+        //设置弹出动画
+        window.setWindowAnimations(R.style.main_menu_animStyle);
+        //设置对话框大小
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
+        dialog.findViewById(R.id.tv_take_photo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(EditUserImage.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    dialog.findViewById(R.id.tv_take_photo).setEnabled(false);
+                    ActivityCompat.requestPermissions(EditUserImage.this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+                }
+                startCamera();
+            }
+        });
+
+        dialog.findViewById(R.id.tv_take_pic).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openFileChooser();
+            }
+        });
+
+        dialog.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+        public void startCamera(){
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Uri file = Uri.fromFile(getOutputMediaFile());
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
+            startActivityForResult(intent, CAMERA_REQUEST);
+        }
+
+    private static File getOutputMediaFile(){
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "CameraDemo");
+
+        if (!mediaStorageDir.exists()){
+            if (!mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_"+ timeStamp + ".jpg");
+    }
+
 }
