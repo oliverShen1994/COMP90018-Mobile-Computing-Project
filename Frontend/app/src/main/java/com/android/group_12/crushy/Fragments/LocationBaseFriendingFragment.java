@@ -43,9 +43,9 @@ import java.util.Random;
  * to handle interaction events.
  */
 public class LocationBaseFriendingFragment extends CrushyFragment {
+
     private ImageButton likeButton;
     private ImageButton dislikeButton;
-
     public static String LIKE = "0";
     public static String DISLIKE = "1";
     public ImageView userImage;
@@ -75,16 +75,14 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
         userImage = fragmentLayout.findViewById(R.id.potential_friend_image);
         userName = fragmentLayout.findViewById(R.id.nick_name);
-        gender = fragmentLayout.findViewById(R.id.gender);
-        city = fragmentLayout.findViewById(R.id.city);
-        hobby = fragmentLayout.findViewById(R.id.hobbies);
+        gender=fragmentLayout.findViewById(R.id.gender);
+        city= fragmentLayout.findViewById(R.id.city);
+        hobby= fragmentLayout.findViewById(R.id.hobbies);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         currentUserId = currentUser.getUid();
-
-
         // Adjust the image view.
         ImageView userImageView = fragmentLayout.findViewById(R.id.potential_friend_image);
         ViewGroup.MarginLayoutParams imageViewParams = (ViewGroup.MarginLayoutParams) userImageView.getLayoutParams();
@@ -148,33 +146,30 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                 pickNextUser();
             }
         });
+
         retriveUserIDs();
         //pickNextUser();
-
         return fragmentLayout;
     }
 
     //Like or Dislike
-    public static void LikeDislikeFunction(DatabaseReference rootRef, final String sender, String receiver, final String Flag) {
-
+    public void LikeDislikeFunction(final DatabaseReference rootRef, final String sender, final String receiver, final String Flag){
         final ArrayList<String> senderFriendList = new ArrayList<String>();
         final ArrayList<String> senderLikeList = new ArrayList<String>();
         final ArrayList<String> senderDislikeList = new ArrayList<String>();
         final ArrayList<String> senderFansList = new ArrayList<String>();
 
-        final ArrayList<String> receiverFriendList = new ArrayList<String>();
-        final ArrayList<String> receiverFansList = new ArrayList<String>();
-        final ArrayList<String> receiverLikeList = new ArrayList<String>();
-        final ArrayList<String> receiverDislikeList = new ArrayList<String>();
-
+        final ArrayList<String> receiverFriendList= new ArrayList<String>();
+        final ArrayList<String> receiverFansList= new ArrayList<String>();
+        final ArrayList<String> receiverLikeList= new ArrayList<String>();
+        final ArrayList<String> receiverDislikeList= new ArrayList<String>();
         rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
-
-                        if (user != null) {
+                        if(user != null) {
                             for (String liked : user.likeList) {
                                 senderLikeList.add(liked);
                             }
@@ -196,24 +191,62 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                     }
                 });
 
-        rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(receiver).addListenerForSingleValueEvent(
+        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
-                        for (String liked : user.likeList) {
-                            receiverLikeList.add(liked);
+                        if(user != null) {
+                            for (String liked : user.likeList) {
+                                receiverLikeList.add(liked);
+                            }
+                            for (String friend : user.friendsList) {
+                                receiverFriendList.add(friend);
+                            }
+                            for (String fans : user.fansList) {
+                                receiverFansList.add(fans);
+                            }
+                            for (String disLike : user.dislikeList) {
+                                receiverDislikeList.add(disLike);
+                            }
                         }
-                        for (String friend : user.friendsList) {
-                            receiverFriendList.add(friend);
+
+                        if(Flag == LIKE){
+                            senderLikeList.add(receiver);
+                            receiverFansList.add(sender);
+
+                            // if her likeList has me,
+                            // congratulation! we matched !!!
+                            if(receiverLikeList.contains(sender)){
+                                senderFriendList.add(receiver);
+                                receiverFriendList.add(sender);
+                            }
+
                         }
-                        for (String fans : user.fansList) {
-                            receiverFansList.add(fans);
+
+                        if(Flag == DISLIKE){
+                            senderDislikeList.add(receiver);
                         }
-                        for (String disLike : user.dislikeList) {
-                            receiverDislikeList.add(disLike);
-                        }
+
+                        //update the firebase with the new values
+                        Map<String, Object> senderLists = new HashMap<>();
+                        senderLists.put("fansList", senderFansList);
+                        senderLists.put("likeList", senderLikeList);
+                        senderLists.put("friendsList", senderFriendList);
+                        senderLists.put("dislikeList", senderDislikeList);
+                        senderLists.put("followerNum", senderFansList.size() + "");
+                        senderLists.put("followingNum", senderLikeList.size() + "");
+                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).setValue(senderLists);
+
+                        Map<String, Object> receiverLists = new HashMap<>();
+                        receiverLists.put("fansList", receiverFansList);
+                        receiverLists.put("likeList", receiverLikeList);
+                        receiverLists.put("friendsList", receiverFriendList);
+                        receiverLists.put("dislikeList", receiverDislikeList);
+                        receiverLists.put("followerNum", receiverFansList.size() + "");
+                        receiverLists.put("followingNum", receiverLikeList.size() + "");
+                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).setValue(receiverLists);
                     }
 
                     @Override
@@ -223,44 +256,11 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                 });
         // if I like her, add her to my likeList, add me to her fansList, if her likeList has me, add me
         // to her friendList, add her to my friendList
-        if (Flag == LIKE) {
-
-            senderLikeList.add(receiver);
-            receiverFansList.add(sender);
-
-            // if her likeList has me,
-            // congratulation! we matched !!!
-            if (receiverLikeList.contains(sender)) {
-                senderFriendList.add(receiver);
-                receiverFriendList.add(sender);
-            }
-
-        }
-
-        if (Flag == DISLIKE) {
-            senderDislikeList.add(receiver);
-        }
-
-        //update the firebase with the new values
-        Map<String, ArrayList<String>> senderLists = new HashMap<>();
-        senderLists.put("fansList", senderFansList);
-        senderLists.put("likeList", senderLikeList);
-        senderLists.put("friendsList", senderFriendList);
-        senderLists.put("dislikeList", senderDislikeList);
-        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).setValue(senderLists);
-
-        Map<String, ArrayList<String>> receiverLists = new HashMap<>();
-        receiverLists.put("fansList", receiverFansList);
-        receiverLists.put("likeList", receiverLikeList);
-        receiverLists.put("friendsList", receiverFriendList);
-        receiverLists.put("dislikeList", receiverDislikeList);
-        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).setValue(receiverLists);
 
     }
 
 
     private void retriveUserIDs() {
-
         mDatabase.child(DatabaseConstant.USER_TABLE_NAME).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -272,7 +272,6 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                             pickNextUser();
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
@@ -280,12 +279,9 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                 });
 
         mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserId).addListenerForSingleValueEvent(
-                new ValueEventListener() {
+                new ValueEventListener(){
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        System.out.println("dataSnapshot");
-                        System.out.println(dataSnapshot);
-
                         UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
 
                         if (userFollow != null && userFollow.dislikeList != null) {
@@ -294,7 +290,6 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -303,31 +298,38 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
         );
     }
 
-    private void pickNextUser() {
-        Integer length = userIDs.size();
+    private void pickNextUser(){
+        Integer length =  userIDs.size();
         Random r = new Random();
         Integer userIndex = r.nextInt(length);
         String nextUserId_ = userIDs.get(userIndex);
-        if (!disLikeList_.contains(nextUserId_)) {
+        if(!disLikeList_.contains(nextUserId_)){
             retrieveUser(userIDs.get(userIndex));
-        } else {
+        }
+        else{
             pickNextUser();
         }
     }
 
-    private void retrieveUser(String userId) {
+    private void retrieveUser(String userId){
         mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
-                new ValueEventListener() {
+                new ValueEventListener(){
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         final User user = dataSnapshot.getValue(User.class);
-                        if (!user.profileImageUrl.equals("")) {
+                        if(!user.profileImageUrl.equals("")){
                             FragmentActivity fragmentActivity = getActivity();
                             if (fragmentActivity != null) {
-                                Glide.with(fragmentActivity)
-                                        .load(user.profileImageUrl)
-                                        .into(userImage);
+                                if(user.profileImageUrl != "") {
+                                    Glide.with(fragmentActivity)
+                                            .load(user.profileImageUrl)
+                                            .into(userImage);
+                                }
+                                //display the default image
+                                else{
+                                    userImage.setImageResource(R.drawable.profile_image);
+                                }
                             }
                         }
                         userName.setText(user.name);

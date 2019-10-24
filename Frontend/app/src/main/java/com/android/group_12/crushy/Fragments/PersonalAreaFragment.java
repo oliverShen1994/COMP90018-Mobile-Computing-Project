@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -182,9 +183,15 @@ public class PersonalAreaFragment extends Fragment {
                         //        Toast.LENGTH_SHORT).show();
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
-                        Glide.with(PersonalAreaFragment.this)
-                                .load(user.profileImageUrl)
-                                .into(userImage);
+                        if (user.profileImageUrl.equals("")) {
+                            userImage.setImageResource(R.drawable.profile_image);
+                        }
+                        else{
+                            Glide.with(PersonalAreaFragment.this)
+                                    .load(user.profileImageUrl)
+                                    .into(userImage);
+                        }
+
                         String UserProfileImage_ = user.profileImageUrl;
                         Log.i(TAG, UserProfileImage_);
                         String UserDescription_ = user.description;
@@ -198,6 +205,18 @@ public class PersonalAreaFragment extends Fragment {
                             userDescription.setText(UserDescription_); //fixme:needed?
                         }
                         userName.setText(UserName_);
+                        FragmentActivity fragmentActivity = getActivity();
+                        if (fragmentActivity != null) {
+                            if (!user.profileImageUrl.equals("")) {
+                                Glide.with(fragmentActivity)
+                                        .load(user.profileImageUrl)
+                                        .into(userImage);
+                            }
+                            //display the default image
+                            else {
+                                userImage.setImageResource(R.drawable.profile_image);
+                            }
+                        }
                     }
 
                     @Override
@@ -220,12 +239,13 @@ public class PersonalAreaFragment extends Fragment {
                         String followingNumValue = "0";
 
                         if (user != null) {
-                            if (user.followerNum != null) {
+                            if(user.followerNum != null) {
                                 followerNumValue = user.followerNum;
+                                //Log.i(TAG, FollowerNum_);
                             }
-
-                            if (user.followingNum != null) {
+                            if(user.followingNum != null) {
                                 followingNumValue = user.followingNum;
+                                //Log.i(TAG, FollowingNum_);
                             }
 
                             //UserProfileImarge = (CircleImageView) findViewById(R.id.profile_image);

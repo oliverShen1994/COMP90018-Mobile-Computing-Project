@@ -34,10 +34,8 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
     private MaterialButton createAccountButton, alreadyHaveAccountLink;
     private TextInputEditText userEmail, userPassword, userPreferredName;
-
     private FirebaseAuth mAuth;
     private ProgressBar loadingBar;
-
     private DatabaseReference rootRef;
 
     @Override
