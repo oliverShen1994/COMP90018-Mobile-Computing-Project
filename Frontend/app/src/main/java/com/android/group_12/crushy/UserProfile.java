@@ -191,10 +191,9 @@ public class UserProfile extends AppCompatActivity {
                             Log.e(TAG, followerNum);
                             followingNum = user.followingNum;
                             Log.e(TAG, followingNum);
+                            FollowerNum.setText(followerNum);
+                            FollowingNum.setText(followingNum);
                         }
-
-                        FollowerNum.setText(followerNum);
-                        FollowingNum.setText(followingNum);
 
                     }
                     // [END single_value_read]
