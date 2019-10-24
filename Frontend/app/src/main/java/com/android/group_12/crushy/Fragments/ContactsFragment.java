@@ -1,4 +1,4 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Fragments;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.android.group_12.crushy.Adapter.UserAdapter;
 import com.android.group_12.crushy.DatabaseWrappers.Friends;
+import com.android.group_12.crushy.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

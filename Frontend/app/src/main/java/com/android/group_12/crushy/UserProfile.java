@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -31,8 +32,8 @@ public class UserProfile extends AppCompatActivity {
 
     private CircleImageView UserProfileImage;
     private TextView UserID, UserName, FollowerNum, FollowingNum, UserDescription, UserEmail,
-                     UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
-                     UserHobbies, UserRelationshipStatus, UserBodyType;
+            UserGender, UserHeight, UserWeight, UserCity, UserBirthday, UserOccupation,
+            UserHobbies, UserRelationshipStatus, UserBodyType;
     private LinearLayout EditButton, PreviousButton;
     private static final String TAG = "UserProfileActivity";
 
@@ -81,7 +82,7 @@ public class UserProfile extends AppCompatActivity {
         UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
         UserID = (TextView) findViewById(R.id.UserID);
         UserName = (TextView) findViewById(R.id.UserName);
-        FollowerNum = (TextView)findViewById(R.id.FollowersNum);
+        FollowerNum = (TextView) findViewById(R.id.FollowersNum);
         FollowingNum = (TextView) findViewById(R.id.FollowingNum);
         UserDescription = (TextView) findViewById(R.id.UserDescription);
         UserEmail = (TextView) findViewById(R.id.UserEmail);
@@ -108,7 +109,7 @@ public class UserProfile extends AppCompatActivity {
 
         // [START single_value_read]
         final String userId = uid;
-        mDatabase.child(DatabaseConstant.USER_TABLE_COL_USER_NAME).child(userId).addListenerForSingleValueEvent(
+        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -194,13 +195,18 @@ public class UserProfile extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
 
-                        String FollowerNum_ = user.followerNum;
-                        Log.e(TAG, FollowerNum_);
-                        String FollowingNum_ = user.followingNum;
-                        Log.e(TAG, FollowingNum_);
+                        String followerNum = "0";
+                        String followingNum = "0";
 
-                        FollowerNum.setText(FollowerNum_);
-                        FollowingNum.setText(FollowingNum_);
+                        if (user != null) {
+                            followerNum = user.followerNum;
+                            Log.e(TAG, followerNum);
+                            followingNum = user.followingNum;
+                            Log.e(TAG, followingNum);
+                        }
+
+                        FollowerNum.setText(followerNum);
+                        FollowingNum.setText(followingNum);
 
                     }
                     // [END single_value_read]
@@ -213,9 +219,15 @@ public class UserProfile extends AppCompatActivity {
                 });
     }
 
-        public void onStart() {
+    public void onStart() {
 
-            super.onStart();
+        super.onStart();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.out.println("In user profile, back pressed");
     }
 }
