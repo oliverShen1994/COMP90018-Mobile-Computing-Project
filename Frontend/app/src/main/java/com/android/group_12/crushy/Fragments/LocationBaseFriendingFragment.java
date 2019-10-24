@@ -213,7 +213,6 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                         }
 
                         if(Flag == LIKE){
-
                             senderLikeList.add(receiver);
                             receiverFansList.add(sender);
 
