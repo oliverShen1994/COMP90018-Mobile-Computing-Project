@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.Constants.GenderConstant;
 import com.android.group_12.crushy.Constants.IntentExtraParameterName;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
@@ -84,6 +85,7 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
     private DatabaseReference rootRef;
     private LocationManager locationManager;
     private StorageReference mStorageRef;
+    private Geocoder mGeocoder;
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
@@ -111,7 +113,6 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         }
     };
 
-    private Geocoder mGeocoder;
 
 
     @Override
@@ -127,12 +128,10 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_extra_info);
 
-        String[] GENDERS = new String[]{"Female", "Male", "Other", "I'd rather not say"};
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getApplicationContext(),
                 R.layout.dropdown_menu_popup_item,
-                GENDERS);
+                GenderConstant.OPTIONS);
 
         AutoCompleteTextView editTextFilledExposedDropdown = findViewById(R.id.gender_dropdown);
         editTextFilledExposedDropdown.setAdapter(adapter);
@@ -140,7 +139,7 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         this.rootRef = FirebaseDatabase.getInstance().getReference();
         this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         this.mGeocoder = new Geocoder(getApplicationContext(), Locale.US);
-        mStorageRef = FirebaseStorage.getInstance().getReference(PROFILE_PICTURE);
+        this.mStorageRef = FirebaseStorage.getInstance().getReference(PROFILE_PICTURE);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -319,12 +318,20 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         String name = userName;
         String birthday = "";
         String bodyType = "";
-        String city = this.userLocation;
+        String city = "";
+        if (this.userLocation != null && !TextUtils.isEmpty(this.userLocation) && !this.userLocation.equals("N/A")) {
+            city = this.userLocation;
+        }
+
         String description = "";
         String gender = "";
         String hobbies = "";
         String occupation = "";
-        String profileImageUrl = this.profileImageUrl;
+        String profileImageUrl = "";
+        if (this.profileImageUrl != null && !TextUtils.isEmpty(this.profileImageUrl) && !this.profileImageUrl.equals("N/A")) {
+            profileImageUrl = this.profileImageUrl;
+        }
+
         String relationshipStatus = "";
         String height = "";
         String weight = "";
@@ -368,18 +375,20 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         String name = userName;
         String birthday = TextUtils.isEmpty(typedDOB) ? "N/A" : typedDOB;
         String bodyType = TextUtils.isEmpty(typedBodyType) ? "N/A" : typedBodyType;
-        String city = this.userLocation;
-        if (this.userLocation == null || TextUtils.isEmpty(this.userLocation) || this.userLocation.equals("N/A")) {
-            city = "";
+        String city = "";
+        if (this.userLocation != null && !TextUtils.isEmpty(this.userLocation) && !this.userLocation.equals("N/A")) {
+            city = this.userLocation;
         }
+
         String description = TextUtils.isEmpty(typedDescription) ? "N/A" : typedDescription;
         String gender = TextUtils.isEmpty(typedGender) ? "N/A" : typedGender;
         String hobbies = TextUtils.isEmpty(typedHobbies) ? "N/A" : typedHobbies;
         String occupation = TextUtils.isEmpty(typedOccupation) ? "N/A" : typedOccupation;
-        String profileImageUrl = this.profileImageUrl;
-        if (profileImageUrl == null || TextUtils.isEmpty(profileImageUrl) || profileImageUrl.equals("N/A")) {
-            profileImageUrl = "";
+        String profileImageUrl = "";
+        if (this.profileImageUrl != null && !TextUtils.isEmpty(this.profileImageUrl) && !this.profileImageUrl.equals("N/A")) {
+            profileImageUrl = this.profileImageUrl;
         }
+
         String relationshipStatus = TextUtils.isEmpty(typedRelationship) ? "N/A" : typedRelationship;
         String height = TextUtils.isEmpty(typedHeight) ? "N/A" : typedHeight;
         String weight = TextUtils.isEmpty(typedWeight) ? "N/A" : typedWeight;
