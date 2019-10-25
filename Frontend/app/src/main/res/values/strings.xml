@@ -128,6 +128,7 @@
     <string name="registration_description_text_input">Tell others about your self</string>
     <string name="registration_occupation_text_input">Occupation</string>
     <string name="registration_gender_selection_text">Gender</string>
+    <string name="registration_location">Your Current Location</string>
     <string name="registration_height">Height (cm)</string>
     <string name="registration_weight">Weight (kg)</string>
     <string name="registration_body_type">Body Type</string>
