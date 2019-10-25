@@ -160,7 +160,7 @@ public class PersonalAreaFragment extends Fragment {
         return view;
     }
 
-    private void retrivePost(String uid) {
+    private void retrivePost(final String uid) {
         Log.i(TAG, "User " + uid + " is 111111111");
         // Disable button so there are no multi-posts
         //Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
@@ -183,6 +183,7 @@ public class PersonalAreaFragment extends Fragment {
                         //        Toast.LENGTH_SHORT).show();
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
+                        System.out.println("userID: "+user.userID);
                         if (user.profileImageUrl.equals("")) {
                             userImage.setImageResource(R.drawable.profile_image);
                         }
