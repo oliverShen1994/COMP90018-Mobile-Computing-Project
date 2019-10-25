@@ -61,8 +61,6 @@ public class FollowerListFragment extends Fragment {
             this.layout = getArguments().getInt(LAYOUT_TYPE);
         View view = inflater.inflate(this.layout, container, false);
         this.dataView = view.findViewById(R.id.follow_recycler);
-
-        initializeWidget(view);
         initializeFollowerList(this.currentUserId);
 
         return view;
@@ -77,46 +75,20 @@ public class FollowerListFragment extends Fragment {
         return fragment;
     }
 
-    private void initializeWidget(View view) {
-        this.mSearchView = (SearchView) view.findViewById(R.id.searchView);
-        this.mSearchView.setSubmitButtonEnabled(true);
-        this.mSwitch = (Switch) view.findViewById(R.id.viewSwitch);
-        if(this.layout == R.layout.fragment_follow_list_listview){
-            this.mSwitch.setChecked(false);
-        }
-        else if(this.layout == R.layout.fragment_follow_list_gridview){
-            this.mSwitch.setChecked(true);
-        }
-
-        this.mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    updateFragment(R.layout.fragment_follow_list_gridview);
-                }else {
-                    updateFragment(R.layout.fragment_follow_list_listview);
-                }
-            }
-        });
-
-    }
-
     private void initializeList() {
         //To bind GridView adapter to View
-        if(this.layout == R.layout.fragment_follow_list_listview){
-            //TODO: reimplement method getPersons()
-            FollowListAdapter adapter = new FollowListAdapter(this.followerInfo, R.layout.follow_list_list_token, getContext());
-            this.dataView.setAdapter(adapter);
+//        if(this.layout == R.layout.fragment_follow_list_listview){
+        FollowListAdapter adapter = new FollowListAdapter(this.followerInfo, R.layout.follow_list_list_token, getContext());
+        this.dataView.setAdapter(adapter);
 //            FollowListAdapter adapter = new FollowListAdapter(getPersons(), R.layout.follow_list_list_token);
-            this.dataView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL,false));
-        }
-        else if(this.layout == R.layout.fragment_follow_list_gridview) {
-            //TODO: reimplement method getPersons()
-            FollowListAdapter adapter = new FollowListAdapter(this.followerInfo, R.layout.follow_list_grid_token, getContext());
-            this.dataView.setAdapter(adapter);
-//            this.dataView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-            this.dataView.setLayoutManager(new GridLayoutManager(this.getContext(), 2, GridLayoutManager.VERTICAL, false));
-        }
+        this.dataView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL,false));
+//        }
+//        else if(this.layout == R.layout.fragment_follow_list_gridview) {
+//            FollowListAdapter adapter = new FollowListAdapter(this.followerInfo, R.layout.follow_list_grid_token, getContext());
+//            this.dataView.setAdapter(adapter);
+////            this.dataView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+//            this.dataView.setLayoutManager(new GridLayoutManager(this.getContext(), 2, GridLayoutManager.VERTICAL, false));
+//        }
     }
 
     private void initializeFollowerList(String userId) {

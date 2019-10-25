@@ -126,38 +126,45 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
         // Add event listener.
         this.likeButton = fragmentLayout.findViewById(R.id.like_button);
-        this.likeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Todo: send request to backend to mark user as liked.
-                System.out.println("Like button clicked!");
-                LikeDislikeFunction(mDatabase, currentUserId, nextUserId, LIKE);
-                retriveNextUserID();
+        this.likeButton.setOnClickListener(v -> {
+            //Todo: send request to backend to mark user as liked.
+            System.out.println("Like button clicked!");
+
+            likeButton.setEnabled(false);
+            dislikeButton.setEnabled(false);
+
+            if (currentUserId != null && !TextUtils.isEmpty(currentUserId)
+                    && nextUserId != null && !TextUtils.isEmpty(nextUserId)) {
+                LikeDislikeFunction(currentUserId, nextUserId, LIKE);
             }
+            retrieveNextUserID();
         });
 
         this.dislikeButton = fragmentLayout.findViewById(R.id.dislike_button);
-        this.dislikeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Todo: send request to backend to mark user as disliked.
-                System.out.println("Dislike button clicked!");
-                LikeDislikeFunction(mDatabase, currentUserId, nextUserId, DISLIKE);
-                retriveNextUserID();
+        this.dislikeButton.setOnClickListener(v -> {
+            //Todo: send request to backend to mark user as disliked.
+            System.out.println("Dislike button clicked!");
+
+            likeButton.setEnabled(false);
+            dislikeButton.setEnabled(false);
+
+            if (currentUserId != null && !TextUtils.isEmpty(currentUserId)
+                    && nextUserId != null && !TextUtils.isEmpty(nextUserId)) {
+                LikeDislikeFunction(currentUserId, nextUserId, DISLIKE);
             }
 
-
+            retrieveNextUserID();
         });
         //retriveUserIDs();
 
-        retriveNextUserID();
+        retrieveNextUserID();
         //pickNextUser();
 
         return fragmentLayout;
     }
 
     //Like or Dislike
-    public static void LikeDislikeFunction(final DatabaseReference rootRef, final String sender, final String receiver, final String Flag) {
+    private void LikeDislikeFunction(final String sender, final String receiver, final String Flag) {
 
         final ArrayList<String> senderFriendList = new ArrayList<String>();
         final ArrayList<String> senderLikeList = new ArrayList<String>();
@@ -169,7 +176,10 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
         final ArrayList<String> receiverLikeList = new ArrayList<String>();
         final ArrayList<String> receiverDislikeList = new ArrayList<String>();
 
-        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).addListenerForSingleValueEvent(
+        System.out.println("sender " + sender);
+        System.out.println("receiver " + receiver);
+
+        this.mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -192,7 +202,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                             }
                         }
 
-                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).addListenerForSingleValueEvent(
+                        mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).addListenerForSingleValueEvent(
                                 new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -240,7 +250,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                         senderLists.put("followingNum", senderLikeList.size() + "");
                                         //System.out.println(senderFansList.size());
                                         //System.out.println(senderLikeList.size());
-                                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).setValue(senderLists);
+                                        mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).setValue(senderLists);
 
                                         Map<String, Object> receiverLists = new HashMap<>();
                                         receiverLists.put("fansList", receiverFansList);
@@ -249,7 +259,11 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                         receiverLists.put("dislikeList", receiverDislikeList);
                                         receiverLists.put("followerNum", receiverFansList.size() + "");
                                         receiverLists.put("followingNum", receiverLikeList.size() + "");
-                                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).setValue(receiverLists);
+                                        mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).setValue(receiverLists);
+
+
+                                        likeButton.setEnabled(true);
+                                        dislikeButton.setEnabled(true);
                                     }
 
                                     @Override
@@ -269,7 +283,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
     }
 
 
-    public void retriveNextUserID() {
+    public void retrieveNextUserID() {
         final ArrayList<String> userIDs = new ArrayList<>();
         mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(currentUserId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -329,10 +343,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
             //Toast.makeText(getActivity(),"You Have No New User",Toast.LENGTH_SHORT).show();
             likeButton.setEnabled(false);
             dislikeButton.setEnabled(false);
-        }
-        //display the default image
-        //}
-        else {
+        } else {
             Integer length = userIDs.size();
             Random r = new Random();
             Integer userIndex = r.nextInt(length);
@@ -362,7 +373,6 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                 //display the default image
                             }
                         }
-
                         userName.setText(user.name);
                         gender.setText(user.gender);
                         city.setText(user.city);

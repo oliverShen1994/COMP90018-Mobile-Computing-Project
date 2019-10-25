@@ -140,9 +140,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         initializeFields();
-
         PreviousButton.setOnClickListener(view -> finish());
-
         SaveButton.setOnClickListener(view -> {
             saveButtonClickListener();
         });
@@ -255,7 +253,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
     private void retrieveUserInfo(String uid) {
         System.out.println("User " + uid + " is 111111111");
-
         final String userId = uid;
         mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -263,7 +260,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
-
                         String UserProfileImage_ = user.profileImageUrl;
 
                         if (UserProfileImage_ == null || UserProfileImage_.equals("") || UserProfileImage_.equals("N/A")) {
@@ -275,19 +271,19 @@ public class EditUserProfileActivity extends AppCompatActivity {
                             imageUrl = user.profileImageUrl;
                         }
 
-                        nameDisplayView.setText(user.name);
                         EditUserName.setText(user.name);
+                        UserBirthday.setText(user.birthday);
+                        UserBodyType.setText(user.bodyType);
+                        UserCity.setText(user.city);
                         UserDescription.setText(user.description);
                         UserEmail.setText(user.email);
                         UserGender.setText(user.gender);
+                        UserHobbies.setText(user.hobbies);
+                        UserOccupation.setText(user.occupation);
+                        UserRelationshipStatus.setText(user.relationshipStatus);
                         UserHeight.setText(user.height);
                         UserWeight.setText(user.weight);
-                        UserCity.setText(user.city);
-                        UserBirthday.setText(user.birthday);
-                        UserOccupation.setText(user.occupation);
-                        UserHobbies.setText(user.hobbies);
-                        UserRelationshipStatus.setText(user.relationshipStatus);
-                        UserBodyType.setText(user.bodyType);
+
                     }
 
                     @Override

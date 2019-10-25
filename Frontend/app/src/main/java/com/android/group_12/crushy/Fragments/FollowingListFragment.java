@@ -34,8 +34,6 @@ public class FollowingListFragment extends Fragment {
     static String LAYOUT_TYPE = "type";
     private int layout = R.layout.fragment_follow_list_gridview;
     private RecyclerView dataView;
-    private SearchView mSearchView;
-    private Switch mSwitch;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private String currentUserId;
@@ -60,8 +58,6 @@ public class FollowingListFragment extends Fragment {
             this.layout = getArguments().getInt(LAYOUT_TYPE);
         View view = inflater.inflate(this.layout, container, false);
         this.dataView = view.findViewById(R.id.follow_recycler);
-
-        initializeWidget(view);
         initializeFollowingList(view, this.currentUserId);
 
         return view;
@@ -76,46 +72,20 @@ public class FollowingListFragment extends Fragment {
         return fragment;
     }
 
-    private void initializeWidget(View view) {
-        this.mSearchView = (SearchView) view.findViewById(R.id.searchView);
-        this.mSearchView.setSubmitButtonEnabled(true);
-        this.mSwitch = (Switch) view.findViewById(R.id.viewSwitch);
-        if(this.layout == R.layout.fragment_follow_list_listview){
-            this.mSwitch.setChecked(false);
-        }
-        else if(this.layout == R.layout.fragment_follow_list_gridview){
-            this.mSwitch.setChecked(true);
-        }
-
-        this.mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    updateFragment(R.layout.fragment_follow_list_gridview);
-                }else {
-                    updateFragment(R.layout.fragment_follow_list_listview);
-                }
-            }
-        });
-
-    }
-
     private void initializeList() {
         //To bind GridView adapter to View
-        if(this.layout == R.layout.fragment_follow_list_listview){
-            //TODO: reimplement method getPersons()
-            FollowListAdapter adapter = new FollowListAdapter(this.followingInfo, R.layout.follow_list_list_token, getContext());
-            this.dataView.setAdapter(adapter);
+//        if(this.layout == R.layout.fragment_follow_list_listview){
+        FollowListAdapter adapter = new FollowListAdapter(this.followingInfo, R.layout.follow_list_list_token, getContext());
+        this.dataView.setAdapter(adapter);
 //            FollowListAdapter adapter = new FollowListAdapter(getPersons(), R.layout.follow_list_list_token);
-            this.dataView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL,false));
-        }
-        else if(this.layout == R.layout.fragment_follow_list_gridview) {
-            //TODO: reimplement method getPersons()
-            FollowListAdapter adapter = new FollowListAdapter(this.followingInfo, R.layout.follow_list_grid_token, getContext());
-            this.dataView.setAdapter(adapter);
-            this.dataView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//            this.gridView.setLayoutManager(new GridLayoutManager(this.getContext(), 2, GridLayoutManager.VERTICAL, false));
-        }
+        this.dataView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL,false));
+//        }
+//        else if(this.layout == R.layout.fragment_follow_list_gridview) {
+//            FollowListAdapter adapter = new FollowListAdapter(this.followingInfo, R.layout.follow_list_grid_token, getContext());
+//            this.dataView.setAdapter(adapter);
+//            this.dataView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+////            this.gridView.setLayoutManager(new GridLayoutManager(this.getContext(), 2, GridLayoutManager.VERTICAL, false));
+//        }
     }
 
     private void initializeFollowingList(View view, String userId) {
@@ -128,9 +98,6 @@ public class FollowingListFragment extends Fragment {
                     assert currentUserId != null;
                     followingList = userFollow.likeList;
                     followingInfo = new ArrayList<>();
-                    System.out.println("++++++++output like list+++++++");
-                    System.out.println(FollowingListFragment.this.followingList.toString());
-                    System.out.println(followingList.toString());
 
                     mDatabase.child(DatabaseConstant.USER_TABLE_NAME).addValueEventListener(new ValueEventListener() {
                         @Override
@@ -144,7 +111,6 @@ public class FollowingListFragment extends Fragment {
                                     }
                                 }
                             }
-                            System.out.println("!!!!!output like list!!!!!!");
                             initializeList();
                         }
                         @Override

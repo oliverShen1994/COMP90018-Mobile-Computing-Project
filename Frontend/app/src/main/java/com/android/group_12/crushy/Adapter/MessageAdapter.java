@@ -2,6 +2,7 @@ package com.android.group_12.crushy.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         this.mContext = mContext;
         this.imageurl = imageurl;
         this.userID = userID;
-        System.out.println(userID);
+        //System.out.println(userID);
     }
 
     @NonNull
@@ -68,10 +69,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int position) {
         Chat chat = mChat.get(position);
         holder.show_message.setText(chat.getMessage());
-        if (imageurl.equals("")) {
+        if (imageurl == null || TextUtils.isEmpty(imageurl) || imageurl.equals("N/A")) {
             holder.profileImage.setImageResource(R.drawable.profile_image);
         } else {
-            System.out.println("imageurl is :" + imageurl);
+            //System.out.println("imageurl is :" + imageurl);
             Glide.with(mContext).load(imageurl).into(holder.profileImage);
         }
     }
