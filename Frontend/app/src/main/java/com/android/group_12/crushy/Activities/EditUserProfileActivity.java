@@ -160,6 +160,9 @@ public class EditUserProfileActivity extends AppCompatActivity {
                                String UserHeight_, String UserWeight_, String UserCity_, String UserBirthday_,
                                String UserOccupation_, String UserProfileImage_, String UserHobbies_, String UserRelationshipStatus_, String UserBodyType_) {
         String UserID_ = currentUserId;
+        if(UserProfileImage_ == null){
+            UserProfileImage_ = "";
+        }
 
         User post = new User(UserID_, EditUserName_, UserBirthday_, UserEmail_, UserBodyType_, UserCity_, UserDescription_, UserGender_, UserHobbies_, UserOccupation_, UserProfileImage_, UserRelationshipStatus_, UserHeight_, UserWeight_);
 
