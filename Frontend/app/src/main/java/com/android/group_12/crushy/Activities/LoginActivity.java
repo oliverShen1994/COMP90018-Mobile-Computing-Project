@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initializeFields() {
         loginButton = findViewById(R.id.login_button);
-        phoneLoginButton = findViewById(R.id.phone_login_button);
+//        phoneLoginButton = findViewById(R.id.phone_login_button);
         userEmail = findViewById(R.id.login_email);
         userPassword = findViewById(R.id.login_password);
         needNewAccountLink = findViewById(R.id.need_new_account_link);
