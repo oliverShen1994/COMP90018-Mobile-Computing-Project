@@ -63,6 +63,10 @@ public class EditUserProfileActivity extends AppCompatActivity {
         });
     }
 
+    public void onStart() {
+        super.onStart();
+    }
+
     private void saveButtonClickListener() {
         String EditUserName_ = EditUserName.getText().toString();
         String UserDescription_ = UserDescription.getText().toString();
@@ -106,11 +110,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
         currentUserId = currentUser.getUid();
         retrieveUserInfo(currentUserId);
     }
-
-    public void onStart() {
-        super.onStart();
-    }
-
 
     private void retrieveUserInfo(String uid) {
         System.out.println("User " + uid + " is 111111111");

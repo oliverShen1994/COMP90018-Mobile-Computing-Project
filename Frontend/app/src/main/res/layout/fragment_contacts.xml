@@ -8,13 +8,13 @@
     android:layout_weight="1"
     tools:context=".Fragments.ContactsFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/friend_list_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:background="@color/colorPrimaryDark"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/MenuStyle" />
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/friend_list_toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50sp"-->
+<!--        android:background="@color/colorPrimaryDark"-->
+<!--        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+<!--        app:popupTheme="@style/MenuStyle" />-->
 
 
     <androidx.recyclerview.widget.RecyclerView

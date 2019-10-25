@@ -15,7 +15,7 @@
             android:id="@+id/Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/profile_background">
+            android:background="@color/colorPrimaryDark">
 
             <RelativeLayout
                 android:id="@+id/UserImage"
@@ -100,7 +100,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:paddingBottom="5dp"
-                android:background="@drawable/profile_background"
+                android:background="@color/colorPrimaryDark"
                 android:clickable="true"
                 >
 
@@ -142,7 +142,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:paddingBottom="5dp"
-                android:background="@drawable/profile_background"
+                android:background="@color/colorPrimaryDark"
                 android:clickable="true">
                 <LinearLayout
                     android:id="@+id/Following"

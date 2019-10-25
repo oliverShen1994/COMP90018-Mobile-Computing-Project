@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.android.group_12.crushy.R;
 
 
+import java.util.Comparator;
 import java.util.List;
 
 import static com.android.group_12.crushy.Constants.IntentExtraParameterName.UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID;
@@ -28,6 +29,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public UserAdapter(Context mContext, List<Friends> mUsers) {
         this.mUsers = mUsers;
         this.mContext = mContext;
+        mUsers.sort(new Comparator<Friends>() {
+            @Override
+            public int compare(Friends friends, Friends t1) {
+                return friends.getName().compareTo(t1.getName());
+            }
+        });
     }
 
     @NonNull

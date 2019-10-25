@@ -34,8 +34,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FriendListFragment extends CrushyFragment {
 
-    CircleImageView profile_image;
-    TextView username;
+//    CircleImageView profile_image;
+//    TextView username;
 
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
@@ -52,8 +52,8 @@ public class FriendListFragment extends CrushyFragment {
         Toolbar toolbar = view.findViewById(R.id.friend_list_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-        profile_image = view.findViewById(R.id.profile_image);
-        username = view.findViewById(R.id.main_username);
+//        profile_image = view.findViewById(R.id.profile_image);
+//        username = view.findViewById(R.id.main_username);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -61,11 +61,11 @@ public class FriendListFragment extends CrushyFragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Friends user = dataSnapshot.getValue(Friends.class);
-                username.setText(user.getName());
+//                username.setText(user.getName());
                 if (user.getProfileImageUrl().equals("")) {
-                    profile_image.setImageResource(R.mipmap.ic_launcher);
+//                    profile_image.setImageResource(R.mipmap.ic_launcher);
                 } else {
-                    Glide.with(FriendListFragment.this).load(user.getProfileImageUrl()).into(profile_image);
+//                    Glide.with(FriendListFragment.this).load(user.getProfileImageUrl()).into(profile_image);
                 }
             }
 
@@ -77,10 +77,11 @@ public class FriendListFragment extends CrushyFragment {
 
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-//        viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
-//        viewPagerAdapter.addFragment(new ContactsFragment(), "Friends");
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
+        viewPagerAdapter.addFragment(ChatsFragment.getInstance(), "Chats");
+        viewPagerAdapter.addFragment(new ContactsFragment(this.fragmentHeight, this.fragmentWidth), "Friends");
         viewPager.setAdapter(viewPagerAdapter);
+        System.out.println("add adapter");
         tabLayout.setupWithViewPager(viewPager);
 
         return view;
@@ -111,6 +112,8 @@ public class FriendListFragment extends CrushyFragment {
             fragments.add(fragment);
             titles.add(title);
         }
+
+
 
 
         public CharSequence getPageTitle(int position) {
