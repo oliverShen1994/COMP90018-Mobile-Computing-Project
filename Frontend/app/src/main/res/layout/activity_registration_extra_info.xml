@@ -33,46 +33,54 @@
 
             android:text="@string/registration_detailed_welcome" />
 
-
         <RelativeLayout
             android:id="@+id/registraion_image_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_below="@id/extra_info_explain_text"
             android:layout_centerHorizontal="true"
-            android:background="@color/quantum_grey200"
+            android:background="@drawable/gradient"
             android:clickable="true"
             android:paddingTop="8dp"
             android:paddingBottom="8dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/registration_image"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_centerInParent="true"
-                android:gravity="center_vertical"
-                android:src="@drawable/profile_image"
-                app:civ_border_color="#EEEEEE"
-                app:civ_border_width="5dp"></de.hdodenhof.circleimageview.CircleImageView>
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/registraion_image_prompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/horizontal_element_padding"
+                android:paddingBottom="0dp"
+                android:text="@string/registraion_image_prompt_text"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/registraion_image_prompt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/registraion_image_layout"
-            android:background="@color/quantum_grey200"
-            android:padding="@dimen/horizontal_element_padding"
-            android:text="@string/registraion_image_prompt_text"
-            android:textAlignment="center"
-            android:textColor="@color/quantum_greyblack1000" />
+            <RelativeLayout
+                android:id="@+id/registration_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/registration_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/profile_image"
+                    app:civ_border_color="#EEEEEE"
+                    app:civ_border_width="5dp"></de.hdodenhof.circleimageview.CircleImageView>
+
+            </RelativeLayout>
+        </RelativeLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/registraion_image_prompt"
+            android:layout_below="@id/registraion_image_layout"
             android:layout_marginStart="@dimen/horizontal_element_padding"
             android:layout_marginTop="@dimen/text_view_vertical_margin_top"
             android:layout_marginEnd="@dimen/horizontal_element_padding"
