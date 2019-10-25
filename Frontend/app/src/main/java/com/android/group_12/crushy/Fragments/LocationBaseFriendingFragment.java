@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -325,9 +326,11 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
         //FragmentActivity fragmentActivity = getActivity();
         //if (fragmentActivity != null) {
         if(userIDs.size() < 2){
-            //Toast.makeText(getActivity(),"You Have No New User",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Opps...You Have No New User...",Toast.LENGTH_SHORT).show();
             likeButton.setEnabled(false);
             dislikeButton.setEnabled(false);
+
+
         }
             //display the default image
         //}
