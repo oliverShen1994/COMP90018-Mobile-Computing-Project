@@ -266,7 +266,9 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
+
                 });
+
     }
 
 
