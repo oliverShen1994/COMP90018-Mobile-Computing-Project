@@ -19,6 +19,8 @@ import com.android.group_12.crushy.R;
 
 import java.util.List;
 
+import static com.android.group_12.crushy.Constants.IntentExtraParameterName.UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID;
+
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private Context mContext;
     private List<Friends> mUsers;
@@ -49,7 +51,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, MessageActivity.class);
-                intent.putExtra("userId", user.getUserID());
+                intent.putExtra(UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID, user.getUserID());
                 mContext.startActivity(intent);
             }
         });

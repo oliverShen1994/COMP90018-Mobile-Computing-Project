@@ -15,18 +15,20 @@ import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.IntentExtraParameterName;
 import com.android.group_12.crushy.R;
+import com.android.group_12.crushy.Utils.EmailValidationUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    private FirebaseUser currentUser;
-    private Button loginButton, phoneLoginButton;
-    private EditText userEmail, userPassword;
-    private TextView needNewAccountLink, forgetPasswordLink;
+    private MaterialButton loginButton, phoneLoginButton, needNewAccountLink, forgetPasswordLink;
+    private TextInputEditText userEmail, userPassword;
 
+    private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
     private ProgressBar loadingBar;
 
@@ -85,8 +87,8 @@ public class LoginActivity extends AppCompatActivity {
         String email = userEmail.getText().toString();
         String password = userPassword.getText().toString();
 
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(LoginActivity.this, "Please enter email...", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(email) || !EmailValidationUtil.isValid(email)) {
+            Toast.makeText(LoginActivity.this, "Please enter a valid email...", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(LoginActivity.this, "Please enter password...", Toast.LENGTH_SHORT).show();
         } else {

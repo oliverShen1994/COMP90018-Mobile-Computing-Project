@@ -30,6 +30,8 @@ import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.android.group_12.crushy.Constants.IntentExtraParameterName.UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID;
+
 public class OtherProfilePageActivity extends AppCompatActivity {
     private CircleImageView UserProfileImage;
 
@@ -49,7 +51,7 @@ public class OtherProfilePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_other_profile_page);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
-        String aimID = intent.getStringExtra("userID");
+        String aimID = intent.getStringExtra(UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID);
         System.out.println(aimID);
         initializeFields(aimID);
         PreviousButton.setOnClickListener(new View.OnClickListener() {
