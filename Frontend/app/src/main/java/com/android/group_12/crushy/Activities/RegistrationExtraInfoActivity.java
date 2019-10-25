@@ -133,51 +133,52 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
 
         this.locationInput.setOnClickListener(v -> {
             System.out.println("Location input clicked");
+            locationInputClickListener();
+        });
+    }
 
-            // Change the text once clicked.
-            locationInput.setText("Getting your location, please wait...");
+    private void locationInputClickListener() {
+        // Change the text once clicked.
+        locationInput.setText("Getting your location, please wait...");
 
-            int permissionLocation = ContextCompat.checkSelfPermission(RegistrationExtraInfoActivity.this, ACCESS_FINE_LOCATION);
-            int permissionWifi = ContextCompat.checkSelfPermission(RegistrationExtraInfoActivity.this, ACCESS_WIFI_STATE);
+        int permissionLocation = ContextCompat.checkSelfPermission(RegistrationExtraInfoActivity.this, ACCESS_FINE_LOCATION);
+        int permissionWifi = ContextCompat.checkSelfPermission(RegistrationExtraInfoActivity.this, ACCESS_WIFI_STATE);
 
-            if (permissionLocation == PackageManager.PERMISSION_GRANTED && permissionWifi == PackageManager.PERMISSION_GRANTED) {
-                if (locationManager != null) {
+        if (permissionLocation == PackageManager.PERMISSION_GRANTED && permissionWifi == PackageManager.PERMISSION_GRANTED) {
+            if (locationManager != null) {
 //                    System.out.println("location manager is not null");
 
-                    Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    if (lastKnownLocation == null) {
+                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (lastKnownLocation == null) {
 //                        System.out.println("Last known location is null.");
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
-                    } else {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
+                } else {
 //                        System.out.println("lastKnownLocation = " + lastKnownLocation);
 
-                        String lastKnownAddress = "";
-                        try {
-                            lastKnownAddress = getLocationInfoByLatLong(lastKnownLocation);
-                        } catch (Exception e) {
+                    String lastKnownAddress = "";
+                    try {
+                        lastKnownAddress = getLocationInfoByLatLong(lastKnownLocation);
+                    } catch (Exception e) {
 
-                        }
-
-                        locationInput.setText(lastKnownAddress);
-//                        System.out.println("last known place = " + lastKnownAddress);
                     }
-                }
-            } else {
-                if (permissionLocation != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(RegistrationExtraInfoActivity.this,
-                            new String[]{ACCESS_FINE_LOCATION}, 0);
-                }
 
-                if (permissionWifi != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(RegistrationExtraInfoActivity.this,
-                            new String[]{ACCESS_WIFI_STATE}, 0);
+                    locationInput.setText(lastKnownAddress);
+//                        System.out.println("last known place = " + lastKnownAddress);
                 }
-
-                Toast.makeText(RegistrationExtraInfoActivity.this, "Oops, location and/or WiFi permission is not granted", Toast.LENGTH_SHORT).show();
             }
-        });
+        } else {
+            if (permissionLocation != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(RegistrationExtraInfoActivity.this,
+                        new String[]{ACCESS_FINE_LOCATION}, 0);
+            }
 
+            if (permissionWifi != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(RegistrationExtraInfoActivity.this,
+                        new String[]{ACCESS_WIFI_STATE}, 0);
+            }
 
+            Toast.makeText(RegistrationExtraInfoActivity.this, "Oops, location and/or WiFi permission is not granted", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
