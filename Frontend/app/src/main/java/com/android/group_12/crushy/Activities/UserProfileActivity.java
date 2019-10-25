@@ -148,7 +148,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                         String UserDescription_ = user.description;
                         if (TextUtils.isEmpty(UserDescription_) || UserDescription_.equals("N/A")) {
-                            UserDescription_ = "The user has not said anything...";
+                            UserDescription_ = "The user did not say anything...";
                         }
 
                         userName.setText(UserName_);

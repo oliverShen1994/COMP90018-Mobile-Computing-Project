@@ -191,7 +191,7 @@ public class PersonalAreaFragment extends Fragment {
                         System.out.println(name);
 
                         if (TextUtils.isEmpty(description) || description.equals("N/A")) {
-                            userDescription.setText("The user has not said anything...");
+                            userDescription.setText("The user did not say anything...");
                         } else {
                             userDescription.setText(description); //fixme:needed?
                         }

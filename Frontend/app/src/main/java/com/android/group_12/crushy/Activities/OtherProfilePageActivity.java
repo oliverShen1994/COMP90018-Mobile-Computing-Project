@@ -124,9 +124,8 @@ public class OtherProfilePageActivity extends AppCompatActivity {
 
                         String UserDescription_ = user.description;
                         if (TextUtils.isEmpty(UserDescription_) || UserDescription_.equals("N/A")) {
-                            UserDescription_ = "The user has not said anything...";
+                            UserDescription_ = "The user did not say anything...";
                         }
-
 
                         UserName.setText(UserName_);
                         UserID.setText(UserID_);
