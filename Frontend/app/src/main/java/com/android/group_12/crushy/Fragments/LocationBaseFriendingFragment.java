@@ -148,17 +148,19 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                 LikeDislikeFunction(mDatabase, currentUserId, nextUserId, DISLIKE);
                 retriveNextUserID();
             }
-        });
-        retriveUserIDs();
 
-        // retriveNextUserID();
+
+        });
+        //retriveUserIDs();
+
+        retriveNextUserID();
         //pickNextUser();
 
         return fragmentLayout;
     }
 
     //Like or Dislike
-    public static void LikeDislikeFunction(DatabaseReference rootRef, final String sender, String receiver, final String Flag) {
+    public static void LikeDislikeFunction(final DatabaseReference rootRef, final String sender, final String receiver, final String Flag) {
 
         final ArrayList<String> senderFriendList = new ArrayList<String>();
         final ArrayList<String> senderLikeList = new ArrayList<String>();
@@ -199,7 +201,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         // Get user value
                                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
-                                        if(user != null) {
+                                        if (user != null) {
                                             for (String liked : user.likeList) {
                                                 receiverLikeList.add(liked);
                                             }
@@ -214,20 +216,20 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                             }
                                         }
 
-                                        if(Flag == LIKE){
+                                        if (Flag == LIKE) {
 
                                             senderLikeList.add(receiver);
                                             receiverFansList.add(sender);
 
                                             // if her likeList has me,
                                             // congratulation! we matched !!!
-                                            if(receiverLikeList.contains(sender)){
+                                            if (receiverLikeList.contains(sender)) {
                                                 senderFriendList.add(receiver);
                                                 receiverFriendList.add(sender);
                                             }
                                         }
 
-                                        if(Flag == DISLIKE){
+                                        if (Flag == DISLIKE) {
                                             senderDislikeList.add(receiver);
                                         }
 
@@ -265,73 +267,11 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
                     }
                 });
-
-        rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(receiver).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get user value
-                        UserFollow user = dataSnapshot.getValue(UserFollow.class);
-                        if(user != null) {
-                            for (String liked : user.likeList) {
-                                receiverLikeList.add(liked);
-                            }
-                            for (String friend : user.friendsList) {
-                                receiverFriendList.add(friend);
-                            }
-                            for (String fans : user.fansList) {
-                                receiverFansList.add(fans);
-                            }
-                            for (String disLike : user.dislikeList) {
-                                receiverDislikeList.add(disLike);
-                            }
-
-                        }
-                    }
-
-        // if I like her, add her to my likeList, add me to her fansList, if her likeList has me, add me
-        // to her friendList, add her to my friendList
-        if (Flag == LIKE) {
-
-            senderLikeList.add(receiver);
-            receiverFansList.add(sender);
-
-            // if her likeList has me,
-            // congratulation! we matched !!!
-            if (receiverLikeList.contains(sender)) {
-                senderFriendList.add(receiver);
-                receiverFriendList.add(sender);
-            }
-
-        }
-
-        if (Flag == DISLIKE) {
-            senderDislikeList.add(receiver);
-        }
-
-        //update the firebase with the new values
-        Map<String, Object> senderLists = new HashMap<>();
-        senderLists.put("fansList", senderFansList);
-        senderLists.put("likeList", senderLikeList);
-        senderLists.put("friendsList", senderFriendList);
-        senderLists.put("dislikeList", senderDislikeList);
-        senderLists.put("followerNum", senderFansList.size() + "");
-        senderLists.put("followingNum", senderFansList.size() + "");
-        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).setValue(senderLists);
-
-        Map<String, Object> receiverLists = new HashMap<>();
-        receiverLists.put("fansList", receiverFansList);
-        receiverLists.put("likeList", receiverLikeList);
-        receiverLists.put("friendsList", receiverFriendList);
-        receiverLists.put("dislikeList", receiverDislikeList);
-        receiverLists.put("followerNum", receiverFansList.size() + "");
-        receiverLists.put("followingNum", receiverLikeList.size() + "");
-        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).setValue(receiverLists);
-
     }
 
 
-    public void retriveNextUserID() {
+
+    public void retriveNextUserID(){
         final ArrayList<String> userIDs = new ArrayList<>();
         mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(currentUserId).addListenerForSingleValueEvent(
                 new ValueEventListener(){
