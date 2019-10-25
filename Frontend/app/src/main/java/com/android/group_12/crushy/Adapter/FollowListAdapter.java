@@ -22,7 +22,6 @@ import static com.android.group_12.crushy.Constants.IntentExtraParameterName.UNI
 
 public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.ViewHolder> {
     private Context context;
-    // an array of PersonalInfo need to display at recyclerView
     private List<User> personalInfos;
     // the resource id of item layout
     private int resourceId;
@@ -37,7 +36,6 @@ public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.Vi
         }
     }
 
-    // to initialize adapter with PersonalInfo array, and the resource id of layout
     public FollowListAdapter(List<User> listInfos, int resourceId, Context mContext) {
         this.personalInfos = listInfos;
         this.resourceId = resourceId;
@@ -54,7 +52,6 @@ public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.Vi
     }
 
     @Override
-    // to bind the resources to viewHolder, including PersonalInfo image resource id and PersonalInfo name
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final User personalInfo = this.personalInfos.get(position);
         String profileUrl = personalInfo.profileImageUrl;
