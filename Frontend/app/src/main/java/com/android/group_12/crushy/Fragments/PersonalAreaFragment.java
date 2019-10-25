@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -184,7 +185,7 @@ public class PersonalAreaFragment extends Fragment {
                         //        Toast.LENGTH_SHORT).show();
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
-                        if (user.profileImageUrl == null || user.profileImageUrl.equals("")) {
+                        if (user.profileImageUrl == null || TextUtils.isEmpty(user.profileImageUrl) || user.profileImageUrl.equals("N/A")) {
                             userImage.setImageResource(R.drawable.profile_image);
                         } else {
                             Glide.with(PersonalAreaFragment.this)
