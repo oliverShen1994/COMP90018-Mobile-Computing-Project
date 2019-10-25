@@ -178,6 +178,13 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
             }
         });
+
+
+        this.UserCity.setOnClickListener(v -> {
+            System.out.println("Location input clicked");
+            getUserLocation();
+        });
+
     }
 
     public void onStart() {
