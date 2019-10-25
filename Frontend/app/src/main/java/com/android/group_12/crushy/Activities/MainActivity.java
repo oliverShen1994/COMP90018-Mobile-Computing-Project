@@ -19,7 +19,6 @@ import com.android.group_12.crushy.Enums.MainActivityFragmentEnum;
 import com.android.group_12.crushy.Fragments.ContactsFragment;
 import com.android.group_12.crushy.Fragments.LocationBaseFriendingFragment;
 import com.android.group_12.crushy.Fragments.PersonalAreaFragment;
-import com.android.group_12.crushy.Fragments.FriendListFragment;
 import com.android.group_12.crushy.R;
 import com.android.group_12.crushy.Utils.ScreenUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,7 +30,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.android.group_12.crushy.Enums.MainActivityFragmentEnum.*;
+import static com.android.group_12.crushy.Enums.MainActivityFragmentEnum.FRIEND_LIST_CHAT;
+import static com.android.group_12.crushy.Enums.MainActivityFragmentEnum.FRIEND_LIST_USERS;
+import static com.android.group_12.crushy.Enums.MainActivityFragmentEnum.LOCATION_BASED_FRIENDING;
+import static com.android.group_12.crushy.Enums.MainActivityFragmentEnum.PERSONAL_AREA;
 
 public class MainActivity extends AppCompatActivity {
     private Point screenSize;
