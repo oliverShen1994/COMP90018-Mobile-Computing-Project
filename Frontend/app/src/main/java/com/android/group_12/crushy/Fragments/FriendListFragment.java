@@ -63,7 +63,7 @@ public class FriendListFragment extends CrushyFragment {
                 Friends user = dataSnapshot.getValue(Friends.class);
 //                username.setText(user.getName());
                 String userProfileImageUrl = user.getProfileImageUrl();
-                if (userProfileImageUrl == null || userProfileImageUrl.equals("")) {
+                if (userProfileImageUrl == null || userProfileImageUrl.equals("") || userProfileImageUrl.equals("N/A")) {
 //                    profile_image.setImageResource(R.mipmap.ic_launcher);
                 } else {
 //                    Glide.with(FriendListFragment.this).load(user.getProfileImageUrl()).into(profile_image);
