@@ -9,17 +9,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 
-import com.android.group_12.crushy.Activities.MainActivity;
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
-import com.android.group_12.crushy.EditUserProfile;
 import com.android.group_12.crushy.R;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -46,6 +42,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
     private ImageButton likeButton;
     private ImageButton dislikeButton;
+
     public static String LIKE = "0";
     public static String DISLIKE = "1";
     public ImageView userImage;
@@ -60,8 +57,8 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
     private String currentUserId;
     public String nextUserId;
     private String TAG = "LocationBaseFriendingFragment";
-    private ArrayList<String> userIDs = new ArrayList<>();
-    private ArrayList<String> disLikeList_ = new ArrayList<>();
+    public static ArrayList<String> likedList = new ArrayList<>();
+    public static ArrayList<String> disLikeList_ = new ArrayList<>();
 
     public LocationBaseFriendingFragment(int fragmentHeight, int fragmentWidth) {
         super(R.layout.fragment_location_base_friending, fragmentHeight, fragmentWidth);
@@ -75,14 +72,16 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
         userImage = fragmentLayout.findViewById(R.id.potential_friend_image);
         userName = fragmentLayout.findViewById(R.id.nick_name);
-        gender=fragmentLayout.findViewById(R.id.gender);
-        city= fragmentLayout.findViewById(R.id.city);
-        hobby= fragmentLayout.findViewById(R.id.hobbies);
+        gender = fragmentLayout.findViewById(R.id.gender);
+        city = fragmentLayout.findViewById(R.id.city);
+        hobby = fragmentLayout.findViewById(R.id.hobbies);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         currentUserId = currentUser.getUid();
+
+
         // Adjust the image view.
         ImageView userImageView = fragmentLayout.findViewById(R.id.potential_friend_image);
         ViewGroup.MarginLayoutParams imageViewParams = (ViewGroup.MarginLayoutParams) userImageView.getLayoutParams();
@@ -132,7 +131,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                 //Todo: send request to backend to mark user as liked.
                 System.out.println("Like button clicked!");
                 LikeDislikeFunction(mDatabase, currentUserId, nextUserId, LIKE);
-                pickNextUser();
+                retriveNextUserID();
             }
         });
 
@@ -143,33 +142,41 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                 //Todo: send request to backend to mark user as disliked.
                 System.out.println("Dislike button clicked!");
                 LikeDislikeFunction(mDatabase, currentUserId, nextUserId, DISLIKE);
-                pickNextUser();
+                retriveNextUserID();
             }
-        });
 
-        retriveUserIDs();
+
+        });
+        //retriveUserIDs();
+
+        retriveNextUserID();
         //pickNextUser();
+
         return fragmentLayout;
     }
 
     //Like or Dislike
-    public void LikeDislikeFunction(final DatabaseReference rootRef, final String sender, final String receiver, final String Flag){
+    public static void LikeDislikeFunction(final DatabaseReference rootRef, final String sender, final String receiver, final String Flag) {
+
         final ArrayList<String> senderFriendList = new ArrayList<String>();
         final ArrayList<String> senderLikeList = new ArrayList<String>();
         final ArrayList<String> senderDislikeList = new ArrayList<String>();
         final ArrayList<String> senderFansList = new ArrayList<String>();
 
-        final ArrayList<String> receiverFriendList= new ArrayList<String>();
-        final ArrayList<String> receiverFansList= new ArrayList<String>();
-        final ArrayList<String> receiverLikeList= new ArrayList<String>();
-        final ArrayList<String> receiverDislikeList= new ArrayList<String>();
+        final ArrayList<String> receiverFriendList = new ArrayList<String>();
+        final ArrayList<String> receiverFansList = new ArrayList<String>();
+        final ArrayList<String> receiverLikeList = new ArrayList<String>();
+        final ArrayList<String> receiverDislikeList = new ArrayList<String>();
+
         rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
-                        if(user != null) {
+
+
+                        if (user != null) {
                             for (String liked : user.likeList) {
                                 senderLikeList.add(liked);
                             }
@@ -183,113 +190,128 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                 senderDislikeList.add(disLike);
                             }
                         }
+
+                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).addListenerForSingleValueEvent(
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        // Get user value
+                                        UserFollow user = dataSnapshot.getValue(UserFollow.class);
+                                        if (user != null) {
+                                            for (String liked : user.likeList) {
+                                                receiverLikeList.add(liked);
+                                            }
+                                            for (String friend : user.friendsList) {
+                                                receiverFriendList.add(friend);
+                                            }
+                                            for (String fans : user.fansList) {
+                                                receiverFansList.add(fans);
+                                            }
+                                            for (String disLike : user.dislikeList) {
+                                                receiverDislikeList.add(disLike);
+                                            }
+                                        }
+
+                                        if (Flag == LIKE) {
+
+                                            senderLikeList.add(receiver);
+                                            receiverFansList.add(sender);
+
+                                            // if her likeList has me,
+                                            // congratulation! we matched !!!
+                                            if (receiverLikeList.contains(sender)) {
+                                                senderFriendList.add(receiver);
+                                                receiverFriendList.add(sender);
+                                            }
+                                        }
+
+                                        if (Flag == DISLIKE) {
+                                            senderDislikeList.add(receiver);
+                                        }
+
+                                        //update the firebase with the new values
+                                        Map<String, Object> senderLists = new HashMap<>();
+                                        senderLists.put("fansList", senderFansList);
+                                        senderLists.put("likeList", senderLikeList);
+                                        senderLists.put("friendsList", senderFriendList);
+                                        senderLists.put("dislikeList", senderDislikeList);
+                                        senderLists.put("followerNum", senderFansList.size() + "");
+                                        senderLists.put("followingNum", senderLikeList.size() + "");
+                                        //System.out.println(senderFansList.size());
+                                        //System.out.println(senderLikeList.size());
+                                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).setValue(senderLists);
+
+                                        Map<String, Object> receiverLists = new HashMap<>();
+                                        receiverLists.put("fansList", receiverFansList);
+                                        receiverLists.put("likeList", receiverLikeList);
+                                        receiverLists.put("friendsList", receiverFriendList);
+                                        receiverLists.put("dislikeList", receiverDislikeList);
+                                        receiverLists.put("followerNum", receiverFansList.size() + "");
+                                        receiverLists.put("followingNum", receiverLikeList.size() + "");
+                                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).setValue(receiverLists);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
+
                 });
-
-        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get user value
-                        UserFollow user = dataSnapshot.getValue(UserFollow.class);
-                        if(user != null) {
-                            for (String liked : user.likeList) {
-                                receiverLikeList.add(liked);
-                            }
-                            for (String friend : user.friendsList) {
-                                receiverFriendList.add(friend);
-                            }
-                            for (String fans : user.fansList) {
-                                receiverFansList.add(fans);
-                            }
-                            for (String disLike : user.dislikeList) {
-                                receiverDislikeList.add(disLike);
-                            }
-                        }
-
-                        if(Flag == LIKE){
-                            senderLikeList.add(receiver);
-                            receiverFansList.add(sender);
-
-                            // if her likeList has me,
-                            // congratulation! we matched !!!
-                            if(receiverLikeList.contains(sender)){
-                                senderFriendList.add(receiver);
-                                receiverFriendList.add(sender);
-                            }
-
-                        }
-
-                        if(Flag == DISLIKE){
-                            senderDislikeList.add(receiver);
-                        }
-
-                        //update the firebase with the new values
-                        Map<String, Object> senderLists = new HashMap<>();
-                        senderLists.put("fansList", senderFansList);
-                        senderLists.put("likeList", senderLikeList);
-                        senderLists.put("friendsList", senderFriendList);
-                        senderLists.put("dislikeList", senderDislikeList);
-                        senderLists.put("followerNum", senderFansList.size() + "");
-                        senderLists.put("followingNum", senderLikeList.size() + "");
-                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(sender).setValue(senderLists);
-
-                        Map<String, Object> receiverLists = new HashMap<>();
-                        receiverLists.put("fansList", receiverFansList);
-                        receiverLists.put("likeList", receiverLikeList);
-                        receiverLists.put("friendsList", receiverFriendList);
-                        receiverLists.put("dislikeList", receiverDislikeList);
-                        receiverLists.put("followerNum", receiverFansList.size() + "");
-                        receiverLists.put("followingNum", receiverLikeList.size() + "");
-                        rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(receiver).setValue(receiverLists);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-        // if I like her, add her to my likeList, add me to her fansList, if her likeList has me, add me
-        // to her friendList, add her to my friendList
 
     }
 
 
-    private void retriveUserIDs() {
-        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (final DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            User user = dataSnapshot1.getValue(User.class);
-                            userIDs.add(user.userID);
-                            //Toast.makeText(getActivity(), userIDs.toString(), Toast.LENGTH_SHORT).show();
-                            pickNextUser();
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-                    }
-                });
 
-        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserId).addListenerForSingleValueEvent(
+    public void retriveNextUserID(){
+        final ArrayList<String> userIDs = new ArrayList<>();
+        mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(currentUserId).addListenerForSingleValueEvent(
                 new ValueEventListener(){
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
+                        System.out.println("dataSnapshot");
+                        System.out.println(dataSnapshot);
 
-                        if (userFollow != null && userFollow.dislikeList != null) {
-                            for (String disliked : userFollow.dislikeList) {
-                                disLikeList_.add(disliked);
-                            }
+                        UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
+                        //get the disLikeList_
+                        for(String disliked : userFollow.dislikeList){
+                            disLikeList_.add(disliked);
                         }
+                        //get the likedList
+                        for(String liked : userFollow.likeList){
+                            likedList.add(liked);
+                        }
+
+                        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).addListenerForSingleValueEvent(
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (final DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                            User user = dataSnapshot1.getValue(User.class);
+                                            //not myself
+                                            //not in likedList
+                                            //not in dislikedList
+                                            if(!user.userID.equals(currentUserId) && !likedList.contains(user.userID) && !disLikeList_.contains(user.userID)) {
+                                                userIDs.add(user.userID);
+                                            }
+                                            //Toast.makeText(getActivity(), userIDs.toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                        //pick the next user in the userIDs after it is extracted
+                                        pickNextUser(userIDs);
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                                    }
+                                });
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -298,40 +320,46 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
         );
     }
 
-    private void pickNextUser(){
-        Integer length =  userIDs.size();
-        Random r = new Random();
-        Integer userIndex = r.nextInt(length);
-        String nextUserId_ = userIDs.get(userIndex);
-        if(!disLikeList_.contains(nextUserId_)){
-            retrieveUser(userIDs.get(userIndex));
+    //randomly pick a user from the valid friendList
+    private void pickNextUser(ArrayList<String> userIDs){
+        //FragmentActivity fragmentActivity = getActivity();
+        //if (fragmentActivity != null) {
+        if(userIDs.size() < 2){
+            //Toast.makeText(getActivity(),"You Have No New User",Toast.LENGTH_SHORT).show();
+            likeButton.setEnabled(false);
+            dislikeButton.setEnabled(false);
         }
+            //display the default image
+        //}
         else{
-            pickNextUser();
+            Integer length =  userIDs.size();
+            Random r = new Random();
+            Integer userIndex = r.nextInt(length);
+            String nextUserId_ = userIDs.get(userIndex);
+            retrieveUser(nextUserId_);
         }
     }
 
-    private void retrieveUser(String userId){
+    private void retrieveUser(final String userId){
         mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
-                new ValueEventListener(){
+                new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         final User user = dataSnapshot.getValue(User.class);
-                        if(user.profileImageUrl != null && !user.profileImageUrl.equals("") && !user.profileImageUrl.equals("N/A")){
+                        System.out.println("userId:" + userId);
+                        if(!user.profileImageUrl.equals("")){
                             FragmentActivity fragmentActivity = getActivity();
                             if (fragmentActivity != null) {
-                                if(user.profileImageUrl != "") {
-                                    Glide.with(fragmentActivity)
-                                            .load(user.profileImageUrl)
-                                            .into(userImage);
-                                }
+                                Glide.with(fragmentActivity)
+                                        .load(user.profileImageUrl)
+                                        .into(userImage);
                                 //display the default image
-                                else{
-                                    userImage.setImageResource(R.drawable.profile_image);
-                                }
                             }
+                        }else{
+                            userImage.setImageResource(R.drawable.profile_image);
                         }
+
                         userName.setText(user.name);
                         gender.setText(user.gender);
                         city.setText(user.city);

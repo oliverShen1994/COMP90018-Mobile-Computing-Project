@@ -1,24 +1,24 @@
 package com.android.group_12.crushy.Adapter;
 
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.group_12.crushy.DatabaseWrappers.Friends;
 import com.android.group_12.crushy.DatabaseWrappers.User;
-import com.android.group_12.crushy.PersonalInfo;
+import com.android.group_12.crushy.OtherProfilePageActivity;
 import com.android.group_12.crushy.R;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
+
+import static com.android.group_12.crushy.Constants.IntentExtraParameterName.UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID;
 
 public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.ViewHolder> {
     private Context context;
@@ -34,16 +34,7 @@ public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.Vi
             super(view);
             image = view.findViewById(R.id.follow_image);
             text = view.findViewById(R.id.follow_text);
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                //fixme: change to activity skip
-                Toast.makeText(view.getContext(), text.getText(), Toast.LENGTH_SHORT).show();
-                }
-            });
         }
-
     }
 
     // to initialize adapter with PersonalInfo array, and the resource id of layout
@@ -65,14 +56,22 @@ public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.Vi
     @Override
     // to bind the resources to viewHolder, including PersonalInfo image resource id and PersonalInfo name
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        User personalInfo = this.personalInfos.get(position);
-        String imageUrl = personalInfo.profileImageUrl;
-        if (imageUrl == null || personalInfo.profileImageUrl.equals("")) {
+        final User personalInfo = this.personalInfos.get(position);
+        String profileUrl = personalInfo.profileImageUrl;
+        if (profileUrl == null || profileUrl.equals("") || profileUrl.equals("N/A")) {
             holder.image.setImageResource(R.mipmap.ic_launcher);
         } else {
-            Glide.with(this.context).load(personalInfo.profileImageUrl).into(holder.image);
+            Glide.with(this.context).load(profileUrl).into(holder.image);
         }
         holder.text.setText(personalInfo.name);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, OtherProfilePageActivity.class);
+                intent.putExtra(UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID, personalInfo.userID);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -32,6 +32,8 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.android.group_12.crushy.Constants.IntentExtraParameterName.UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID;
+
 public class MessageActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
@@ -89,7 +91,7 @@ public class MessageActivity extends AppCompatActivity {
 
 
         intent = getIntent();
-        final String userId = intent.getStringExtra("userId");
+        final String userId = intent.getStringExtra(UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID);
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
