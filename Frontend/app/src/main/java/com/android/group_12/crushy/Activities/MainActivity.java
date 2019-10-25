@@ -121,34 +121,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 //        sendUserToLoginActivity();
-        sendUserToExtraInfoActivity();
+//        sendUserToExtraInfoActivity();
 
 //        mAuth.signOut();
 //        currentUser = null;
 
-//        if (currentUser == null) {
-//            System.out.println("User is null");
-//            sendUserToLoginActivity();
-//        } else {
-//            System.out.println("User is not null");
-//            System.out.println("Current user: ");
-//            System.out.println(currentUser.getUid());
-////            System.out.println(currentUser.toString());
-//            verifyUserExistence(); // Verify user's existence.
-//
-//            // Height information
-//            Context currentContext = getApplicationContext();
-//            this.screenSize = ScreenUtil.getScreenSize(currentContext);
-//            this.phoneNavigationBarHeight = ScreenUtil.getHeightOfNavigationBar(currentContext);
-//            this.statusBarHeight = ScreenUtil.getHeightOfStatusBar(currentContext);
-//            this.appNavigationBarHeight = this.navView.getLayoutParams().height;
-//            this.fragmentHeight = this.screenSize.y - this.phoneNavigationBarHeight - this.appNavigationBarHeight - this.statusBarHeight;
-//
-//            this.printHeightInfo();
-//
-//            // Open navigation location fragment by default.
-//            this.updateFragment();
-//        }
+        if (currentUser == null) {
+            System.out.println("User is null");
+            sendUserToLoginActivity();
+        } else {
+            System.out.println("User is not null");
+            System.out.println("Current user: ");
+            System.out.println(currentUser.getUid());
+//            System.out.println(currentUser.toString());
+            verifyUserExistence(); // Verify user's existence.
+
+            // Height information
+            Context currentContext = getApplicationContext();
+            this.screenSize = ScreenUtil.getScreenSize(currentContext);
+            this.phoneNavigationBarHeight = ScreenUtil.getHeightOfNavigationBar(currentContext);
+            this.statusBarHeight = ScreenUtil.getHeightOfStatusBar(currentContext);
+            this.appNavigationBarHeight = this.navView.getLayoutParams().height;
+            this.fragmentHeight = this.screenSize.y - this.phoneNavigationBarHeight - this.appNavigationBarHeight - this.statusBarHeight;
+
+            this.printHeightInfo();
+
+            // Open navigation location fragment by default.
+            this.updateFragment();
+        }
     }
 
     @Override

@@ -1,19 +1,15 @@
 package com.android.group_12.crushy.Activities;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.method.KeyListener;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
@@ -23,34 +19,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.android.group_12.crushy.Constants.APIKeys;
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.Constants.IntentExtraParameterName;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.R;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.PlaceLikelihood;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
-import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
-
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
@@ -91,6 +74,8 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         }
     };
 
+    private Geocoder mGeocoder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +93,7 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
 
         this.rootRef = FirebaseDatabase.getInstance().getReference();
         this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
+        this.mGeocoder = new Geocoder(getApplicationContext(), Locale.US);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -148,73 +133,33 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
 
         this.locationInput.setOnClickListener(v -> {
             System.out.println("Location input clicked");
+
+            // Change the text once clicked.
+            locationInput.setText("Getting your location, please wait...");
+
             int permissionLocation = ContextCompat.checkSelfPermission(RegistrationExtraInfoActivity.this, ACCESS_FINE_LOCATION);
             int permissionWifi = ContextCompat.checkSelfPermission(RegistrationExtraInfoActivity.this, ACCESS_WIFI_STATE);
 
             if (permissionLocation == PackageManager.PERMISSION_GRANTED && permissionWifi == PackageManager.PERMISSION_GRANTED) {
                 if (locationManager != null) {
-                    System.out.println("location manager is not null");
-//                    locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, mLocationListener);
-//
-//                    Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//                    if (lastKnownLocation == null) {
+//                    System.out.println("location manager is not null");
+
+                    Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    if (lastKnownLocation == null) {
 //                        System.out.println("Last known location is null.");
-//                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
-//                    } else {
-//                        System.out.println("lastKnownLocation = " + lastKnownLocation);
-//
-//
-//                    }
-
-                    // Initialize the SDK
-                    Places.initialize(getApplicationContext(), APIKeys.PLACES_KEY);
-
-                    // Create a new Places client instance
-                    PlacesClient placesClient = Places.createClient(this);
-
-                    // Use fields to define the data types to return.
-                    List<Place.Field> placeFields = Collections.singletonList(Place.Field.NAME);
-
-                    // Use the builder to create a FindCurrentPlaceRequest.
-                    FindCurrentPlaceRequest request =
-                            FindCurrentPlaceRequest.newInstance(placeFields);
-
-                    // Call findCurrentPlace and handle the response (first check that the user has granted permission).
-                    if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        Task<FindCurrentPlaceResponse> placeResponse = placesClient.findCurrentPlace(request);
-                        placeResponse.addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                FindCurrentPlaceResponse response = task.getResult();
-
-                                List<PlaceLikelihood> placeLikelihoods = response.getPlaceLikelihoods();
-                                if (placeLikelihoods != null) {
-                                    List<Double> likelihoods = placeLikelihoods.stream().map(placeLikelihood -> placeLikelihood.getLikelihood()).collect(Collectors.toList());
-                                    Double maxLikelihood = Collections.max(likelihoods);
-                                    List<String> mostLikelyPlacesName = placeLikelihoods.stream()
-                                            .filter(placeLikelihood -> placeLikelihood.getLikelihood() == maxLikelihood)
-                                            .map(placeLikelihood -> placeLikelihood.getPlace().getName()).collect(Collectors.toList());
-
-                                    System.out.println(mostLikelyPlacesName);
-                                }
-
-                                for (PlaceLikelihood placeLikelihood : placeLikelihoods) {
-                                    System.out.println(String.format("Place '%s' has likelihood: %f",
-                                            placeLikelihood.getPlace().getName(),
-                                            placeLikelihood.getLikelihood()));
-                                }
-                            } else {
-                                Exception exception = task.getException();
-                                if (exception instanceof ApiException) {
-                                    ApiException apiException = (ApiException) exception;
-                                    System.out.println(("Place not found: " + apiException.getStatusCode()));
-                                    System.out.println(apiException.toString());
-                                }
-                            }
-                        });
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
                     } else {
-                        // A local method to request required permissions;
-                        // See https://developer.android.com/training/permissions/requesting
-//                        getLocationPermission();
+//                        System.out.println("lastKnownLocation = " + lastKnownLocation);
+
+                        String lastKnownAddress = "";
+                        try {
+                            lastKnownAddress = getLocationInfoByLatLong(lastKnownLocation);
+                        } catch (Exception e) {
+
+                        }
+
+                        locationInput.setText(lastKnownAddress);
+//                        System.out.println("last known place = " + lastKnownAddress);
                     }
                 }
             } else {
@@ -233,6 +178,43 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    private String getLocationInfoByLatLong(Location lastKnownLocation) throws IOException {
+        if (lastKnownLocation != null) {
+
+            List<Address> addresses = this.mGeocoder.getFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 1);
+            if (addresses != null && addresses.size() > 0) {
+//                System.out.println("addresses: ");
+//                System.out.println(addresses);
+
+                String city = addresses.get(0).getLocality();
+                String state = addresses.get(0).getAdminArea();
+                String country = addresses.get(0).getCountryName();
+
+//                System.out.println("city = " + city);
+//                System.out.println("state = " + state);
+//                System.out.println("country = " + country);
+
+                ArrayList<String> locationComponents = new ArrayList<String>();
+                if (!TextUtils.isEmpty(city)) {
+                    locationComponents.add(city);
+                }
+
+                if (!TextUtils.isEmpty(state)) {
+                    locationComponents.add(state);
+                }
+
+                if (!TextUtils.isEmpty(country)) {
+                    locationComponents.add(country);
+                }
+
+                return String.join(", ", locationComponents);
+            }
+        }
+
+        return null;
     }
 
     private void skipButtonOnClickListener() {
