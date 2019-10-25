@@ -74,7 +74,7 @@ public class FollowerListActivity extends AppCompatActivity {
 //                        //Log.e(TAG, "the author is " + user.author);
 //                        //Log.e(TAG, user.title);
 //                        //Log.e(TAG, user.author);
-//                        //Toast.makeText(EditUserProfile.this,
+//                        //Toast.makeText(EditUserProfileActivity.this,
 //                        //        "Error: could not fetch user.",
 //                        //        Toast.LENGTH_SHORT).show();
 //                        // Finish this Activity, back to the stream

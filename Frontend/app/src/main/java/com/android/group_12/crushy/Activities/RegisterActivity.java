@@ -4,13 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
@@ -19,11 +15,8 @@ import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.R;
 import com.android.group_12.crushy.Utils.EmailValidationUtil;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -74,49 +67,49 @@ public class RegisterActivity extends AppCompatActivity {
 
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
-//                        String preferredName1 = userPreferredName.getText().toString();
-//                        String email1 = userEmail.getText().toString();
+                        String preferredNameValue = userPreferredName.getText().toString();
+                        String emailValue = userEmail.getText().toString();
 
                         if (task.isSuccessful()) {
-//                            String currentUserID = mAuth.getCurrentUser().getUid();
-//
-//                            //HashMap<String, String> userProfile = new HashMap<>();
-//                            String userid = currentUserID;
-//                            String name = preferredName1;
-//                            String birthday = "";
-//                            String bodyType = "";
-//                            String city = "";
-//                            String description = "";
-//                            String gender = "";
-//                            String hobbies = "";
-//                            String occupation = "";
-//                            String profileImageUrl = "";
-//                            String relationshipStatus = "";
-//                            String height = "";
-//                            String weight = "";
-//                            ArrayList<String> fansList = new ArrayList<>();
-//                            ArrayList<String> likeList = new ArrayList<>();
-//                            ArrayList<String> friendsList = new ArrayList<>();
-//                            ArrayList<String> blockList = new ArrayList<>();
-//                            ArrayList<String> dislikeList = new ArrayList<>();
-//                            String followerNum = "0";
-//                            String followingNum = "0";
-//                            // The firebase route to the new user
-//                            DatabaseReference currentRecordUser = rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserID);
-//                            DatabaseReference currentUserFollowers = rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(currentUserID);
-//
-//                            User user = new User(userid, name, birthday, email1, bodyType, city, description, gender, hobbies, occupation, profileImageUrl, relationshipStatus, height, weight);
-//                            UserFollow userFollow = new UserFollow(fansList, likeList, friendsList, blockList, dislikeList, followerNum, followingNum);
-//                            // wrap the user info content
-//                            Map<String, Object> postValues = user.toMap();
-//                            Map<String, Object> userFollowValues = userFollow.toMap();
-//                            //set value to User table
-//                            currentRecordUser.setValue(postValues);
-//                            //set value to UserFollow table
-//                            currentUserFollowers.setValue(userFollowValues);
-//
+                            String currentUserID = mAuth.getCurrentUser().getUid();
+
+                            //HashMap<String, String> userProfile = new HashMap<>();
+                            String userid = currentUserID;
+                            String name = preferredNameValue;
+                            String birthday = "";
+                            String bodyType = "";
+                            String city = "";
+                            String description = "";
+                            String gender = "";
+                            String hobbies = "";
+                            String occupation = "";
+                            String profileImageUrl = "";
+                            String relationshipStatus = "";
+                            String height = "";
+                            String weight = "";
+                            ArrayList<String> fansList = new ArrayList<>();
+                            ArrayList<String> likeList = new ArrayList<>();
+                            ArrayList<String> friendsList = new ArrayList<>();
+                            ArrayList<String> blockList = new ArrayList<>();
+                            ArrayList<String> dislikeList = new ArrayList<>();
+                            String followerNum = "0";
+                            String followingNum = "0";
+                            // The firebase route to the new user
+                            DatabaseReference currentRecordUser = rootRef.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserID);
+                            DatabaseReference currentUserFollowers = rootRef.child(DatabaseConstant.USER_FOLLOW_TABLE).child(currentUserID);
+
+                            User user = new User(userid, name, birthday, emailValue, bodyType, city, description, gender, hobbies, occupation, profileImageUrl, relationshipStatus, height, weight);
+                            UserFollow userFollow = new UserFollow(fansList, likeList, friendsList, blockList, dislikeList, followerNum, followingNum);
+                            // wrap the user info content
+                            Map<String, Object> postValues = user.toMap();
+                            Map<String, Object> userFollowValues = userFollow.toMap();
+                            //set value to User table
+                            currentRecordUser.setValue(postValues);
+                            //set value to UserFollow table
+                            currentUserFollowers.setValue(userFollowValues);
+
 //                            sendUserToMainActivity();
-                            sendUserToRegistrationProfileActivity(userPreferredName.getText().toString(), mAuth.getCurrentUser().getUid(), userEmail.getText().toString());
+                            sendUserToRegistrationProfileActivity(preferredNameValue, currentUserID, emailValue);
                             Toast.makeText(RegisterActivity.this, "Account created successfully", Toast.LENGTH_SHORT).show();
                         } else {
                             String message = task.getException().toString();

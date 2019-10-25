@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserProfile">
+    tools:context=".Activities.UserProfileActivity">
 
     <RelativeLayout
         android:id="@+id/Card"
@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:paddingVertical="8dp"
+            android:paddingTop="40dp"
+            android:paddingBottom="8dp"
             android:clickable="true">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -411,15 +412,7 @@
                     android:hint="Your relationship status, e.g. single, partnered etc."
                     android:paddingLeft="5dp">
                 </EditText>
-
             </LinearLayout>
-
         </LinearLayout>
-
-
-
-
     </ScrollView>
-
-
 </RelativeLayout>
