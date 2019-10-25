@@ -5,18 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.android.group_12.crushy.Constants.ResultCode;
 import com.android.group_12.crushy.R;
 
 public class AboutActivity extends AppCompatActivity {
-    private Button Back;
+    private LinearLayout Back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        Back = (Button) findViewById(R.id.Back);
+        Back = findViewById(R.id.PreviousButton);
         Back.setOnClickListener(view -> {
 //                setResult(ResultCode.AboutActivity);
             finish();

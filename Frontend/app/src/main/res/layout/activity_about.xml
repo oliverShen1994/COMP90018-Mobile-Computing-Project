@@ -10,81 +10,160 @@
         android:id="@+id/AboutLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:background="@drawable/gradient"
+        android:paddingTop="@dimen/text_view_vertical_margin_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/AppName"
-            android:layout_marginTop="100dp"
+
+        <LinearLayout
+            android:id="@+id/PreviousButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:clickable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:padding="10dp"
+                android:text="Back"
+                android:textColor="@color/white"
+                android:textSize="20sp"></TextView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/AppName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/PreviousButton"
             android:layout_centerHorizontal="true"
-            android:fontFamily="serif-monospace"
-            android:text="App Name: Crushy"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingStart="@dimen/horizontal_element_padding"
+            android:text="Crushy"
+            android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold"></TextView>
 
         <TextView
-            android:id="@+id/Version"
-            android:layout_below="@id/AppName"
-            android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="serif-monospace"
-            android:text="Version: 0.0.1"
-            android:textSize="15dp"
-            android:textStyle="bold"></TextView>
-
-        <TextView
             android:id="@+id/TeamName"
-            android:layout_marginTop="30dp"
-            android:layout_below="@id/Version"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/AppName"
             android:layout_centerHorizontal="true"
-            android:fontFamily="serif-monospace"
-            android:text="Team Name: DDGWD"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingStart="@dimen/horizontal_element_padding"
+            android:text="Group 12"
+            android:textColor="@color/white"
             android:textSize="25dp"
             android:textStyle="bold"></TextView>
 
-        <TextView
+        <RelativeLayout
             android:id="@+id/Member"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/TeamName"
-            android:layout_marginTop="30dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="false"
-            android:gravity="center"
-            android:fontFamily="serif-monospace"
-            android:textSize="25dp"
-            android:text="Member:\nAn LUO\nLi SHEN\nXinyan HUANG\nYongle ZHU\nZiyu HE"
-            ></TextView>
+            android:layout_below="@id/TeamName"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/horizontal_element_padding">
+
+            <TextView
+                android:id="@+id/member_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Member"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/member_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/member_text"
+                android:fontFamily="sans-serif"
+                android:text="    - Ziyu He"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/member_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/member_1"
+                android:fontFamily="sans-serif"
+                android:text="    - Xinyan Huang"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/member_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/member_2"
+                android:fontFamily="sans-serif"
+                android:text="    - An Luo"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/member_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/member_3"
+                android:fontFamily="sans-serif"
+                android:text="    - Li Shen"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/member_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/member_4"
+                android:fontFamily="sans-serif"
+                android:text="    - Yongle Zhu"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/Member"
-            android:layout_marginTop="30dp"
-            android:layout_marginHorizontal="10dp"
-            android:textSize="15dp"
-            android:fontFamily="serif-monospace"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="This is the app for the group assignment2 of COMP90018"
-            ></TextView>
-        <Button
-            android:id="@+id/Back"
-            android:layout_below="@id/Description"
-            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="BACK"
-            ></Button>
+            android:layout_below="@id/Member"
+            android:layout_centerHorizontal="false"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif"
+            android:paddingStart="@dimen/horizontal_element_padding"
+            android:text="This is the app for the group assignment2 of COMP90018"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            tools:textColor="@color/white"></TextView>
+
+        <TextView
+            android:id="@+id/Version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Description"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif"
+            android:paddingStart="@dimen/horizontal_element_padding"
+            android:text="Version: 0.9.0"
+            android:textColor="@color/white"
+            android:textSize="18sp"></TextView>
 
     </RelativeLayout>
 
