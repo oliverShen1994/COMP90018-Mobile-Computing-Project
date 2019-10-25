@@ -48,6 +48,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -319,12 +321,20 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         String name = userName;
         String birthday = "";
         String bodyType = "";
-        String city = this.userLocation;
+        String city = "";
+        if (this.userLocation != null && !TextUtils.isEmpty(this.userLocation) && !this.userLocation.equals("N/A")) {
+            city = this.userLocation;
+        }
+
         String description = "";
         String gender = "";
         String hobbies = "";
         String occupation = "";
-        String profileImageUrl = this.profileImageUrl;
+        String profileImageUrl = "";
+        if (this.profileImageUrl != null && !TextUtils.isEmpty(this.profileImageUrl) && !this.profileImageUrl.equals("N/A")) {
+            profileImageUrl = this.profileImageUrl;
+        }
+
         String relationshipStatus = "";
         String height = "";
         String weight = "";
@@ -368,12 +378,20 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         String name = userName;
         String birthday = TextUtils.isEmpty(typedDOB) ? "N/A" : typedDOB;
         String bodyType = TextUtils.isEmpty(typedBodyType) ? "N/A" : typedBodyType;
-        String city = this.userLocation;
+        String city = "";
+        if (this.userLocation != null && !TextUtils.isEmpty(this.userLocation) && !this.userLocation.equals("N/A")) {
+            city = this.userLocation;
+        }
+
         String description = TextUtils.isEmpty(typedDescription) ? "N/A" : typedDescription;
         String gender = TextUtils.isEmpty(typedGender) ? "N/A" : typedGender;
         String hobbies = TextUtils.isEmpty(typedHobbies) ? "N/A" : typedHobbies;
         String occupation = TextUtils.isEmpty(typedOccupation) ? "N/A" : typedOccupation;
-        String profileImageUrl = this.profileImageUrl;
+        String profileImageUrl = "";
+        if (this.profileImageUrl != null && !TextUtils.isEmpty(this.profileImageUrl) && !this.profileImageUrl.equals("N/A")) {
+            profileImageUrl = this.profileImageUrl;
+        }
+
         String relationshipStatus = TextUtils.isEmpty(typedRelationship) ? "N/A" : typedRelationship;
         String height = TextUtils.isEmpty(typedHeight) ? "N/A" : typedHeight;
         String weight = TextUtils.isEmpty(typedWeight) ? "N/A" : typedWeight;
