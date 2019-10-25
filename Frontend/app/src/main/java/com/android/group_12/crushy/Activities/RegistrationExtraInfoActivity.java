@@ -319,12 +319,12 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         String name = userName;
         String birthday = "";
         String bodyType = "";
-        String city = this.userLocation;
+        String city = "";
         String description = "";
         String gender = "";
         String hobbies = "";
         String occupation = "";
-        String profileImageUrl = this.profileImageUrl;
+        String profileImageUrl = "";
         String relationshipStatus = "";
         String height = "";
         String weight = "";
