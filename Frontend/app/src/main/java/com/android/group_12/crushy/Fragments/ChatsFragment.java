@@ -25,10 +25,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class ChatsFragment extends Fragment {
+
+    private final static ChatsFragment Instance = new ChatsFragment();
 
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
@@ -37,6 +42,14 @@ public class ChatsFragment extends Fragment {
     FirebaseUser fuser;
     DatabaseReference databaseReference;
     private List<String> usersList;
+
+    private ChatsFragment() {
+        System.out.println("chats fragment启动！");
+    }
+
+    public static final ChatsFragment getInstance() {
+        return ChatsFragment.Instance;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +76,9 @@ public class ChatsFragment extends Fragment {
                         usersList.add(chat.getSender());
                     }
                 }
+
+                System.out.println("usersList is ");
+                System.out.println(Arrays.toString(usersList.toArray()));
 
                 readChats();
             }
@@ -108,23 +124,27 @@ public class ChatsFragment extends Fragment {
                     Friends friend = snapshot.getValue(Friends.class);
                     for (String id: usersList) {
                         if (friend.getUserID().equals(id)) {
-                            if (mUsers.size()!=0) {
-                                ArrayList<Friends> arrayList = new ArrayList<>();
-                                for (Friends temp: mUsers) {
-                                    arrayList.add(temp);
-                                }
-                                for (Friends user: arrayList) {
-                                    if (!friend.getUserID().equals(user.getUserID())) {
-                                        mUsers.add(friend);
-                                    }
-                                }
-
-                            } else {
-                                mUsers.add(friend);
-                            }
+//                            if (mUsers.size()!=0) {
+//                                Set<Friends> arrayList = new HashSet<>();
+//                                for (Friends temp: mUsers) {
+//                                    arrayList.add(temp);
+//                                }
+//
+//                                for (Friends user: arrayList) {
+//                                    if (!friend.getUserID().equals(user.getUserID())) {
+//                                        mUsers.add(friend);
+//                                    }
+//                                }
+//
+//                            } else {
+//                                mUsers.add(friend);
+//                            }
+                            mUsers.add(friend);
                         }
                     }
                 }
+                System.out.println("users");
+                System.out.println(Arrays.toString(mUsers.toArray()));
                 userAdapter = new UserAdapter(getContext(), mUsers);
                 recyclerView.setAdapter(userAdapter);
             }
