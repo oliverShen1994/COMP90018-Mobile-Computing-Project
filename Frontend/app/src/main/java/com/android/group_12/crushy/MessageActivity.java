@@ -115,7 +115,8 @@ public class MessageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Friends user = dataSnapshot.getValue(Friends.class);
                 username.setText(user.getName());
-                if (user.getProfileImageUrl().equals("")) {
+                String profileImageUrl = user.getProfileImageUrl();
+                if (profileImageUrl == null || profileImageUrl.equals("") || profileImageUrl.equals("N/A")) {
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 } else {
                     Glide.with(MessageActivity.this).load(user.getProfileImageUrl()).into(profile_image);
