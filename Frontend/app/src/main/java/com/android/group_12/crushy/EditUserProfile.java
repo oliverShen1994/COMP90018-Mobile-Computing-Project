@@ -81,6 +81,7 @@ public class EditUserProfile extends AppCompatActivity {
                 String UserRelationshipStatus_ = UserRelationshipStatus.getText().toString();
                 String UserBodyType_ = UserBodyType.getText().toString();
                 String UserProfileImage_ = imageUrl;
+                System.out.println("initial: " + UserProfileImage_);
                 writeNewPost(EditUserName_, UserDescription_, UserEmail_, UserGender_, UserHeight_, UserWeight_, UserCity_, UserBirthday_,
                         UserOccupation_,  UserProfileImage_, UserHobbies_, UserRelationshipStatus_, UserBodyType_);
 
@@ -162,7 +163,7 @@ public class EditUserProfile extends AppCompatActivity {
                         // [END_EXCLUDE]
 
                         String UserProfileImage_ = user.profileImageUrl;
-
+                        System.out.println("RetrievePost: " + UserProfileImage_);
                         String UserID_ = user.userID;
                         String UserName_ = user.name;
                         if (user.profileImageUrl.equals("")) {
@@ -211,7 +212,10 @@ public class EditUserProfile extends AppCompatActivity {
         // String UserRelationshipStatus, String UserBodyType)
 
         String UserID_ = currentUserId;
-
+        System.out.println("Write New Post: " + UserProfileImage_);
+        if (UserProfileImage_ == null){
+            UserProfileImage_ = "";
+        }
 
 
 

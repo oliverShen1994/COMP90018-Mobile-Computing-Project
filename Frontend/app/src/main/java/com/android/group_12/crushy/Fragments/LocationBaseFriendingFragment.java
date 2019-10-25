@@ -332,6 +332,9 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                 }
                             }
                         }
+                        else{
+                            userImage.setImageResource(R.drawable.profile_image);
+                        }
                         userName.setText(user.name);
                         gender.setText(user.gender);
                         city.setText(user.city);

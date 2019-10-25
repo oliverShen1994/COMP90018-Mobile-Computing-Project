@@ -64,8 +64,9 @@ public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.Vi
     // to bind the resources to viewHolder, including PersonalInfo image resource id and PersonalInfo name
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final User personalInfo = this.personalInfos.get(position);
+
         if (personalInfo.profileImageUrl.equals("")) {
-            holder.image.setImageResource(R.mipmap.ic_launcher);
+            holder.image.setImageResource(R.drawable.profile_image);
         } else {
             Glide.with(this.context).load(personalInfo.profileImageUrl).into(holder.image);
         }
