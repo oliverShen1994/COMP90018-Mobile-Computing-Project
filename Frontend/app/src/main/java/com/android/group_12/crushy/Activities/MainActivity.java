@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (this.fragmentEnum.equals(FRIEND_LIST_USERS) || this.fragmentEnum.equals(FRIEND_LIST_CHAT)) {
             System.out.println("Friend list");
             // fragment = new FriendListFragment(this.fragmentHeight, this.screenSize.x);
-            fragment = new ContactsFragment(this.fragmentHeight, this.screenSize.x);
+            fragment = new FriendListFragment(this.fragmentHeight, this.screenSize.x);
         } else if (this.fragmentEnum.equals(PERSONAL_AREA)) {
             System.out.println("Personal Area");
             fragment = PersonalAreaFragment.newInstance(this.fragmentHeight, this.screenSize.x);

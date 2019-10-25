@@ -11,6 +11,7 @@ import android.widget.Switch;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -113,8 +114,8 @@ public class FollowerListFragment extends Fragment {
             //TODO: reimplement method getPersons()
             FollowListAdapter adapter = new FollowListAdapter(this.followerInfo, R.layout.follow_list_grid_token, getContext());
             this.dataView.setAdapter(adapter);
-            this.dataView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//            this.gridView.setLayoutManager(new GridLayoutManager(this.getContext(), 2, GridLayoutManager.VERTICAL, false));
+//            this.dataView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+            this.dataView.setLayoutManager(new GridLayoutManager(this.getContext(), 2, GridLayoutManager.VERTICAL, false));
         }
     }
 
@@ -127,8 +128,6 @@ public class FollowerListFragment extends Fragment {
                     UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
                     followerList = userFollow.fansList;
                     followerInfo = new ArrayList<>();
-                    System.out.println("++++++++output fan list+++++++");
-                    System.out.println(followerList.toString());
 
                     mDatabase.child(DatabaseConstant.USER_TABLE_NAME).addValueEventListener(new ValueEventListener() {
                         @Override
@@ -142,8 +141,6 @@ public class FollowerListFragment extends Fragment {
                                     }
                                 }
                             }
-                            System.out.println("!!!!!output fan list!!!!!!");
-                            System.out.println(followerInfo.toString());
                             initializeList();
                         }
 
