@@ -1,6 +1,7 @@
 package com.android.group_12.crushy.Fragments;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -351,8 +352,9 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
                         final User user = dataSnapshot.getValue(User.class);
                         System.out.println("userId:" + userId);
-                        String profileImageUrl = user.profileImageUrl;
-                        if(profileImageUrl != null || !profileImageUrl.equals("")){
+                        if (user.profileImageUrl == null || TextUtils.isEmpty(user.profileImageUrl) || user.profileImageUrl.equals("N/A")) {
+                            userImage.setImageResource(R.drawable.profile_image);
+                        }else{
                             FragmentActivity fragmentActivity = getActivity();
                             if (fragmentActivity != null) {
                                 Glide.with(fragmentActivity)
@@ -360,8 +362,6 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                         .into(userImage);
                                 //display the default image
                             }
-                        }else{
-                            userImage.setImageResource(R.drawable.profile_image);
                         }
                         userName.setText(user.name);
                         gender.setText(user.gender);
