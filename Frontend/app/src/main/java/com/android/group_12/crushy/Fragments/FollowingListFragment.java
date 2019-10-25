@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 public class FollowingListFragment extends Fragment {
     static String LAYOUT_TYPE = "type";
-    private int layout = R.layout.fragment_follow_list_gridview;
+    private int layout = R.layout.fragment_follow_list_listview;
     private RecyclerView dataView;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
