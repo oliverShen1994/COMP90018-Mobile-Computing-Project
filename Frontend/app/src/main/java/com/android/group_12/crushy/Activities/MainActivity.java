@@ -154,27 +154,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        System.out.println(requestCode);
-        System.out.println(resultCode);
-        if (requestCode == RequestCode.PersonalArea) {
-            switch (resultCode) {
-                case ResultCode.Follower:
-                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
-                case ResultCode.Following:
-                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
-                case ResultCode.Setting:
-                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
-                case ResultCode.About:
-                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    Toast.makeText(MainActivity.this, "test default", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        System.out.println(requestCode);
+//        System.out.println(resultCode);
+//        if (requestCode == RequestCode.PersonalArea) {
+//            switch (resultCode) {
+//                case ResultCode.Follower:
+//                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
+//                case ResultCode.Following:
+//                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
+//                case ResultCode.Setting:
+//                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
+//                case ResultCode.About:
+//                    Toast.makeText(MainActivity.this, "return PersonalAreaFragment", Toast.LENGTH_SHORT).show();
+//                    break;
+//                default:
+//                    Toast.makeText(MainActivity.this, "test default", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 
     private void sendUserToLoginActivity() {
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
