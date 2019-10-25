@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         System.out.println(requestCode);
         System.out.println(resultCode);
         if (requestCode == RequestCode.PersonalArea) {
