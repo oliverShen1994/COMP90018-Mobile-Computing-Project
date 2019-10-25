@@ -11,12 +11,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.R;
+import com.android.group_12.crushy.Utils.StringUtil;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -116,10 +116,10 @@ public class UserProfileActivity extends AppCompatActivity {
         this.editButton = findViewById(R.id.EditButton);
         this.previousButton = findViewById(R.id.pro_previous);
         this.progressBar = findViewById(R.id.user_profile_progress_bar);
-        retrivePost(currentUserId);
+        retreivePost(currentUserId);
     }
 
-    private void retrivePost(String uid) {
+    private void retreivePost(String uid) {
         // Disable button so there are no multi-posts
 //        Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
 
@@ -133,23 +133,22 @@ public class UserProfileActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
-                        String UserProfileImage_ = user.profileImageUrl;
-                        String UserName_ = user.name;
-                        String UserDescription_ = user.description;
-                        String UserEmail_ = user.email;
-                        String UserGender_ = user.gender;
-                        String UserHeight_ = user.height;
-                        String UserWeight_ = user.weight;
-                        String UserCity_ = user.city;
-                        String UserBirthday_ = user.birthday;
-                        String UserOccupation_ = user.occupation;
-                        String UserHobbies_ = user.hobbies;
-                        String UserRelationshipStatus_ = user.relationshipStatus;
-                        String UserBodyType_ = user.bodyType;
+                        String UserProfileImage_ = StringUtil.replaceNullOrEmptyString(user.profileImageUrl);
+                        String UserName_ = StringUtil.replaceNullOrEmptyString(user.name);
+                        String UserEmail_ = StringUtil.replaceNullOrEmptyString(user.email);
+                        String UserGender_ = StringUtil.replaceNullOrEmptyString(user.gender);
+                        String UserHeight_ = StringUtil.replaceNullOrEmptyString(user.height);
+                        String UserWeight_ = StringUtil.replaceNullOrEmptyString(user.weight);
+                        String UserCity_ = StringUtil.replaceNullOrEmptyString(user.city);
+                        String UserBirthday_ = StringUtil.replaceNullOrEmptyString(user.birthday);
+                        String UserOccupation_ = StringUtil.replaceNullOrEmptyString(user.occupation);
+                        String UserHobbies_ = StringUtil.replaceNullOrEmptyString(user.hobbies);
+                        String UserRelationshipStatus_ = StringUtil.replaceNullOrEmptyString(user.relationshipStatus);
+                        String UserBodyType_ = StringUtil.replaceNullOrEmptyString(user.bodyType);
 
+                        String UserDescription_ = user.description;
                         if (TextUtils.isEmpty(UserDescription_) || UserDescription_.equals("N/A")) {
                             UserDescription_ = "The user has not said anything...";
-
                         }
 
                         userName.setText(UserName_);

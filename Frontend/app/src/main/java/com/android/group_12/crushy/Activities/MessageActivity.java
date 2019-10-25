@@ -1,4 +1,4 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.android.group_12.crushy.Adapter.MessageAdapter;
 import com.android.group_12.crushy.DatabaseWrappers.Chat;
 import com.android.group_12.crushy.DatabaseWrappers.Friends;
+import com.android.group_12.crushy.R;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

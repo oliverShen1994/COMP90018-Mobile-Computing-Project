@@ -10,12 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.group_12.crushy.DatabaseWrappers.Chat;
-import com.android.group_12.crushy.MessageActivity;
-import com.android.group_12.crushy.OtherProfilePageActivity;
+import com.android.group_12.crushy.Activities.OtherProfilePageActivity;
 import com.android.group_12.crushy.R;
 import com.bumptech.glide.Glide;
 

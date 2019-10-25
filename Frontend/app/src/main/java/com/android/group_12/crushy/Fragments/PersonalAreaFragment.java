@@ -20,11 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-
-import com.android.group_12.crushy.About;
+import com.android.group_12.crushy.Activities.AboutActivity;
 import com.android.group_12.crushy.Activities.FollowerListActivity;
 import com.android.group_12.crushy.Activities.FollowingListActivity;
 import com.android.group_12.crushy.Activities.LoginActivity;
@@ -146,7 +142,7 @@ public class PersonalAreaFragment extends Fragment {
 
         this.about.setOnClickListener(view12 -> {
             Intent aboutPage;
-            aboutPage = new Intent(getActivity(), About.class);
+            aboutPage = new Intent(getActivity(), AboutActivity.class);
             startActivity(aboutPage);
 //                getActivity().startActivityForResult(aboutPage, RequestCode.PersonalArea);
         });

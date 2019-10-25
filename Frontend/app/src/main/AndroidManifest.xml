@@ -23,13 +23,13 @@
         </provider>
 
         <activity android:name=".Activities.RegistrationExtraInfoActivity"></activity>
-        <activity android:name=".OtherProfilePageActivity"></activity>
-        <activity android:name=".MessageActivity" />
+        <activity android:name=".Activities.OtherProfilePageActivity"></activity>
+        <activity android:name=".Activities.MessageActivity" />
         <activity
             android:name=".Activities.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".About"
+            android:name=".Activities.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.EditUserImageActivity"

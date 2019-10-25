@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.android.group_12.crushy.Fragments.FollowerListFragment;
-import com.android.group_12.crushy.MessageActivity;
 import com.android.group_12.crushy.R;
 
 public class FollowerListActivity extends AppCompatActivity {

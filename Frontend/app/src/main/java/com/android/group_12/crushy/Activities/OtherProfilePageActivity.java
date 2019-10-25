@@ -1,10 +1,11 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,21 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
-import com.android.group_12.crushy.Constants.IntentExtraParameterName;
-import com.android.group_12.crushy.Constants.RequestCode;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
-import com.android.group_12.crushy.Enums.MainActivityFragmentEnum;
+import com.android.group_12.crushy.R;
+import com.android.group_12.crushy.Utils.StringUtil;
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -62,35 +58,33 @@ public class OtherProfilePageActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     private void initializeFields(String id) {
-        UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
-        UserID = (TextView) findViewById(R.id.UserDescription);
-        UserName = (TextView) findViewById(R.id.UserName);
-        FollowerNum = (TextView) findViewById(R.id.FollowersNum);
-        FollowingNum = (TextView) findViewById(R.id.FollowingNum);
-        UserDescription = (TextView) findViewById(R.id.UserDescription);
-        UserEmail = (TextView) findViewById(R.id.UserEmail);
-        UserGender = (TextView) findViewById(R.id.UserGender);
-        UserHeight = (TextView) findViewById(R.id.UserHeight);
-        UserWeight = (TextView) findViewById(R.id.UserWeight);
-        UserCity = (TextView) findViewById(R.id.UserCity);
-        UserBirthday = (TextView) findViewById(R.id.UserBirthday);
-        UserOccupation = (TextView) findViewById(R.id.UserOccupation);
-        UserHobbies = (TextView) findViewById(R.id.UserHobbies);
-        UserRelationshipStatus = (TextView) findViewById(R.id.UserRelationshipStatus);
-        UserBodyType = (TextView) findViewById(R.id.UserBodyType);
-        PreviousButton = (LinearLayout) findViewById(R.id.pro_previous);
+        this.UserProfileImage = findViewById(R.id.UserImageView);
+        this.UserID = findViewById(R.id.UserDescription);
+        this.UserName = findViewById(R.id.UserName);
+        this.FollowerNum = findViewById(R.id.FollowersNum);
+        this.FollowingNum = findViewById(R.id.FollowingNum);
+        this.UserDescription = findViewById(R.id.UserDescription);
+        this.UserEmail = findViewById(R.id.UserEmail);
+        this.UserGender = findViewById(R.id.UserGender);
+        this.UserHeight = findViewById(R.id.UserHeight);
+        this.UserWeight = findViewById(R.id.UserWeight);
+        this.UserCity = findViewById(R.id.UserCity);
+        this.UserBirthday = findViewById(R.id.UserBirthday);
+        this.UserOccupation = findViewById(R.id.UserOccupation);
+        this.UserHobbies = findViewById(R.id.UserHobbies);
+        this.UserRelationshipStatus = findViewById(R.id.UserRelationshipStatus);
+        this.UserBodyType = findViewById(R.id.UserBodyType);
+        this.PreviousButton = findViewById(R.id.pro_previous);
 
-        retrivePost(id);
+        retrievePost(id);
     }
 
-    private void retrivePost(String uid) {
+    private void retrievePost(String uid) {
         // Disable button so there are no multi-posts
-        Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Retrieving information...", Toast.LENGTH_SHORT).show();
 
         // [START single_value_read]
         final String userId = uid;
@@ -100,39 +94,42 @@ public class OtherProfilePageActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
-                        String UserProfileImage_ = user.profileImageUrl;
-                        Log.i(TAG, UserProfileImage_);
-                        String UserID_ = user.userID;
-                        Log.i(TAG, UserID_);
-                        String UserName_ = user.name;
-                        Log.i(TAG, UserName_);
-                        String UserDescription_ = user.description;
-                        Log.i(TAG, UserDescription_);
-                        String UserEmail_ = user.email;
-                        Log.i(TAG, UserEmail_);
-                        String UserGender_ = user.gender;
-                        Log.i(TAG, UserGender_);
-                        String UserHeight_ = user.height;
-                        Log.i(TAG, UserHeight_);
-                        String UserWeight_ = user.weight;
-                        Log.i(TAG, UserWeight_);
-                        String UserCity_ = user.city;
-                        Log.i(TAG, UserCity_);
-                        String UserBirthday_ = user.birthday;
-                        Log.i(TAG, UserBirthday_);
-                        String UserOccupation_ = user.occupation;
-                        Log.i(TAG, UserOccupation_);
-                        String UserHobbies_ = user.hobbies;
-                        Log.i(TAG, UserHobbies_);
-                        String UserRelationshipStatus_ = user.relationshipStatus;
-                        Log.i(TAG, UserRelationshipStatus_);
-                        String UserBodyType_ = user.bodyType;
-                        Log.i(TAG, UserBodyType_);
+                        String UserProfileImage_ = StringUtil.replaceNullOrEmptyString(user.profileImageUrl);
+//                        Log.i(TAG, UserProfileImage_);
+                        String UserID_ = StringUtil.replaceNullOrEmptyString(user.userID);
+//                        Log.i(TAG, UserID_);
+                        String UserName_ = StringUtil.replaceNullOrEmptyString(user.name);
+//                        Log.i(TAG, UserName_);
+                        String UserEmail_ = StringUtil.replaceNullOrEmptyString(user.email);
+//                        Log.i(TAG, UserEmail_);
+                        String UserGender_ = StringUtil.replaceNullOrEmptyString(user.gender);
+//                        Log.i(TAG, UserGender_);
+                        String UserHeight_ = StringUtil.replaceNullOrEmptyString(user.height);
+//                        Log.i(TAG, UserHeight_);
+                        String UserWeight_ = StringUtil.replaceNullOrEmptyString(user.weight);
+//                        Log.i(TAG, UserWeight_);
+                        String UserCity_ = StringUtil.replaceNullOrEmptyString(user.city);
+//                        Log.i(TAG, UserCity_);
+                        String UserBirthday_ = StringUtil.replaceNullOrEmptyString(user.birthday);
+//                        Log.i(TAG, UserBirthday_);
+                        String UserOccupation_ = StringUtil.replaceNullOrEmptyString(user.occupation);
+//                        Log.i(TAG, UserOccupation_);
+                        String UserHobbies_ = StringUtil.replaceNullOrEmptyString(user.hobbies);
+//                        Log.i(TAG, UserHobbies_);
+                        String UserRelationshipStatus_ = StringUtil.replaceNullOrEmptyString(user.relationshipStatus);
+//                        Log.i(TAG, UserRelationshipStatus_);
+                        String UserBodyType_ = StringUtil.replaceNullOrEmptyString(user.bodyType);
+//                        Log.i(TAG, UserBodyType_);
                         //UserProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+
+                        String UserDescription_ = user.description;
+                        if (TextUtils.isEmpty(UserDescription_) || UserDescription_.equals("N/A")) {
+                            UserDescription_ = "The user has not said anything...";
+                        }
+
 
                         UserName.setText(UserName_);
                         UserID.setText(UserID_);
-
                         UserDescription.setText(UserDescription_);
                         UserEmail.setText(UserEmail_);
                         UserGender.setText(UserGender_);
@@ -147,8 +144,7 @@ public class OtherProfilePageActivity extends AppCompatActivity {
 
                         if (user.profileImageUrl.equals("")) {
                             UserProfileImage.setImageResource(R.drawable.profile_image);
-                        }
-                        else{
+                        } else {
                             Glide.with(OtherProfilePageActivity.this)
                                     .load(user.profileImageUrl)
                                     .into(UserProfileImage);
@@ -174,11 +170,11 @@ public class OtherProfilePageActivity extends AppCompatActivity {
                         String followingNum = "0";
 
                         if (user != null) {
-                            if(user.followerNum != null) {
+                            if (user.followerNum != null) {
                                 followerNum = user.followerNum;
                                 //Log.i(TAG, FollowerNum_);
                             }
-                            if(user.followingNum != null) {
+                            if (user.followingNum != null) {
                                 followingNum = user.followingNum;
                                 //Log.i(TAG, FollowingNum_);
                             }
