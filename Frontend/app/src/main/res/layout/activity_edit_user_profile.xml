@@ -10,7 +10,7 @@
         android:id="@+id/Card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/profile_background">
+        android:background="@color/colorPrimaryDark">
 
         <RelativeLayout
             android:id="@+id/UserImage"

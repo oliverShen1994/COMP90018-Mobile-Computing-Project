@@ -46,7 +46,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         this.mContext = mContext;
         this.imageurl = imageurl;
         this.userID = userID;
-        System.out.println(userID);
+        //System.out.println(userID);
     }
 
     @NonNull
@@ -71,7 +71,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         if (imageurl.equals("")) {
             holder.profileImage.setImageResource(R.drawable.profile_image);
         } else {
-            System.out.println("imageurl is :" + imageurl);
+            //System.out.println("imageurl is :" + imageurl);
             Glide.with(mContext).load(imageurl).into(holder.profileImage);
         }
     }
