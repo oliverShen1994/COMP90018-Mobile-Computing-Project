@@ -348,7 +348,8 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
                         final User user = dataSnapshot.getValue(User.class);
                         System.out.println("userId:" + userId);
-                        if(!user.profileImageUrl.equals("")){
+                        String profileImageUrl = user.profileImageUrl;
+                        if(profileImageUrl != null || !profileImageUrl.equals("")){
                             FragmentActivity fragmentActivity = getActivity();
                             if (fragmentActivity != null) {
                                 Glide.with(fragmentActivity)
