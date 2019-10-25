@@ -100,7 +100,7 @@
     <string name="nick_name_title">Nick Name</string>
     <string name="gender_title">Male</string>
     <string name="city_title">\@ Melbourne</string>
-    <string name="hobbies_title">Hobbies:</string>
+    <string name="hobbies_title">Hobbies: secret</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

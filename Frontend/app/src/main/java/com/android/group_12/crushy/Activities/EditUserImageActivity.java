@@ -101,12 +101,7 @@ public class EditUserImageActivity extends AppCompatActivity {
             finish();
         });
 
-        UserImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBottomDialog();
-            }
-        });
+        UserImage.setOnClickListener(view -> showBottomDialog());
     }
 
     private void retrievePost(String uid) {
