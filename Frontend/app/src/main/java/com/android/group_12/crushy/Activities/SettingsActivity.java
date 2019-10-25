@@ -1,16 +1,16 @@
-package com.android.group_12.crushy;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.android.group_12.crushy.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.android.group_12.crushy.Activities.LoginActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.group_12.crushy.R;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
     private Button logoutButton, Back;
     private FirebaseAuth mAuth;
 
@@ -39,7 +39,7 @@ public class Settings extends AppCompatActivity {
     }
 
     private void sendUserToLoginActivity() {
-        Intent loginIntent = new Intent(Settings.this, LoginActivity.class);
+        Intent loginIntent = new Intent(SettingsActivity.this, LoginActivity.class);
         startActivity(loginIntent);
     }
 

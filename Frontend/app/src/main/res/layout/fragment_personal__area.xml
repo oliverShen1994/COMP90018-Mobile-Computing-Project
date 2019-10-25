@@ -11,146 +11,7 @@
         android:layout_height="match_parent"
         tools:context=".User_Profile_Page">
 
-        <include layout="@layout/fragment_personal_info_card"/>
-
-
-        <!--        <RelativeLayout-->
-<!--            android:id="@+id/Card"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="330dp"-->
-<!--            android:layout_marginBottom="0dp"-->
-<!--            android:background="@drawable/gradient">-->
-
-<!--            <RelativeLayout-->
-<!--                android:id="@+id/UserImage"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:paddingTop="40dp"-->
-<!--                android:paddingBottom="5dp">-->
-
-<!--                <de.hdodenhof.circleimageview.CircleImageView-->
-<!--                    android:id="@+id/UserImageView"-->
-<!--                    android:layout_width="150dp"-->
-<!--                    android:layout_height="150dp"-->
-<!--                    android:src="@drawable/profile_image"-->
-<!--                    app:civ_border_color="#EEEEEE"-->
-<!--                    app:civ_border_width="5dp" />-->
-<!--            </RelativeLayout>-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/UserName"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_below="@id/UserImage"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:layout_marginTop="@dimen/text_view_vertical_margin_top"-->
-<!--                android:fontFamily="sans-serif"-->
-<!--                android:text="Crushy User"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="20sp" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/UserDescription"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_below="@id/UserName"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:fontFamily="sans-serif"-->
-<!--                android:text="Welcome to Crushy"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="15dp" />-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/Follow"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:background="@color/white"-->
-<!--                android:orientation="horizontal">-->
-
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:clickable="true"-->
-<!--                    android:gravity="center"-->
-<!--                    android:paddingTop="5dp"-->
-<!--                    android:paddingBottom="5dp">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/Follower"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:clickable="true"-->
-<!--                        android:gravity="center_horizontal"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/FollowersNum"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:fontFamily="sans-serif-light"-->
-<!--                            android:text="0"-->
-<!--                            android:textColor="@color/colorAccent"-->
-<!--                            android:textSize="20sp">-->
-
-<!--                        </TextView>-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:fontFamily="sans-serif-light"-->
-<!--                            android:text="Followers"-->
-<!--                            android:textAllCaps="true"-->
-<!--                            android:textSize="13sp"></TextView>-->
-<!--                    </LinearLayout>-->
-<!--                </RelativeLayout>-->
-
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:clickable="true"-->
-<!--                    android:gravity="center"-->
-<!--                    android:paddingTop="5dp"-->
-<!--                    android:paddingBottom="5dp">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/Following"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:clickable="true"-->
-<!--                        android:gravity="center_horizontal"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/FollowingNum"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:fontFamily="sans-serif-light"-->
-<!--                            android:text="0"-->
-<!--                            android:textSize="20sp">-->
-
-<!--                        </TextView>-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:fontFamily="sans-serif-light"-->
-<!--                            android:text="Following"-->
-<!--                            android:textAllCaps="true"-->
-<!--                            android:textSize="13sp">-->
-
-<!--                        </TextView>-->
-<!--                    </LinearLayout>-->
-<!--                </RelativeLayout>-->
-
-
-<!--            </LinearLayout>-->
-<!--        </RelativeLayout>-->
+        <include layout="@layout/fragment_personal_info_card" />
 
         <LinearLayout
             android:id="@+id/MyProfile"
@@ -159,8 +20,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:background="@android:color/transparent"
-            android:clickable="true"
-            >
+            android:clickable="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -174,181 +34,133 @@
             </TextView>
         </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/Card">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/Card"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/Blockedlist"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:background="@drawable/profile_underline"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp">
 
-                <RelativeLayout
-                    android:id="@+id/Blockedlist"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/BlockedlistImage"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/profile_underline"
-                    android:clickable="true"
-                    android:orientation="horizontal"
-                    android:paddingBottom="5dp">
+                    android:layout_alignParentLeft="true"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="3dp">
 
-                    <LinearLayout
-                        android:id="@+id/BlockedlistImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="3dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_cancel"></ImageView>
+                </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_cancel"></ImageView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/BlockedlistImage">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:padding="10dp"
-                            android:text="Blocked List"
-                            android:textSize="20sp"
-                            android:textStyle="bold"></TextView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="10dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_next_1"></ImageView>
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/Setting"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/profile_underline"
-                    android:clickable="true"
-                    android:orientation="horizontal"
-                    android:paddingBottom="5dp">
+                    android:layout_toEndOf="@id/BlockedlistImage">
 
-                    <LinearLayout
-                        android:id="@+id/SettingImage"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="3dp">
+                        android:layout_centerHorizontal="true"
+                        android:padding="10dp"
+                        android:text="Blocked List"
+                        android:textSize="20sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_settings"></ImageView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/SettingImage">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:padding="10dp"
-                            android:text="Settings"
-                            android:textSize="20sp"
-                            android:textStyle="bold"></TextView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="10dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_next_1"></ImageView>
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/About"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/profile_underline"
-                    android:clickable="true"
-                    android:orientation="horizontal"
-                    android:paddingBottom="5dp">
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="10dp">
 
-                    <LinearLayout
-                        android:id="@+id/AboutImage"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="3dp">
+                        android:src="@drawable/ic_next_1"></ImageView>
+                </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_envelope"></ImageView>
-                    </LinearLayout>
+            </RelativeLayout>
 
-                    <LinearLayout
+            <RelativeLayout
+                android:id="@+id/About"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/profile_underline"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp">
+
+                <LinearLayout
+                    android:id="@+id/AboutImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="3dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_envelope"></ImageView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/AboutImage">
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/AboutImage">
+                        android:layout_centerHorizontal="true"
+                        android:padding="10dp"
+                        android:text="About"
+                        android:textSize="20sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:padding="10dp"
-                            android:text="About"
-                            android:textSize="20sp"
-                            android:textStyle="bold"></TextView>
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="10dp">
 
-                    <LinearLayout
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="10dp">
+                        android:src="@drawable/ic_next_1"></ImageView>
+                </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_next_1"></ImageView>
-                    </LinearLayout>
+            </RelativeLayout>
 
-                </RelativeLayout>
+            <Button
+                android:id="@+id/logout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="15dp"
+                android:background="@android:color/holo_red_light"
+                android:backgroundTint="@android:color/holo_red_light"
+                android:text="Log Out"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-            </LinearLayout>
-
-
-        </ScrollView>
-
+        </LinearLayout>
 
     </RelativeLayout>
 </FrameLayout>
