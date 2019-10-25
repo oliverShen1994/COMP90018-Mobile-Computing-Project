@@ -260,12 +260,12 @@ public class EditUserImageActivity extends AppCompatActivity {
                     }
                 } catch (Exception ex) {
                     // Error occurred while creating the File
-                    displayMessage(getBaseContext(), ex.getMessage().toString());
+//                    displayMessage(getBaseContext(), ex.getMessage().toString());
                 }
 
 
             } else {
-                displayMessage(getBaseContext(), "Nullll");
+//                displayMessage(getBaseContext(), "Null");
             }
         }
     }

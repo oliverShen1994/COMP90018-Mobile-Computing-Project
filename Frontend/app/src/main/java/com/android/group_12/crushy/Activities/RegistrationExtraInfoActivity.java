@@ -471,10 +471,10 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
                     }
                 } catch (Exception ex) {
                     // Error occurred while creating the File
-                    displayMessage(getBaseContext(), ex.getMessage().toString());
+//                    displayMessage(getBaseContext(), ex.getMessage().toString());
                 }
             } else {
-                displayMessage(getBaseContext(), "Nullll");
+//                displayMessage(getBaseContext(), "Null");
             }
         }
     }
@@ -507,17 +507,13 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
     }
 
     private void uploadProfileImage() {
-        System.out.println("line 513");
         if (this.mImageUri != null && this.currentUserID != null) {
-            System.out.println("line 515");
             final StorageReference fileReference = mStorageRef.child(this.currentUserID);
             this.progressBar.setVisibility(View.VISIBLE);
 
             fileReference.putFile(this.mImageUri).addOnSuccessListener(taskSnapshot -> {
-                System.out.println("line 520");
                 Toast.makeText(RegistrationExtraInfoActivity.this, "Succeed", LENGTH_SHORT).show();
                 fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                    System.out.println("line 523");
                     Uri downloadUrl = uri;
 //                    Toast.makeText(getBaseContext(), "Upload success! URL - " + downloadUrl.toString(), Toast.LENGTH_SHORT).show();
                     Toast.makeText(getBaseContext(), "Profile Image Uploaded Successfully!", Toast.LENGTH_SHORT).show();
