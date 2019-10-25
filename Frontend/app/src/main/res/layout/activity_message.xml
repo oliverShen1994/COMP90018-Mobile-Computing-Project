@@ -34,6 +34,8 @@
                     android:id="@+id/back_btn_msg"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_alignStart="@+id/activity_profile_image"
+                    android:layout_marginStart="0dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_action_back" />
                 <TextView

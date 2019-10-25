@@ -52,9 +52,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         initializeFields();
-
         PreviousButton.setOnClickListener(view -> finish());
-
         SaveButton.setOnClickListener(view -> {
             saveButtonClickListener();
         });
@@ -68,21 +66,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
     }
-
-    public void updateUserInfo(String EditUserName_, String UserDescription_, String UserEmail_, String UserGender_,
-                               String UserHeight_, String UserWeight_, String UserCity_, String UserBirthday_,
-                               String UserOccupation_, String UserProfileImage_, String UserHobbies_, String UserRelationshipStatus_, String UserBodyType_) {
-        String UserID_ = currentUserId;
-
-        User post = new User(UserID_, EditUserName_, UserBirthday_, UserEmail_, UserBodyType_, UserCity_, UserDescription_, UserGender_, UserHobbies_, UserOccupation_, UserProfileImage_, UserRelationshipStatus_, UserHeight_, UserWeight_);
-
-        Map<String, Object> postValues = post.toMap();
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Users/" + UserID_ + '/', postValues);
-
-        mDatabase.updateChildren(childUpdates);
-    }
-
 
     private void saveButtonClickListener() {
         String EditUserName_ = EditUserName.getText().toString();
@@ -130,7 +113,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
     private void retrieveUserInfo(String uid) {
         System.out.println("User " + uid + " is 111111111");
-
         final String userId = uid;
         mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -138,7 +120,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
-
                         String UserProfileImage_ = user.profileImageUrl;
 
                         if (UserProfileImage_ == null || UserProfileImage_.equals("") || UserProfileImage_.equals("N/A")) {
@@ -150,17 +131,19 @@ public class EditUserProfileActivity extends AppCompatActivity {
                             imageUrl = user.profileImageUrl;
                         }
 
+                        EditUserName.setText(user.name);
+                        UserBirthday.setText(user.birthday);
+                        UserBodyType.setText(user.bodyType);
+                        UserCity.setText(user.city);
                         UserDescription.setText(user.description);
                         UserEmail.setText(user.email);
                         UserGender.setText(user.gender);
+                        UserHobbies.setText(user.hobbies);
+                        UserOccupation.setText(user.occupation);
+                        UserRelationshipStatus.setText(user.relationshipStatus);
                         UserHeight.setText(user.height);
                         UserWeight.setText(user.weight);
-                        UserCity.setText(user.city);
-                        UserBirthday.setText(user.birthday);
-                        UserOccupation.setText(user.occupation);
-                        UserHobbies.setText(user.hobbies);
-                        UserRelationshipStatus.setText(user.relationshipStatus);
-                        UserBodyType.setText(user.bodyType);
+
                     }
 
                     @Override
@@ -168,5 +151,22 @@ public class EditUserProfileActivity extends AppCompatActivity {
                         System.out.println("getUser:onCancelled" + databaseError.toException());
                     }
                 });
+    }
+
+    public void updateUserInfo(String EditUserName_, String UserDescription_, String UserEmail_, String UserGender_,
+                               String UserHeight_, String UserWeight_, String UserCity_, String UserBirthday_,
+                               String UserOccupation_, String UserProfileImage_, String UserHobbies_, String UserRelationshipStatus_, String UserBodyType_) {
+        String UserID_ = currentUserId;
+        if(UserProfileImage_ == null){
+            UserProfileImage_ = "";
+        }
+
+        User post = new User(UserID_, EditUserName_, UserBirthday_, UserEmail_, UserBodyType_, UserCity_, UserDescription_, UserGender_, UserHobbies_, UserOccupation_, UserProfileImage_, UserRelationshipStatus_, UserHeight_, UserWeight_);
+
+        Map<String, Object> postValues = post.toMap();
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/Users/" + UserID_ + '/', postValues);
+
+        mDatabase.updateChildren(childUpdates);
     }
 }

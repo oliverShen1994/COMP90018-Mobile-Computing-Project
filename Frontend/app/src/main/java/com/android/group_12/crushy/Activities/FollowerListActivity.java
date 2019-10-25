@@ -1,9 +1,15 @@
 package com.android.group_12.crushy.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
 import com.android.group_12.crushy.Fragments.FollowerListFragment;
+import com.android.group_12.crushy.MessageActivity;
 import com.android.group_12.crushy.R;
 
 public class FollowerListActivity extends AppCompatActivity {
@@ -13,6 +19,15 @@ public class FollowerListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follower_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.follower_list_toolbar);
+        setSupportActionBar(toolbar);
+        ImageButton backToProfileBtn = findViewById(R.id.back_to_profile);
+        backToProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         updateFragment(R.layout.fragment_follow_list_listview);
     }

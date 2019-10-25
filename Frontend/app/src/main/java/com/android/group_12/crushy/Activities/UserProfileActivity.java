@@ -115,12 +115,10 @@ public class UserProfileActivity extends AppCompatActivity {
         this.editButton = findViewById(R.id.EditButton);
         this.previousButton = findViewById(R.id.pro_previous);
         this.progressBar = findViewById(R.id.user_profile_progress_bar);
-
         retrivePost(currentUserId);
     }
 
     private void retrivePost(String uid) {
-        Log.e(TAG, "User " + uid + " is 111111111");
         // Disable button so there are no multi-posts
 //        Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
 
