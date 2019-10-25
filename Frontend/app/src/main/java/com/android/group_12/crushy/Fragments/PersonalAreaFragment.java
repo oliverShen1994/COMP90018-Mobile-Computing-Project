@@ -116,7 +116,7 @@ public class PersonalAreaFragment extends Fragment {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
-        retrivePost(currentUser.getUid());
+        retrievePost(currentUser.getUid());
 
         this.follower.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,7 +167,7 @@ public class PersonalAreaFragment extends Fragment {
         startActivity(personalProfileIntent);
     }
 
-    private void retrivePost(final String uid) {
+    private void retrievePost(final String uid) {
         Log.i(TAG, "User " + uid + " is 111111111");
 
         // Disable button so there are no multi-posts

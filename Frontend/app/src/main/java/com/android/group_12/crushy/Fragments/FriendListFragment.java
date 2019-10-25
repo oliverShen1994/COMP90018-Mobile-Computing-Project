@@ -2,10 +2,13 @@ package com.android.group_12.crushy.Fragments;
 
 import android.os.Bundle;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -13,11 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.group_12.crushy.DatabaseWrappers.Friends;
 import com.android.group_12.crushy.R;
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,9 +38,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class FriendListFragment extends CrushyFragment {
-
-//    CircleImageView profile_image;
-//    TextView username;
+    ViewPager viewPager;
+    AppBarLayout appBarLayout;
 
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
@@ -49,11 +53,23 @@ public class FriendListFragment extends CrushyFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_friend_list, container, false);
-        Toolbar toolbar = view.findViewById(R.id.friend_list_toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-//        profile_image = view.findViewById(R.id.profile_image);
-//        username = view.findViewById(R.id.main_username);
+        Toolbar toolbar = view.findViewById(R.id.friend_list_toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+        appBarLayout = view.findViewById(R.id.friend_list_app_bar_layout);
+        ViewGroup.LayoutParams appBarLayoutParam = appBarLayout.getLayoutParams();
+        System.out.println("appBarLayoutParam.height");
+        System.out.println(appBarLayoutParam.height);
+
+        int tabHeight = view.findViewById(R.id.tab_layout).getLayoutParams().height;
+        System.out.println("tabHeight: " + tabHeight);
+
+        viewPager = view.findViewById(R.id.view_pager);
+        ViewGroup.LayoutParams recyclerViewLayout = viewPager.getLayoutParams();
+        recyclerViewLayout.height = this.fragmentHeight - appBarLayout.getLayoutParams().height;
+
+        viewPager.setLayoutParams(recyclerViewLayout);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -113,8 +129,6 @@ public class FriendListFragment extends CrushyFragment {
             fragments.add(fragment);
             titles.add(title);
         }
-
-
 
 
         public CharSequence getPageTitle(int position) {
