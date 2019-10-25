@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.group_12.crushy.DatabaseWrappers.User;
-import com.android.group_12.crushy.OtherProfilePageActivity;
+import com.android.group_12.crushy.Activities.OtherProfilePageActivity;
 import com.android.group_12.crushy.R;
 import com.bumptech.glide.Glide;
 

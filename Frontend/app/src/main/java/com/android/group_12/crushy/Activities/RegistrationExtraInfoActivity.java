@@ -471,8 +471,8 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
                 try {
 
                     photoFile = createImageFile();
-                    displayMessage(getBaseContext(), photoFile.getAbsolutePath());
-                    Log.i("Mayank", photoFile.getAbsolutePath());
+//                    displayMessage(getBaseContext(), photoFile.getAbsolutePath());
+//                    Log.i("Mayank", photoFile.getAbsolutePath());
 
                     // Continue only if the File was successfully created
                     if (photoFile != null) {

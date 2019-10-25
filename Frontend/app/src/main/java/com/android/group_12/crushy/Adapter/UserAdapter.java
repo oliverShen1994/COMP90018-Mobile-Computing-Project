@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.group_12.crushy.DatabaseWrappers.Friends;
-import com.android.group_12.crushy.MessageActivity;
+import com.android.group_12.crushy.Activities.MessageActivity;
 import com.bumptech.glide.Glide;
 import com.android.group_12.crushy.R;
 

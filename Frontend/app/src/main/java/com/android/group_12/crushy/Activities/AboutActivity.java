@@ -1,4 +1,4 @@
-package com.android.group_12.crushy;
+package com.android.group_12.crushy.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.android.group_12.crushy.Constants.ResultCode;
+import com.android.group_12.crushy.R;
 
-public class About extends AppCompatActivity {
+public class AboutActivity extends AppCompatActivity {
     private Button Back;
 
     @Override
@@ -16,12 +17,9 @@ public class About extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         Back = (Button) findViewById(R.id.Back);
-        Back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                setResult(ResultCode.About);
-                finish();
-            }
+        Back.setOnClickListener(view -> {
+//                setResult(ResultCode.AboutActivity);
+            finish();
         });
     }
 

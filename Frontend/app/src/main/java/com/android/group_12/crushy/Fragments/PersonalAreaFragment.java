@@ -20,11 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-
-import com.android.group_12.crushy.About;
+import com.android.group_12.crushy.Activities.AboutActivity;
 import com.android.group_12.crushy.Activities.FollowerListActivity;
 import com.android.group_12.crushy.Activities.FollowingListActivity;
 import com.android.group_12.crushy.Activities.LoginActivity;
@@ -120,7 +116,7 @@ public class PersonalAreaFragment extends Fragment {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
-        retrivePost(currentUser.getUid());
+        retrievePost(currentUser.getUid());
 
         this.follower.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +142,7 @@ public class PersonalAreaFragment extends Fragment {
 
         this.about.setOnClickListener(view12 -> {
             Intent aboutPage;
-            aboutPage = new Intent(getActivity(), About.class);
+            aboutPage = new Intent(getActivity(), AboutActivity.class);
             startActivity(aboutPage);
 //                getActivity().startActivityForResult(aboutPage, RequestCode.PersonalArea);
         });
@@ -171,7 +167,7 @@ public class PersonalAreaFragment extends Fragment {
         startActivity(personalProfileIntent);
     }
 
-    private void retrivePost(final String uid) {
+    private void retrievePost(final String uid) {
         Log.i(TAG, "User " + uid + " is 111111111");
 
         // Disable button so there are no multi-posts
@@ -195,7 +191,7 @@ public class PersonalAreaFragment extends Fragment {
                         System.out.println(name);
 
                         if (TextUtils.isEmpty(description) || description.equals("N/A")) {
-                            userDescription.setText("The user has not said anything...");
+                            userDescription.setText("The user did not say anything...");
                         } else {
                             userDescription.setText(description); //fixme:needed?
                         }
