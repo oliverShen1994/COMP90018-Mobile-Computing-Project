@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditUserImage">
+    tools:context=".Activities.EditUserImageActivity">
 
     <RelativeLayout
         android:id="@+id/UserImage"
@@ -22,6 +22,13 @@
             android:scaleType="centerInside"
             tools:srcCompat="@tools:sample/avatars"></ImageView>
 
+        <ProgressBar
+            android:id="@+id/edit_image_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <Button
