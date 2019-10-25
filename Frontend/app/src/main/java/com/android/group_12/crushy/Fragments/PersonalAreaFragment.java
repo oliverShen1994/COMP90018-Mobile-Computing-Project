@@ -20,12 +20,12 @@ import android.widget.TextView;
 
 import com.android.group_12.crushy.Activities.FollowerListActivity;
 import com.android.group_12.crushy.Activities.FollowingListActivity;
+import com.android.group_12.crushy.Activities.UserProfileActivity;
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
 import com.android.group_12.crushy.R;
 import com.android.group_12.crushy.*;
-import com.android.group_12.crushy.Constants.*;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -143,7 +143,7 @@ public class PersonalAreaFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent personalProfileIntent;
-                personalProfileIntent = new Intent(getActivity(), UserProfile.class);
+                personalProfileIntent = new Intent(getActivity(), UserProfileActivity.class);
                 startActivity(personalProfileIntent);
             }
         });
@@ -162,6 +162,7 @@ public class PersonalAreaFragment extends Fragment {
 
     private void retrivePost(final String uid) {
         Log.i(TAG, "User " + uid + " is 111111111");
+
         // Disable button so there are no multi-posts
         //Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
 
@@ -178,29 +179,27 @@ public class PersonalAreaFragment extends Fragment {
                         //Log.e(TAG, "the author is " + user.author);
                         //Log.e(TAG, user.title);
                         //Log.e(TAG, user.author);
-                        //Toast.makeText(EditUserProfile.this,
+                        //Toast.makeText(EditUserProfileActivity.this,
                         //        "Error: could not fetch user.",
                         //        Toast.LENGTH_SHORT).show();
                         // Finish this Activity, back to the stream
                         // [END_EXCLUDE]
-                        System.out.println("userID: "+user.userID);
-                        if (user.profileImageUrl.equals("")) {
+                        if (user.profileImageUrl == null || user.profileImageUrl.equals("")) {
                             userImage.setImageResource(R.drawable.profile_image);
-                        }
-                        else{
+                        } else {
                             Glide.with(PersonalAreaFragment.this)
                                     .load(user.profileImageUrl)
                                     .into(userImage);
                         }
 
                         String UserProfileImage_ = user.profileImageUrl;
-                        Log.i(TAG, UserProfileImage_);
+                        System.out.println(UserProfileImage_);
                         String UserDescription_ = user.description;
-                        Log.i(TAG, UserDescription_);
+                        System.out.println(UserDescription_);
                         String UserName_ = user.name;
-                        Log.i(TAG, UserName_);
+                        System.out.println(UserName_);
 
-                        if (UserDescription_ == null) {
+                        if (UserDescription_.equals("")) {
                             userDescription.setText("The user has not said anything...");
                         } else {
                             userDescription.setText(UserDescription_); //fixme:needed?
@@ -208,14 +207,12 @@ public class PersonalAreaFragment extends Fragment {
                         userName.setText(UserName_);
                         FragmentActivity fragmentActivity = getActivity();
                         if (fragmentActivity != null) {
-                            if (!user.profileImageUrl.equals("")) {
+                            if (UserProfileImage_ == null || UserProfileImage_.equals("") || UserProfileImage_.equals("N/A")) {
+                                userImage.setImageResource(R.drawable.profile_image);
+                            } else {
                                 Glide.with(fragmentActivity)
                                         .load(user.profileImageUrl)
                                         .into(userImage);
-                            }
-                            //display the default image
-                            else {
-                                userImage.setImageResource(R.drawable.profile_image);
                             }
                         }
                     }
@@ -236,17 +233,17 @@ public class PersonalAreaFragment extends Fragment {
                         UserFollow user = dataSnapshot.getValue(UserFollow.class);
 
                         String followerNumValue = "0";
-                        //Log.i(TAG, FollowerNum_);
+                        //System.out.println(FollowerNum_);
                         String followingNumValue = "0";
 
                         if (user != null) {
-                            if(user.followerNum != null) {
+                            if (user.followerNum != null) {
                                 followerNumValue = user.followerNum;
-                                //Log.i(TAG, FollowerNum_);
+                                //System.out.println(FollowerNum_);
                             }
-                            if(user.followingNum != null) {
+                            if (user.followingNum != null) {
                                 followingNumValue = user.followingNum;
-                                //Log.i(TAG, FollowingNum_);
+                                //System.out.println(FollowingNum_);
                             }
 
                             //UserProfileImarge = (CircleImageView) findViewById(R.id.profile_image);
