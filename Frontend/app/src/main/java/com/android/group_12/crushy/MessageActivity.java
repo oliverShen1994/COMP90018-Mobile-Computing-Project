@@ -76,6 +76,8 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager =
@@ -90,9 +92,19 @@ public class MessageActivity extends AppCompatActivity {
         text_send = findViewById(R.id.text_send);
 
 
+
+
+
         intent = getIntent();
         final String userId = intent.getStringExtra(UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID);
-
+        username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MessageActivity.this, OtherProfilePageActivity.class);
+                intent.putExtra(UNIFORM_EXTRA_INFO_ACTIVITY_USER_ID, userId);
+                startActivity(intent);
+            }
+        });
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
         btn_send.setOnClickListener(new View.OnClickListener() {
