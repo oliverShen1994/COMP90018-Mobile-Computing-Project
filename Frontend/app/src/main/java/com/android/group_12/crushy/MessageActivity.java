@@ -130,7 +130,7 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-        btn_back = findViewById(R.id.back_btn);
+        btn_back = findViewById(R.id.back_btn_msg);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

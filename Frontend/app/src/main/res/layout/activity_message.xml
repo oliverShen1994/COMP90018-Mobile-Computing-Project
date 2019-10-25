@@ -31,7 +31,7 @@
                     android:visibility="invisible"/>
 
                 <ImageButton
-                    android:id="@+id/back_btn"
+                    android:id="@+id/back_btn_msg"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@android:color/transparent"
