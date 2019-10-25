@@ -50,20 +50,20 @@ public class ContactsFragment extends CrushyFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
-        Toolbar toolbar = view.findViewById(R.id.friend_list_toolbar);
+//        Toolbar toolbar = view.findViewById(R.id.friend_list_toolbar);
 
-        AppCompatActivity appCompatActivity = ((AppCompatActivity) getActivity());
-        if (appCompatActivity != null) {
-            appCompatActivity.setSupportActionBar(toolbar);
-            appCompatActivity.getSupportActionBar().setTitle("Friend List");
-        }
+//        AppCompatActivity appCompatActivity = ((AppCompatActivity) getActivity());
+//        if (appCompatActivity != null) {
+//            appCompatActivity.setSupportActionBar(toolbar);
+//            appCompatActivity.getSupportActionBar().setTitle("Friend List");
+//        }
 
         recyclerView = view.findViewById(R.id.user_list);
-        toolbar = view.findViewById(R.id.friend_list_toolbar);
-
-        int toolbarHeight = toolbar.getLayoutParams().height;
+//        toolbar = view.findViewById(R.id.friend_list_toolbar);
+//
+//        int toolbarHeight = toolbar.getLayoutParams().height;
         ViewGroup.LayoutParams recyclerViewLayout = recyclerView.getLayoutParams();
-        recyclerViewLayout.height = this.fragmentHeight - toolbarHeight;
+//        recyclerViewLayout.height = this.fragmentHeight - toolbarHeight;
         recyclerView.setLayoutParams(recyclerViewLayout);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

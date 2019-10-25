@@ -1,10 +1,5 @@
 package com.android.group_12.crushy.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-
 import android.Manifest;
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -28,6 +23,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
 import com.android.group_12.crushy.Constants.DatabaseConstant;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.R;
@@ -49,6 +49,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static android.widget.Toast.LENGTH_SHORT;
+import static com.android.group_12.crushy.Constants.DatabaseConstant.USER_TABLE_COL_PROFILE_IMAGE;
+import static com.android.group_12.crushy.Constants.StorageConstant.PROFILE_PICTURE;
 
 public class EditUserImageActivity extends AppCompatActivity {
     private ImageView UserImage;
@@ -75,36 +77,28 @@ public class EditUserImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_image);
 
-        mStorageRef = FirebaseStorage.getInstance().getReference("PofilePicture");
+        mStorageRef = FirebaseStorage.getInstance().getReference(PROFILE_PICTURE);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         currentUserId = currentUser.getUid();
 
-        UserImage = (ImageView) findViewById(R.id.UserImageView);
-        Save = (Button) findViewById(R.id.button2);
-        Back = (Button) findViewById(R.id.button);
+        UserImage = findViewById(R.id.UserImageView);
+        Save = findViewById(R.id.button2);
+        Back = findViewById(R.id.button);
         progressBar = findViewById(R.id.edit_image_progress_bar);
 
-        retrivePost(currentUserId);
+        retrievePost(currentUserId);
 
 
-        Save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                uploadFile();
-            }
-        });
+        Save.setOnClickListener(view -> uploadFile());
 
-        Back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Back.setOnClickListener(view -> {
 //                Intent personalProfileIntent;
 //                personalProfileIntent = new Intent(EditUserImageActivity.this, UserProfileActivity.class);
 //                startActivity(personalProfileIntent);
-                finish();
-            }
+            finish();
         });
 
         UserImage.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +109,7 @@ public class EditUserImageActivity extends AppCompatActivity {
         });
     }
 
-    private void retrivePost(String uid) {
+    private void retrievePost(String uid) {
         progressBar.setVisibility(View.VISIBLE);
         mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(uid).addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -187,7 +181,7 @@ public class EditUserImageActivity extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         Uri downloadUrl = uri;
                         Toast.makeText(getBaseContext(), "Upload success! URL - " + downloadUrl.toString(), Toast.LENGTH_SHORT).show();
-                        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserId).child("profileImageUrl").setValue(downloadUrl.toString());
+                        mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(currentUserId).child(USER_TABLE_COL_PROFILE_IMAGE).setValue(downloadUrl.toString());
 
                         progressBar.setVisibility(View.INVISIBLE);
                         finish();

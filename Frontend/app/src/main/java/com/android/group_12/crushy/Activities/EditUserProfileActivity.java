@@ -65,6 +65,25 @@ public class EditUserProfileActivity extends AppCompatActivity {
         });
     }
 
+    public void onStart() {
+        super.onStart();
+    }
+
+    public void updateUserInfo(String EditUserName_, String UserDescription_, String UserEmail_, String UserGender_,
+                               String UserHeight_, String UserWeight_, String UserCity_, String UserBirthday_,
+                               String UserOccupation_, String UserProfileImage_, String UserHobbies_, String UserRelationshipStatus_, String UserBodyType_) {
+        String UserID_ = currentUserId;
+
+        User post = new User(UserID_, EditUserName_, UserBirthday_, UserEmail_, UserBodyType_, UserCity_, UserDescription_, UserGender_, UserHobbies_, UserOccupation_, UserProfileImage_, UserRelationshipStatus_, UserHeight_, UserWeight_);
+
+        Map<String, Object> postValues = post.toMap();
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/Users/" + UserID_ + '/', postValues);
+
+        mDatabase.updateChildren(childUpdates);
+    }
+
+
     private void saveButtonClickListener() {
         String EditUserName_ = EditUserName.getText().toString();
         String UserDescription_ = UserDescription.getText().toString();
@@ -109,11 +128,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
         retrieveUserInfo(currentUserId);
     }
 
-    public void onStart() {
-        super.onStart();
-    }
-
-
     private void retrieveUserInfo(String uid) {
         System.out.println("User " + uid + " is 111111111");
 
@@ -154,22 +168,5 @@ public class EditUserProfileActivity extends AppCompatActivity {
                         System.out.println("getUser:onCancelled" + databaseError.toException());
                     }
                 });
-    }
-
-    public void updateUserInfo(String EditUserName_, String UserDescription_, String UserEmail_, String UserGender_,
-                               String UserHeight_, String UserWeight_, String UserCity_, String UserBirthday_,
-                               String UserOccupation_, String UserProfileImage_, String UserHobbies_, String UserRelationshipStatus_, String UserBodyType_) {
-        String UserID_ = currentUserId;
-        if(UserProfileImage_ == null){
-            UserProfileImage_ = "";
-        }
-
-        User post = new User(UserID_, EditUserName_, UserBirthday_, UserEmail_, UserBodyType_, UserCity_, UserDescription_, UserGender_, UserHobbies_, UserOccupation_, UserProfileImage_, UserRelationshipStatus_, UserHeight_, UserWeight_);
-
-        Map<String, Object> postValues = post.toMap();
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Users/" + UserID_ + '/', postValues);
-
-        mDatabase.updateChildren(childUpdates);
     }
 }
