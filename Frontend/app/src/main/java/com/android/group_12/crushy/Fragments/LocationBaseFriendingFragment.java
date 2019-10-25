@@ -1,6 +1,7 @@
 package com.android.group_12.crushy.Fragments;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -268,11 +269,10 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
     }
 
 
-
-    public void retriveNextUserID(){
+    public void retriveNextUserID() {
         final ArrayList<String> userIDs = new ArrayList<>();
         mDatabase.child(DatabaseConstant.USER_FOLLOW_TABLE).child(currentUserId).addListenerForSingleValueEvent(
-                new ValueEventListener(){
+                new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         System.out.println("dataSnapshot");
@@ -280,11 +280,11 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
                         UserFollow userFollow = dataSnapshot.getValue(UserFollow.class);
                         //get the disLikeList_
-                        for(String disliked : userFollow.dislikeList){
+                        for (String disliked : userFollow.dislikeList) {
                             disLikeList_.add(disliked);
                         }
                         //get the likedList
-                        for(String liked : userFollow.likeList){
+                        for (String liked : userFollow.likeList) {
                             likedList.add(liked);
                         }
 
@@ -297,7 +297,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                             //not myself
                                             //not in likedList
                                             //not in dislikedList
-                                            if(!user.userID.equals(currentUserId) && !likedList.contains(user.userID) && !disLikeList_.contains(user.userID)) {
+                                            if (!user.userID.equals(currentUserId) && !likedList.contains(user.userID) && !disLikeList_.contains(user.userID)) {
                                                 userIDs.add(user.userID);
                                             }
                                             //Toast.makeText(getActivity(), userIDs.toString(), Toast.LENGTH_SHORT).show();
@@ -305,6 +305,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
                                         //pick the next user in the userIDs after it is extracted
                                         pickNextUser(userIDs);
                                     }
+
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
                                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
@@ -321,18 +322,18 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
     }
 
     //randomly pick a user from the valid friendList
-    private void pickNextUser(ArrayList<String> userIDs){
+    private void pickNextUser(ArrayList<String> userIDs) {
         //FragmentActivity fragmentActivity = getActivity();
         //if (fragmentActivity != null) {
-        if(userIDs.size() < 2){
+        if (userIDs.size() < 2) {
             //Toast.makeText(getActivity(),"You Have No New User",Toast.LENGTH_SHORT).show();
             likeButton.setEnabled(false);
             dislikeButton.setEnabled(false);
         }
-            //display the default image
+        //display the default image
         //}
-        else{
-            Integer length =  userIDs.size();
+        else {
+            Integer length = userIDs.size();
             Random r = new Random();
             Integer userIndex = r.nextInt(length);
             String nextUserId_ = userIDs.get(userIndex);
@@ -340,7 +341,7 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
         }
     }
 
-    private void retrieveUser(final String userId){
+    private void retrieveUser(final String userId) {
         mDatabase.child(DatabaseConstant.USER_TABLE_NAME).child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -348,16 +349,18 @@ public class LocationBaseFriendingFragment extends CrushyFragment {
 
                         final User user = dataSnapshot.getValue(User.class);
                         System.out.println("userId:" + userId);
-                        if(!user.profileImageUrl.equals("")){
+
+                        String userProfileUrl = user.profileImageUrl;
+                        if (userProfileUrl == null || TextUtils.isEmpty(userProfileUrl) || userProfileUrl.equals("N/A")) {
+                            userImage.setImageResource(R.drawable.profile_image);
+                        } else {
                             FragmentActivity fragmentActivity = getActivity();
                             if (fragmentActivity != null) {
                                 Glide.with(fragmentActivity)
-                                        .load(user.profileImageUrl)
+                                        .load(userProfileUrl)
                                         .into(userImage);
                                 //display the default image
                             }
-                        }else{
-                            userImage.setImageResource(R.drawable.profile_image);
                         }
 
                         userName.setText(user.name);

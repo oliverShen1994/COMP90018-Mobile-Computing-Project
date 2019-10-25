@@ -11,193 +11,189 @@
         android:layout_height="match_parent"
         tools:context=".User_Profile_Page">
 
-        <RelativeLayout
-            android:id="@+id/Card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/profile_background">
+        <include layout="@layout/fragment_personal_info_card"/>
 
-            <RelativeLayout
-                android:id="@+id/UserImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="40dp"
-                android:paddingBottom="5dp"
-                android:layout_centerHorizontal="true">
 
-                <ImageView
-                    android:id="@+id/UserImageView"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerInside"
-                    android:paddingHorizontal="5dp"
-                    tools:srcCompat="@tools:sample/avatars">
-                </ImageView>
+        <!--        <RelativeLayout-->
+<!--            android:id="@+id/Card"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="330dp"-->
+<!--            android:layout_marginBottom="0dp"-->
+<!--            android:background="@drawable/gradient">-->
 
-            </RelativeLayout>
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/UserImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:paddingTop="40dp"-->
+<!--                android:paddingBottom="5dp">-->
 
-            <TextView
-                android:id="@+id/UserName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/UserImage"
-                android:layout_centerHorizontal="true"
-                android:textSize="20sp"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/white"
-                android:text="DingDing" />
+<!--                <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                    android:id="@+id/UserImageView"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="150dp"-->
+<!--                    android:src="@drawable/profile_image"-->
+<!--                    app:civ_border_color="#EEEEEE"-->
+<!--                    app:civ_border_width="5dp" />-->
+<!--            </RelativeLayout>-->
 
-            <TextView
-                android:id="@+id/UserDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/UserName"
-                android:layout_centerHorizontal="true"
-                android:textSize="15dp"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/white"
-                android:text="Noting" />
-        </RelativeLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/UserName"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/UserImage"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="@dimen/text_view_vertical_margin_top"-->
+<!--                android:fontFamily="sans-serif"-->
+<!--                android:text="Crushy User"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="20sp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/UserDescription"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/UserName"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:fontFamily="sans-serif"-->
+<!--                android:text="Welcome to Crushy"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="15dp" />-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/Follow"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:background="@color/white"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:clickable="true"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingBottom="5dp">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/Follower"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:clickable="true"-->
+<!--                        android:gravity="center_horizontal"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/FollowersNum"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="0"-->
+<!--                            android:textColor="@color/colorAccent"-->
+<!--                            android:textSize="20sp">-->
+
+<!--                        </TextView>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="Followers"-->
+<!--                            android:textAllCaps="true"-->
+<!--                            android:textSize="13sp"></TextView>-->
+<!--                    </LinearLayout>-->
+<!--                </RelativeLayout>-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:clickable="true"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingBottom="5dp">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/Following"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:clickable="true"-->
+<!--                        android:gravity="center_horizontal"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/FollowingNum"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="0"-->
+<!--                            android:textSize="20sp">-->
+
+<!--                        </TextView>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="Following"-->
+<!--                            android:textAllCaps="true"-->
+<!--                            android:textSize="13sp">-->
+
+<!--                        </TextView>-->
+<!--                    </LinearLayout>-->
+<!--                </RelativeLayout>-->
+
+
+<!--            </LinearLayout>-->
+<!--        </RelativeLayout>-->
 
         <LinearLayout
             android:id="@+id/MyProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
             android:clickable="true"
-
             >
+
             <TextView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="My Profile"
+                android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:textSize="20sp"
-                android:textColor="@color/white"
                 android:padding="10dp"
-                >
+                android:text="My Profile"
+                android:textColor="@color/white"
+                android:textSize="20sp">
 
             </TextView>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/Follow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/Card">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingTop="5dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dp"
-                android:background="@drawable/profile_background"
-                android:clickable="true"
-                >
-
-                <LinearLayout
-                    android:id="@+id/Follower"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:clickable="true"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:id="@+id/FollowersNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:fontFamily="sans-serif-light">
-
-                    </TextView>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAllCaps="true"
-                        android:text="Followers"
-                        android:textColor="@color/white"
-                        android:textSize="13sp"
-                        android:fontFamily="sans-serif-light">
-                    </TextView>
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingTop="5dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dp"
-                android:background="@drawable/profile_background"
-                android:clickable="true">
-                <LinearLayout
-                    android:id="@+id/Following"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:clickable="true"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:id="@+id/FollowingNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:fontFamily="sans-serif-light">
-
-                    </TextView>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAllCaps="true"
-                        android:text="Following"
-                        android:textColor="@color/white"
-                        android:textSize="13sp"
-                        android:fontFamily="sans-serif-light">
-
-                    </TextView>
-                </LinearLayout>
-            </RelativeLayout>
-
-
         </LinearLayout>
 
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/Follow"
-            >
+            android:layout_below="@id/Card">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/Blockedlist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:clickable="true"
                     android:background="@drawable/profile_underline"
+                    android:clickable="true"
+                    android:orientation="horizontal"
                     android:paddingBottom="5dp">
+
                     <LinearLayout
                         android:id="@+id/BlockedlistImage"
                         android:layout_width="wrap_content"
@@ -205,11 +201,11 @@
                         android:layout_alignParentLeft="true"
                         android:paddingLeft="20dp"
                         android:paddingTop="3dp">
+
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_cancel">
-                        </ImageView>
+                            android:src="@drawable/ic_cancel"></ImageView>
                     </LinearLayout>
 
                     <LinearLayout
@@ -224,8 +220,7 @@
                             android:padding="10dp"
                             android:text="Blocked List"
                             android:textSize="20sp"
-                            android:textStyle="bold">
-                        </TextView>
+                            android:textStyle="bold"></TextView>
                     </LinearLayout>
 
                     <LinearLayout
@@ -234,11 +229,11 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:paddingRight="10dp">
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_next_1">
-                        </ImageView>
+                            android:src="@drawable/ic_next_1"></ImageView>
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -247,10 +242,11 @@
                     android:id="@+id/Setting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:clickable="true"
                     android:background="@drawable/profile_underline"
+                    android:clickable="true"
+                    android:orientation="horizontal"
                     android:paddingBottom="5dp">
+
                     <LinearLayout
                         android:id="@+id/SettingImage"
                         android:layout_width="wrap_content"
@@ -258,11 +254,11 @@
                         android:layout_alignParentLeft="true"
                         android:paddingLeft="20dp"
                         android:paddingTop="3dp">
+
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_settings">
-                        </ImageView>
+                            android:src="@drawable/ic_settings"></ImageView>
                     </LinearLayout>
 
                     <LinearLayout
@@ -286,11 +282,11 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:paddingRight="10dp">
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_next_1">
-                        </ImageView>
+                            android:src="@drawable/ic_next_1"></ImageView>
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -299,10 +295,11 @@
                     android:id="@+id/About"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:clickable="true"
                     android:background="@drawable/profile_underline"
+                    android:clickable="true"
+                    android:orientation="horizontal"
                     android:paddingBottom="5dp">
+
                     <LinearLayout
                         android:id="@+id/AboutImage"
                         android:layout_width="wrap_content"
@@ -310,11 +307,11 @@
                         android:layout_alignParentLeft="true"
                         android:paddingLeft="20dp"
                         android:paddingTop="3dp">
+
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_envelope">
-                        </ImageView>
+                            android:src="@drawable/ic_envelope"></ImageView>
                     </LinearLayout>
 
                     <LinearLayout
@@ -338,18 +335,16 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:paddingRight="10dp">
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_next_1">
-                        </ImageView>
+                            android:src="@drawable/ic_next_1"></ImageView>
                     </LinearLayout>
 
                 </RelativeLayout>
 
             </LinearLayout>
-
-
 
 
         </ScrollView>

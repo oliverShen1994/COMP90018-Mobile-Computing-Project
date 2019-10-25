@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,17 +98,18 @@ public class PersonalAreaFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_personal__area, container, false);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        userImage = (ImageView) view.findViewById(R.id.UserImageView);
-        userDescription = (TextView) view.findViewById(R.id.UserDescription);
-        userName = (TextView) view.findViewById(R.id.UserName);
-        followerNum = (TextView) view.findViewById(R.id.FollowersNum);
-        followingNum = (TextView) view.findViewById(R.id.FollowingNum);
-        myProfile = (LinearLayout) view.findViewById(R.id.MyProfile);
-        follower = (LinearLayout) view.findViewById(R.id.Follower);
-        following = (LinearLayout) view.findViewById(R.id.Following);
-        blockList = (RelativeLayout) view.findViewById(R.id.Blockedlist);
-        setting = (RelativeLayout) view.findViewById(R.id.Setting);
-        about = (RelativeLayout) view.findViewById(R.id.About);
+        userImage = view.findViewById(R.id.UserImageView);
+        userDescription = view.findViewById(R.id.UserDescription);
+        userName = view.findViewById(R.id.UserName);
+        followerNum = view.findViewById(R.id.FollowersNum);
+        followingNum = view.findViewById(R.id.FollowingNum);
+        myProfile = view.findViewById(R.id.MyProfile);
+        follower = view.findViewById(R.id.Follower);
+        following = view.findViewById(R.id.Following);
+        blockList = view.findViewById(R.id.Blockedlist);
+        setting = view.findViewById(R.id.Setting);
+        about = view.findViewById(R.id.About);
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
         retrivePost(currentUser.getUid());
@@ -139,25 +141,23 @@ public class PersonalAreaFragment extends Fragment {
             }
         });
 
-        myProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent personalProfileIntent;
-                personalProfileIntent = new Intent(getActivity(), UserProfileActivity.class);
-                startActivity(personalProfileIntent);
-            }
-        });
+        myProfile.setOnClickListener(view1 -> sendUserToProfileActivity());
 
-        about.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent aboutPage;
-                aboutPage = new Intent(getActivity(), About.class);
-                startActivity(aboutPage);
+        userImage.setOnClickListener(v -> sendUserToProfileActivity());
+
+        about.setOnClickListener(view12 -> {
+            Intent aboutPage;
+            aboutPage = new Intent(getActivity(), About.class);
+            startActivity(aboutPage);
 //                getActivity().startActivityForResult(aboutPage, RequestCode.PersonalArea);
-            }
         });
         return view;
+    }
+
+    private void sendUserToProfileActivity() {
+        Intent personalProfileIntent;
+        personalProfileIntent = new Intent(getActivity(), UserProfileActivity.class);
+        startActivity(personalProfileIntent);
     }
 
     private void retrivePost(final String uid) {
@@ -175,15 +175,6 @@ public class PersonalAreaFragment extends Fragment {
                         // Get user value
                         User user = dataSnapshot.getValue(User.class);
 
-                        //Log.e(TAG, "User " + userId + " is ");
-                        //Log.e(TAG, "the author is " + user.author);
-                        //Log.e(TAG, user.title);
-                        //Log.e(TAG, user.author);
-                        //Toast.makeText(EditUserProfileActivity.this,
-                        //        "Error: could not fetch user.",
-                        //        Toast.LENGTH_SHORT).show();
-                        // Finish this Activity, back to the stream
-                        // [END_EXCLUDE]
                         if (user.profileImageUrl == null || user.profileImageUrl.equals("")) {
                             userImage.setImageResource(R.drawable.profile_image);
                         } else {
@@ -192,22 +183,23 @@ public class PersonalAreaFragment extends Fragment {
                                     .into(userImage);
                         }
 
-                        String UserProfileImage_ = user.profileImageUrl;
-                        System.out.println(UserProfileImage_);
-                        String UserDescription_ = user.description;
-                        System.out.println(UserDescription_);
-                        String UserName_ = user.name;
-                        System.out.println(UserName_);
+                        String profileImageUrl = user.profileImageUrl;
+                        String description = user.description;
+                        String name = user.name;
 
-                        if (UserDescription_.equals("")) {
+                        System.out.println(profileImageUrl);
+                        System.out.println(description);
+                        System.out.println(name);
+
+                        if (TextUtils.isEmpty(description) || description.equals("N/A")) {
                             userDescription.setText("The user has not said anything...");
                         } else {
-                            userDescription.setText(UserDescription_); //fixme:needed?
+                            userDescription.setText(description); //fixme:needed?
                         }
-                        userName.setText(UserName_);
+                        userName.setText(name);
                         FragmentActivity fragmentActivity = getActivity();
                         if (fragmentActivity != null) {
-                            if (UserProfileImage_ == null || UserProfileImage_.equals("") || UserProfileImage_.equals("N/A")) {
+                            if (profileImageUrl == null || profileImageUrl.equals("") || profileImageUrl.equals("N/A")) {
                                 userImage.setImageResource(R.drawable.profile_image);
                             } else {
                                 Glide.with(fragmentActivity)

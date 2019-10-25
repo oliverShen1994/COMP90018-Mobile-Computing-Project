@@ -52,7 +52,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center_vertical"
                 android:src="@drawable/profile_image"
-                app:civ_border_color="#FF000000"
+                app:civ_border_color="#EEEEEE"
                 app:civ_border_width="5dp"></de.hdodenhof.circleimageview.CircleImageView>
         </RelativeLayout>
 
