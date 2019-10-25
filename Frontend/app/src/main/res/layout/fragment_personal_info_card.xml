@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout android:id="@+id/Card"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/Card"
     android:layout_width="match_parent"
-    android:layout_height="330dp"
+    android:layout_height="340dp"
     android:layout_marginBottom="0dp"
-    android:background="@drawable/gradient"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/gradient">
 
     <RelativeLayout
         android:id="@+id/UserImage"
@@ -32,10 +32,11 @@
         android:layout_below="@id/UserImage"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/text_view_vertical_margin_top"
-        android:fontFamily="sans-serif"
+        android:fontFamily="sans-serif-condensed"
         android:text="Crushy User"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/UserDescription"
@@ -46,7 +47,7 @@
         android:fontFamily="sans-serif"
         android:text="Welcome to Crushy"
         android:textColor="@color/white"
-        android:textSize="15dp" />
+        android:textSize="18sp" />
 
     <LinearLayout
         android:id="@+id/Follow"

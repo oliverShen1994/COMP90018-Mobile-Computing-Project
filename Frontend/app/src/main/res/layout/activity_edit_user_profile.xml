@@ -6,71 +6,101 @@
     android:layout_height="match_parent"
     tools:context=".Activities.UserProfileActivity">
 
+    <!--    <RelativeLayout-->
+    <!--        android:id="@+id/Card"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@drawable/profile_background">-->
+
+    <!--        <RelativeLayout-->
+    <!--            android:id="@+id/UserImage"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_centerHorizontal="true"-->
+    <!--            android:paddingTop="40dp"-->
+    <!--            android:paddingBottom="8dp"-->
+    <!--            android:clickable="true">-->
+
+    <!--            <de.hdodenhof.circleimageview.CircleImageView-->
+    <!--                android:id="@+id/profile_image"-->
+    <!--                android:layout_width="150dp"-->
+    <!--                android:layout_height="150dp"-->
+    <!--                android:src="@drawable/profile_image"-->
+    <!--                app:civ_border_width="5dp"-->
+    <!--                app:civ_border_color="#FF000000"-->
+    <!--                ></de.hdodenhof.circleimageview.CircleImageView>-->
+    <!--        </RelativeLayout>-->
+    <!--    </RelativeLayout>-->
+
     <RelativeLayout
         android:id="@+id/Card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/profile_background">
+        android:layout_height="260dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/gradient"
+        android:clickable="true"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
-        <RelativeLayout
-            android:id="@+id/UserImage"
-            android:layout_width="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:src="@drawable/profile_image"
+            app:civ_border_color="#EEEEEE"
+            app:civ_border_width="5dp"></de.hdodenhof.circleimageview.CircleImageView>
+
+        <TextView
+            android:id="@+id/edit_profile_name_display"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="40dp"
-            android:paddingBottom="8dp"
-            android:clickable="true">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/profile_image"
-                app:civ_border_width="5dp"
-                app:civ_border_color="#FF000000"
-                ></de.hdodenhof.circleimageview.CircleImageView>
-        </RelativeLayout>
+            android:layout_alignParentBottom="true"
+            android:fontFamily="sans-serif-condensed"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold" />
     </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/PreviousButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:clickable="true"
-        >
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:clickable="true">
+
         <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:padding="10dp"
-        android:text="Previous"
-        android:textColor="@color/white"
-        android:textSize="20sp">
-        </TextView>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:padding="10dp"
+            android:text="Previous"
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/SaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:clickable="true"
-        >
+        android:background="@android:color/transparent"
+        android:clickable="true">
+
         <TextView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="Save"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:textSize="20sp"
-            android:textColor="@color/white"
             android:padding="10dp"
-            >
-        </TextView>
+            android:text="Save"
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
     </LinearLayout>
 
 
@@ -79,337 +109,557 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/Card"
-        >
+        android:layout_marginBottom="@dimen/layout_margin_bottom">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="fill_parent"
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="vertical"-->
+            <!--                android:background="@drawable/profile_underline">-->
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="Name:"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:textSize="20sp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingVertical="5dp">-->
+            <!--                </TextView>-->
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserName"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:textSize="15sp"-->
+            <!--                    android:hint="UserName"-->
+            <!--                    android:paddingLeft="5dp">-->
+            <!--                </EditText>-->
+
+            <!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Name:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
-                <EditText
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:hint="@string/preferred_name_input_text">
+
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/EditUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="15sp"
-                    android:hint="UserName"
-                    android:paddingLeft="5dp">
-                </EditText>
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="vertical"-->
+            <!--                android:background="@drawable/profile_underline">-->
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="Description:"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:textSize="20sp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingVertical="5dp">-->
+            <!--                </TextView>-->
 
-            <LinearLayout
-                android:layout_width="fill_parent"
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserDescription"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:textSize="15sp"-->
+            <!--                    android:hint="The user has not enter anything..."-->
+            <!--                    android:paddingLeft="5dp">-->
+            <!--                </EditText>-->
+            <!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/description_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Description:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:background="@android:color/transparent"
+                android:hint="@string/registration_description_text_input">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/EditUserDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="15sp"
-                    android:hint="The user has not enter anything..."
-                    android:paddingLeft="5dp">
-                </EditText>
+                    android:inputType="textLongMessage|textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="vertical"-->
+            <!--                android:background="@drawable/profile_underline">-->
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="E-mail:"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:textSize="20sp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingVertical="5dp">-->
+            <!--                </TextView>-->
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserEmail"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:textSize="15sp"-->
+            <!--                    android:hint="E-mail address"-->
+            <!--                    android:paddingLeft="5dp">-->
+            <!--                </EditText>-->
+
+            <!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_text_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="E-mail:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
-                <EditText
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:hint="@string/email_input_text">
+
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/EditUserEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="15sp"
-                    android:hint="E-mail address"
-                    android:paddingLeft="5dp">
-                </EditText>
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="vertical"-->
+            <!--                android:background="@drawable/profile_underline">-->
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="Occupation:"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:textSize="20sp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingVertical="5dp">-->
+            <!--                </TextView>-->
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserOccupation"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:textSize="15sp"-->
+            <!--                    android:hint="e.g. Student, Officer etc."-->
+            <!--                    android:paddingLeft="5dp">-->
+            <!--                </EditText>-->
+
+            <!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Gender:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
-                <EditText
-                    android:id="@+id/EditUserGender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="15sp"
-                    android:hint="Your Gender"
-                    android:paddingLeft="5dp">
-                </EditText>
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:background="@android:color/transparent"
+                android:hint="@string/registration_occupation_text_input">
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Height:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
-                <EditText
-                    android:id="@+id/EditUserHeight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="15sp"
-                    android:hint="e.g. 188cm"
-                    android:paddingLeft="5dp">
-                </EditText>
-
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Weight:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
-                <EditText
-                    android:id="@+id/EditUserWeight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:hint="e.g. 70kg"
-                    android:paddingLeft="5dp"
-                    android:paddingBottom="5dp"
-                    android:textSize="15sp"></EditText>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Body Type:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
-                <EditText
-                    android:id="@+id/EditUserBodyType"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="15sp"
-                    android:hint="e.g. 'Average','Toned','Muscular' etc."
-                    android:paddingLeft="5dp">
-                </EditText>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="City:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
-                <EditText
-                    android:id="@+id/EditUserCity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="15sp"
-                    android:hint="Your living City."
-                    android:paddingLeft="5dp">
-                </EditText>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Birthday:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
-                <EditText
-                    android:id="@+id/EditUserBirthday"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="15sp"
-                    android:hint="Your birthday, DAY/MONTH"
-                    android:paddingLeft="5dp">
-                </EditText>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Occupation:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/EditUserOccupation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="15sp"
-                    android:hint="e.g. Student, Officer etc."
-                    android:paddingLeft="5dp">
-                </EditText>
+                    android:inputType="textLongMessage|textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="vertical"-->
+            <!--                android:background="@drawable/profile_underline">-->
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="GenderConstant:"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:textSize="20sp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingVertical="5dp">-->
+            <!--                </TextView>-->
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserGender"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:textSize="15sp"-->
+            <!--                    android:hint="Your GenderConstant"-->
+            <!--                    android:paddingLeft="5dp">-->
+            <!--                </EditText>-->
+            <!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="fill_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:hint="@string/registration_gender_selection_text">
+
+                <AutoCompleteTextView
+                    android:id="@+id/EditUserGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@drawable/profile_underline"-->
+            <!--                android:orientation="vertical">-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:paddingVertical="5dp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:text="City:"-->
+            <!--                    android:textSize="20sp"></TextView>-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserCity"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:hint="Your living City."-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:textSize="15sp"></EditText>-->
+
+            <!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:background="@android:color/transparent"
+                android:hint="@string/registration_location">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EditUserCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hobbies:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
-                <EditText
+                    android:drawableStart="@android:drawable/ic_menu_mylocation"
+                    android:editable="false"
+                    android:focusableInTouchMode="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@drawable/profile_underline"-->
+            <!--                android:orientation="vertical">-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:paddingVertical="5dp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:text="Height:"-->
+            <!--                    android:textSize="20sp"></TextView>-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserHeight"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:hint="e.g. 188cm"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:textSize="15sp"></EditText>-->
+            <!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:background="@android:color/transparent"
+                android:hint="@string/registration_height">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EditUserHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@drawable/profile_underline"-->
+            <!--                android:orientation="vertical">-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:paddingVertical="5dp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:text="Weight:"-->
+            <!--                    android:textSize="20sp"></TextView>-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserWeight"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:hint="e.g. 70kg"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:textSize="15sp"></EditText>-->
+            <!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:background="@android:color/transparent"
+                android:hint="@string/registration_weight">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EditUserWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@drawable/profile_underline"-->
+            <!--                android:orientation="vertical">-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:paddingVertical="5dp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:text="Body Type:"-->
+            <!--                    android:textSize="20sp"></TextView>-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserBodyType"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:hint="e.g. 'Average','Toned','Muscular' etc."-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:textSize="15sp"></EditText>-->
+            <!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:background="@android:color/transparent"
+                android:hint="@string/registration_body_type">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EditUserBodyType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textShortMessage" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@drawable/profile_underline"-->
+            <!--                android:orientation="vertical">-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:paddingVertical="5dp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:text="Birthday:"-->
+            <!--                    android:textSize="20sp"></TextView>-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserBirthday"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:hint="Your birthday, DAY/MONTH"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:textSize="15sp"></EditText>-->
+            <!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dob_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/body_type_input"
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:background="@android:color/transparent"
+                android:hint="@string/registration_dob">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EditUserBirthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:inputType="date|time" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@drawable/profile_underline"-->
+            <!--                android:orientation="vertical">-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:paddingVertical="5dp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:text="Hobbies:"-->
+            <!--                    android:textSize="20sp"></TextView>-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserHobbies"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:hint="Your hobbies, e.g. reading, singing etc."-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:textSize="15sp"></EditText>-->
+            <!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:background="@android:color/transparent"
+                android:hint="@string/registration_hobbies">
+
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/EditUserHobbies"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="15sp"
-                    android:hint="Your hobbies, e.g. reading, singing etc."
-                    android:paddingLeft="5dp">
-                </EditText>
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:inputType="textLongMessage|textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@drawable/profile_underline"-->
+            <!--                android:orientation="vertical">-->
 
-            <LinearLayout
-                android:layout_width="fill_parent"
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:paddingVertical="5dp"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:text="Relationship Status:"-->
+            <!--                    android:textSize="20sp"></TextView>-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/EditUserRelationshipStatus"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:fontFamily="sans-serif"-->
+            <!--                    android:hint="Your relationship status, e.g. single, partnered etc."-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:paddingBottom="5dp"-->
+            <!--                    android:textSize="15sp"></EditText>-->
+            <!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/relationship_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Relationship Status:"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:paddingLeft="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
-                <EditText
+                android:layout_below="@id/hobbies_input"
+                android:layout_marginStart="@dimen/horizontal_element_padding"
+                android:layout_marginTop="@dimen/text_view_vertical_margin_top"
+                android:layout_marginEnd="@dimen/horizontal_element_padding"
+                android:background="@android:color/transparent"
+                android:hint="@string/registration_relationship_status">
+
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/EditUserRelationshipStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="15sp"
-                    android:hint="Your relationship status, e.g. single, partnered etc."
-                    android:paddingLeft="5dp">
-                </EditText>
-            </LinearLayout>
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:inputType="textLongMessage" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </ScrollView>
+
+
+    <ProgressBar
+        android:id="@+id/edit_profile_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
 </RelativeLayout>

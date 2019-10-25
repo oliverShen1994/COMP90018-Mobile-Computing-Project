@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.android.group_12.crushy.Constants.DatabaseConstant;
+import com.android.group_12.crushy.Constants.GenderConstant;
 import com.android.group_12.crushy.Constants.IntentExtraParameterName;
 import com.android.group_12.crushy.DatabaseWrappers.User;
 import com.android.group_12.crushy.DatabaseWrappers.UserFollow;
@@ -47,8 +48,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -86,6 +85,7 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
     private DatabaseReference rootRef;
     private LocationManager locationManager;
     private StorageReference mStorageRef;
+    private Geocoder mGeocoder;
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
@@ -113,7 +113,6 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         }
     };
 
-    private Geocoder mGeocoder;
 
 
     @Override
@@ -129,12 +128,10 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_extra_info);
 
-        String[] GENDERS = new String[]{"Female", "Male", "Other", "I'd rather not say"};
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getApplicationContext(),
                 R.layout.dropdown_menu_popup_item,
-                GENDERS);
+                GenderConstant.OPTIONS);
 
         AutoCompleteTextView editTextFilledExposedDropdown = findViewById(R.id.gender_dropdown);
         editTextFilledExposedDropdown.setAdapter(adapter);
@@ -142,7 +139,7 @@ public class RegistrationExtraInfoActivity extends AppCompatActivity {
         this.rootRef = FirebaseDatabase.getInstance().getReference();
         this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         this.mGeocoder = new Geocoder(getApplicationContext(), Locale.US);
-        mStorageRef = FirebaseStorage.getInstance().getReference(PROFILE_PICTURE);
+        this.mStorageRef = FirebaseStorage.getInstance().getReference(PROFILE_PICTURE);
 
         Intent intent = getIntent();
         if (intent != null) {

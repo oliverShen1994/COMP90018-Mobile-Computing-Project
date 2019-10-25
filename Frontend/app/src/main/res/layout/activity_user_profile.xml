@@ -183,74 +183,74 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/Card"
-        >
+        android:layout_marginBottom="@dimen/layout_margin_bottom">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
+                android:background="@drawable/profile_underline"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
                     android:paddingVertical="5dp"
                     android:paddingStart="5dp"
                     android:text="Description"
-                    android:fontFamily="sans-serif-condensed"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/UserDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="15sp"
+                    android:paddingStart="5dp"
+                    android:paddingBottom="5dp"
                     android:text="The user did not enter anything"
-                    android:paddingStart="5dp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
+                android:background="@drawable/profile_underline"
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email"
                     android:fontFamily="sans-serif-condensed"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
+                    android:paddingVertical="5dp"
                     android:paddingStart="5dp"
-                    android:paddingVertical="5dp">
-                </TextView>
+                    android:text="Email"
+                    android:textSize="24sp"
+                    android:textStyle="bold"></TextView>
+
                 <TextView
                     android:id="@+id/UserEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="15sp"
+                    android:paddingStart="5dp"
+                    android:paddingBottom="5dp"
                     android:text="Email address"
-                    android:paddingStart="5dp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
+                android:background="@drawable/profile_underline"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -261,24 +261,24 @@
                     android:text="@string/registration_gender_selection_text"
                     android:textSize="24sp"
                     android:textStyle="bold"></TextView>
+
                 <TextView
                     android:id="@+id/UserGender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="15sp"
+                    android:paddingStart="5dp"
+                    android:paddingBottom="5dp"
                     android:text="Male"
-                    android:paddingStart="5dp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
+                android:background="@drawable/profile_underline"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -289,24 +289,24 @@
                     android:text="@string/registration_height"
                     android:textSize="24sp"
                     android:textStyle="bold"></TextView>
+
                 <TextView
                     android:id="@+id/UserHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="15sp"
+                    android:paddingStart="5dp"
+                    android:paddingBottom="5dp"
                     android:text="height"
-                    android:paddingStart="5dp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
+                android:background="@drawable/profile_underline"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -317,24 +317,24 @@
                     android:text="@string/registration_weight"
                     android:textSize="24sp"
                     android:textStyle="bold"></TextView>
+
                 <TextView
                     android:id="@+id/UserWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="15sp"
+                    android:paddingStart="5dp"
+                    android:paddingBottom="5dp"
                     android:text="weight"
-                    android:paddingStart="5dp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
+                android:background="@drawable/profile_underline"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -345,24 +345,24 @@
                     android:text="@string/registration_body_type"
                     android:textSize="24sp"
                     android:textStyle="bold"></TextView>
+
                 <TextView
                     android:id="@+id/UserBodyType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="15sp"
+                    android:paddingStart="5dp"
+                    android:paddingBottom="5dp"
                     android:text="Average"
-                    android:paddingStart="5dp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
+                android:background="@drawable/profile_underline"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -373,24 +373,24 @@
                     android:text="@string/registration_location"
                     android:textSize="24sp"
                     android:textStyle="bold"></TextView>
+
                 <TextView
                     android:id="@+id/UserCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="15sp"
+                    android:paddingStart="5dp"
+                    android:paddingBottom="5dp"
                     android:text="City"
-                    android:paddingStart="5dp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
+                android:background="@drawable/profile_underline"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -401,24 +401,24 @@
                     android:text="@string/registration_dob"
                     android:textSize="24sp"
                     android:textStyle="bold"></TextView>
+
                 <TextView
                     android:id="@+id/UserBirthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="15sp"
+                    android:paddingStart="5dp"
+                    android:paddingBottom="5dp"
                     android:text="DAY/MONTH"
-                    android:paddingStart="5dp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
+                android:background="@drawable/profile_underline"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -429,24 +429,24 @@
                     android:text="@string/registration_occupation_text_input"
                     android:textSize="24sp"
                     android:textStyle="bold"></TextView>
+
                 <TextView
                     android:id="@+id/UserOccupation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="15sp"
+                    android:paddingStart="5dp"
+                    android:paddingBottom="5dp"
                     android:text="Occupation"
-                    android:paddingStart="5dp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
+                android:background="@drawable/profile_underline"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -457,24 +457,24 @@
                     android:text="@string/registration_hobbies"
                     android:textSize="24sp"
                     android:textStyle="bold"></TextView>
+
                 <TextView
                     android:id="@+id/UserHobbies"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="15sp"
+                    android:paddingStart="5dp"
+                    android:paddingBottom="5dp"
                     android:text="Hobbies"
-                    android:paddingStart="5dp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/profile_underline">
+                android:background="@drawable/profile_underline"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -485,16 +485,16 @@
                     android:text="@string/registration_relationship_status"
                     android:textSize="24sp"
                     android:textStyle="bold"></TextView>
+
                 <TextView
                     android:id="@+id/UserRelationshipStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="15sp"
+                    android:paddingStart="5dp"
+                    android:paddingBottom="5dp"
                     android:text="Relationship status"
-                    android:paddingStart="5dp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
