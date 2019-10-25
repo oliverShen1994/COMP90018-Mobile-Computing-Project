@@ -32,13 +32,13 @@
             android:name=".About"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditUserImage"
+            android:name=".Activities.EditUserImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditUserProfile"
+            android:name=".Activities.EditUserProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UserProfile"
+            android:name=".Activities.UserProfileActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LoginActivity"
